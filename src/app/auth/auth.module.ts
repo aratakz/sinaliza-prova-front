@@ -7,6 +7,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { RenewPasswordComponent } from './components/renew-password/renew-password.component';
 import { SendEmailComponent } from './components/send-email/send-email.component';
+import { AuthComponent } from './auth.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SendEmailComponent } from './components/send-email/send-email.component
     RegisterComponent,
     VerifyEmailComponent,
     RenewPasswordComponent,
-    SendEmailComponent
+    SendEmailComponent,
+    AuthComponent
   ],
   imports: [
     CommonModule,
