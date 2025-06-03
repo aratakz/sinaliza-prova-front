@@ -9,6 +9,7 @@
 
     .form-wrapper {
         display: flex;
+        align-items: center;
         flex-direction: column;
         width: 50%;
         .navbar {
@@ -17,7 +18,7 @@
             align-items: center;
             justify-content: center;
             padding: 2%;
-
+            margin-bottom: 10%;
         }
     }
 
@@ -45,5 +46,15 @@
             border-radius: 30px;
             padding: 0 10px;
         }
+    }
+    .form-containner {
+        padding: 5%;
+        background: #FFFFFF;
+        height: 60%;
+        border-radius: 16px;
+        width: 80%;
+        box-shadow:1px 2px 2px;
+        display: flex;
+        justify-content: center;
     }
 }
