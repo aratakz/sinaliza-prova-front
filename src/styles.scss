@@ -48,12 +48,9 @@ body {
     margin: 0 8px;
   }
 }
+app-register,
+app-verify-email,
 app-login {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-app-register {
   display: flex;
   flex-direction: column;
   width: 100%;
