@@ -1,1 +1,34 @@
-<p>register works!</p>
+<section class="brand">
+  <h1>
+    Cadastre-se
+  </h1>
+</section>
+<section class="form-wrapper">
+  <form>
+    <div class="form-group inline">
+      <input class="form-input" placeholder="Login">
+      <input class="form-input" placeholder="Nome Completo">
+    </div>
+    <div class="form-group inline">
+      <input class="form-input" placeholder="Senha" type="password">
+      <input class="form-input" placeholder="Confirme sua senha" type="password">
+    </div>
+    <div class="form-group inline">
+      <input
+        type="text"
+        placeholder="Data de nascimento"
+        onfocus="this.type='date'"
+        onblur="if (!this.value) this.type='text'"
+        class="form-input">
+      <input class="form-input" placeholder="Email" type="email">
+    </div>
+    <div class="form-group">
+      <select class="form-input">
+        <option [value]="">Selecione a instituição</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="button" class="secondary-button medium" (click)="onSubmit()">ENVIAR</button>
+    </div>
+  </form>
+</section>

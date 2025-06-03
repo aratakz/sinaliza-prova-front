@@ -28,6 +28,10 @@ body {
   flex-direction: column;
   width: 100%;
   margin-bottom: 16px;
+  select {
+    margin: 0 8px;
+    width: 100%;
+  }
   .form-input {
     height: 40px;
     width: 100%;
@@ -40,8 +44,16 @@ body {
 }
 .form-group.inline {
   flex-direction: row;
+  input,select {
+    margin: 0 8px;
+  }
 }
 app-login {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+app-register {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -84,4 +96,8 @@ app-login {
 
 .f-end {
   justify-content: flex-end;
+}
+
+select {
+  background: transparent;
 }
