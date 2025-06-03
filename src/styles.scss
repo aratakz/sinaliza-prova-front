@@ -2,8 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
     --primary: #000080;
-    --secundary: #0070FF;
+    --secundary: #0070ff;
+    --secundary-hover: #015fda;
     --background: #E6E6E6;
+    --primary-foreground: #FFFFFF;
+    --secundary-foreground: #FFFFFF;
+    --default-input: #3C3C3C;
 }
 
 * {
@@ -17,4 +21,67 @@ body {
     padding: 0;
     min-height: 100vh;
     min-width: 100vw;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 16px;
+  .form-input {
+    height: 40px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--default-input);
+    padding: 0 15px;
+    color: var(--default-input);
+    font-size: 16px;
+  }
+}
+.form-group.inline {
+  flex-direction: row;
+}
+app-login {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.primary-button,
+.secondary-button
+{
+  height: 40px;
+  width: 30%;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.secondary-button:hover
+{
+  background: var(--secundary-hover);
+}
+.primary-button:hover {
+
+}
+.primary-button.medium,
+.secondary-button.medium
+{
+  width: 50%;
+}
+.primary-button.large,
+.secondary-button.large
+{
+  width: 100%;
+}
+.primary-button {
+  color: var(--primary-foreground) ;
+  background: var(--primary);
+}
+.secondary-button {
+  color: var(--secundary-foreground) ;
+  background: var(--secundary);
+}
+
+.f-end {
+  justify-content: flex-end;
 }
