@@ -4,14 +4,14 @@
   </h1>
 </section>
 <section class="form-wrapper">
-  <form>
+  <form [formGroup]="formGroup">
     <div class="form-group inline">
-      <input class="form-input" placeholder="Login">
-      <input class="form-input" placeholder="Nome Completo">
+      <input class="form-input" placeholder="Login" formControlName="login">
+      <input class="form-input" placeholder="Nome Completo" formControlName="name">
     </div>
     <div class="form-group inline">
-      <input class="form-input" placeholder="Senha" type="password">
-      <input class="form-input" placeholder="Confirme sua senha" type="password">
+      <input class="form-input" placeholder="Senha" type="password" formControlName="password">
+      <input class="form-input" placeholder="Confirme sua senha" type="password" formControlName="confirmPassword">
     </div>
     <div class="form-group inline">
       <input
@@ -19,12 +19,14 @@
         placeholder="Data de nascimento"
         onfocus="this.type='date'"
         onblur="if (!this.value) this.type='text'"
-        class="form-input">
-      <input class="form-input" placeholder="Email" type="email">
+        class="form-input"
+        formControlName="birthday">
+      <input class="form-input" placeholder="Email" type="email" formControlName="email">
     </div>
     <div class="form-group">
-      <select class="form-input">
-        <option [value]="">Selecione a instituição</option>
+      <select class="form-input" formControlName="institute">
+        <option value="">Selecione a instituição</option>
+        <option value="1">teste</option>
       </select>
     </div>
     <div class="form-group">
