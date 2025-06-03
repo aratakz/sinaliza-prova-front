@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import {AlertService} from './shared/services/alert.service';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import {AlertService} from './shared/services/alert.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [AlertService],
   bootstrap: [AppComponent]

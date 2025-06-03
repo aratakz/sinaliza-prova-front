@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-verify-email',
@@ -8,7 +10,23 @@ import { Component } from '@angular/core';
 })
 export class VerifyEmailComponent {
 
-  constructor() {}
+  email: string = "";
+  formGroup: FormGroup;
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    ) {
+    this.formGroup = formBuilder.group({
+      email: ['', [Validators.required]],
+    })
+  }
 
-  async onSubmit() {}
+  async onSubmit() {
+    await this.router.navigate(['auth/send-email'], {
+        queryParams: {
+          message:"Enviamos um e-mail  com as instruções de recuperação para",
+          email: this.formGroup.value.email,
+        }
+      });
+  }
 }

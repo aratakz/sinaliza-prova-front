@@ -8,6 +8,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { RenewPasswordComponent } from './components/renew-password/renew-password.component';
 import { SendEmailComponent } from './components/send-email/send-email.component';
 import { AuthComponent } from './auth.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,9 @@ import { AuthComponent } from './auth.component';
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class AuthModule { }

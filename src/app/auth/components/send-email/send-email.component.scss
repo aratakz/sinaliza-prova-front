@@ -1,0 +1,22 @@
+.message-wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+
+  i {
+    font-size: 120px;
+    color: var(--primary);
+  }
+  span {
+    text-align: center;
+  }
+  .form-containner {
+    background: black;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
