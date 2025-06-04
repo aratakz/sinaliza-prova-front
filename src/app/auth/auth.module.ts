@@ -9,6 +9,9 @@ import { RenewPasswordComponent } from './components/renew-password/renew-passwo
 import { SendEmailComponent } from './components/send-email/send-email.component';
 import { AuthComponent } from './auth.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AuthService} from './services/auth.service';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClient, HttpHandler, provideHttpClient} from '@angular/common/http';
 
 
 @NgModule({
@@ -25,6 +28,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+  ],
+  providers: [
+    AuthService,
+    provideHttpClient(),
   ]
 })
 export class AuthModule { }

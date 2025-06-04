@@ -3,12 +3,12 @@
   <span>Sinaliza Prova</span>
 </section>
 <section class="form-wrapper">
-  <form>
+  <form [formGroup]="formGroup">
     <div class="form-group">
-      <input class="form-input" placeholder="Login">
+      <input class="form-input" placeholder="Login" formControlName="username">
     </div>
     <div class="form-group">
-      <input class="form-input" placeholder="Senha" type="password">
+      <input class="form-input" placeholder="Senha" type="password" formControlName="password">
     </div>
     <div class=" forgot form-group inline f-end">
       Esqueceu sua senha? <a routerLink="../forgot">Clique aqui</a>
