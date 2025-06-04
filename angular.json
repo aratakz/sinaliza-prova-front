@@ -39,6 +39,8 @@
               }
             ],
             "styles": [
+              "./node_modules/bootstrap-icons/font/bootstrap-icons.scss",
+              "./node_modules/@flaticon/flaticon-uicons/css/all/all.css",
               "src/styles.scss"
             ],
             "scripts": []
