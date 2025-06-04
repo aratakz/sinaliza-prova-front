@@ -28,17 +28,18 @@ export class LoginComponent {
   async onSubmit() {
     if (this.formGroup.invalid) {
       await this.alertService.toastError("Login ou senha inválidos");
-    }
-    this.authService.login(this.formGroup.value).subscribe({
-      next:async (response:any) => {
-        this.authService.storeToken(response.token);
-        await this.alertService.toastSuccess("Logado com sucesso!");
-        await this.router.navigate(['/']);
-      },
-      error:async () => {
-        await this.alertService.toastError("Login ou senha inválidos");
+    } else {
+      this.authService.login(this.formGroup.value).subscribe({
+        next:async (response:any) => {
+          this.authService.storeToken(response.token);
+          await this.alertService.toastSuccess("Logado com sucesso!");
+          await this.router.navigate(['/']);
+        },
+        error:async () => {
+          await this.alertService.toastError("Login ou senha inválidos");
 
-      }
-    });
+        }
+      });
+    }
   }
 }
