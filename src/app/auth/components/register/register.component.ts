@@ -60,7 +60,7 @@ export class RegisterComponent {
           case 'password':
             fieldName = "senha";
             break;
-          case 'login':
+          case 'username':
             fieldName = "login";
             break;
           case  'name':
