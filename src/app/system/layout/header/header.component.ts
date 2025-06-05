@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AuthService} from '../../../auth/services/auth.service';
 import {Router} from '@angular/router';
+import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +12,14 @@ import {Router} from '@angular/router';
 export class HeaderComponent {
     constructor(
       private authService: AuthService,
-      private router: Router,) {
+      private router: Router,
+      private alertService: AlertService) {
     }
     async logout() {
-      this.authService.destroyToken();
-      await this.router.navigate(['../auth']);
+      this.authService.destroyToken().then(async () => {
+        await this.router.navigate(['../auth']);
+        await this.alertService.toastSuccess('Logout realizado com sucesso!');
+
+      });
     }
 }

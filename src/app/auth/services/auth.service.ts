@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import {config} from '../../../config';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {lastValueFrom, Observable} from 'rxjs';
+import {AlertService} from '../../shared/services/alert.service';
 
 @Injectable()
 export class AuthService {
   readonly baseUrl = `${config.api_host}/auth`;
-  constructor(private http: HttpClient) { }
+
+  constructor(
+    private alertService: AlertService,
+    private http: HttpClient,) {}
 
 
   login(loginData: any):Observable<Object> {
@@ -18,7 +22,18 @@ export class AuthService {
     window.localStorage.setItem('token', token);
   }
 
-  destroyToken():void{
-    window.localStorage.removeItem('token');
+  async destroyToken(): Promise<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    if (window.localStorage.getItem('token')) {
+      await lastValueFrom(this.http.request('delete',`${this.baseUrl}/logout`, {
+        body: JSON.stringify({token: window.localStorage.getItem('token')}),
+        headers: headers
+      })).then(() => {
+        window.localStorage.removeItem('token');
+      }).catch(async () => {
+          await this.alertService.toastError('Não foi possível realizar o logout.');
+          throw Error('cannot leave');
+      });
+    }
   }
 }
