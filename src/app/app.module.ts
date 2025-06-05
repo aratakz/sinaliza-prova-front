@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import {AlertService} from './shared/services/alert.service';
 import {FormsModule} from '@angular/forms';
+import {provideHttpClient} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,10 @@ import {FormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
   ],
-  providers: [AlertService],
+  providers: [
+    AlertService,
+    provideHttpClient()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

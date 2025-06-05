@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../../shared/services/alert.service';
+import {UserService} from '../../services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,9 +17,11 @@ export class RegisterComponent {
   constructor(
     private alertService: AlertService,
     private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router
   ) {
     this.formGroup = formBuilder.group({
-      login: ['', [Validators.required, Validators.minLength(8)]],
+      username: ['', [Validators.required, Validators.minLength(8)]],
       name: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
@@ -30,6 +34,18 @@ export class RegisterComponent {
   async onSubmit() {
     if (!this.formGroup.valid) {
       await this.displayErrors();
+    } else {
+      this.userService.registerStudent(this.formGroup.value).subscribe({
+        next: async () => {
+          await this.router.navigate(['/auth/send-email'], {
+            queryParams: {
+              message:"Enviamos um e-mail  com as instruções de ativação para",
+              email: this.formGroup.value.email,
+            }
+          })
+        },
+        error: () => {}
+      });
     }
   }
 
@@ -78,7 +94,6 @@ export class RegisterComponent {
         await this.alertService.toastError(`As senhas não são iguais`);
         break;
       }
-
     }
   }
 }
