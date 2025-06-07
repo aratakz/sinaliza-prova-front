@@ -19,6 +19,9 @@ export class AuthService {
   }
 
   storeToken(token: string):void{
+    const tokenPayloadEncoded = token.split('.')[1];
+    const userDataObject = JSON.parse(atob(tokenPayloadEncoded)).userData;
+    window.localStorage.setItem('userData', JSON.stringify(userDataObject));
     window.localStorage.setItem('token', token);
   }
 
@@ -35,5 +38,9 @@ export class AuthService {
           throw Error('cannot leave');
       });
     }
+  }
+
+  get userData ():string|null {
+    return window.localStorage.getItem('userData');
   }
 }
