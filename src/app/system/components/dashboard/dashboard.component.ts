@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import {History} from '../../../shared/types';
 @Component({
   selector: 'app-dashboard',
   standalone: false,
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-
+  historyCollection: Array<History> = [];
+  protected readonly history = history;
 }

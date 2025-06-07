@@ -1,0 +1,20 @@
+.time {
+  width: 100%;
+  text-align: center;
+  border-bottom: 2px solid #CDC9C9;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+  color: #000000;
+  font-size: 16px;
+  span {
+    background:#fff;
+    padding:0 10px;
+  }
+}
+
+.history-item {
+  min-height: 100px;
+  padding: 16px;
+  border: 2px solid#CDC9C9;
+  border-radius: 8px;
+}

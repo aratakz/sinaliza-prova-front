@@ -8,6 +8,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { HeaderComponent } from './layout/header/header.component';
 import {AuthService} from "../auth/services/auth.service";
 import {provideHttpClient} from "@angular/common/http";
+import { ActivityListComponent } from './components/activity-list/activity-list.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {provideHttpClient} from "@angular/common/http";
     SystemComponent,
     DashboardComponent,
     NavbarComponent,
-    HeaderComponent
+    HeaderComponent,
+    ActivityListComponent
   ],
   imports: [
     CommonModule,

@@ -99,3 +99,9 @@ app-login {
 select {
   background: transparent;
 }
+
+app-dashboard {
+  display: flex;
+  height:100%;
+  overflow: hidden;
+}
