@@ -68,4 +68,27 @@ export class AlertService {
     });
   }
 
+  async alertOptions(onConfirm: Function = () => {}, onCancel: Function = () => {}) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "",
+        cancelButton: "btn btn-danger"
+      },
+      width: 300,
+      buttonsStyling: true
+    });
+    swalWithBootstrapButtons.fire({
+      text: "Deseja realmente sair?",
+      showCancelButton: true,
+      confirmButtonText: "Confirmar",
+      cancelButtonText: "Não",
+      reverseButtons: true
+    }).then(async (selectedButton) => {
+      if (selectedButton.isConfirmed) {
+          onConfirm();
+      } else {
+        onCancel();
+      }
+    });
+  }
 }

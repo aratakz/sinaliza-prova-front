@@ -16,10 +16,12 @@ export class HeaderComponent {
       private alertService: AlertService) {
     }
     async logout() {
-      this.authService.destroyToken().then(async () => {
-        await this.router.navigate(['../auth']);
-        await this.alertService.toastSuccess('Logout realizado com sucesso!');
+      await this.alertService.alertOptions(async () =>  {
+        this.authService.destroyToken().then(async () => {
+          await this.router.navigate(['../auth']);
+          await this.alertService.toastSuccess('Logout realizado com sucesso!');
 
+        });
       });
     }
 }
