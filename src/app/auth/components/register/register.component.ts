@@ -21,7 +21,7 @@ export class RegisterComponent {
     private router: Router
   ) {
     this.formGroup = formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(8)]],
+      username: ['', [Validators.required, Validators.minLength(6)]],
       name: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
@@ -32,7 +32,9 @@ export class RegisterComponent {
   }
 
   async onSubmit() {
+
     if (!this.formGroup.valid) {
+      this.formGroup.enable();
       await this.displayErrors();
     } else {
       this.userService.registerStudent(this.formGroup.value).subscribe({
@@ -44,8 +46,9 @@ export class RegisterComponent {
             }
           })
         },
-        error: () => {}
+        error: () => this.formGroup.enable()
       });
+      this.formGroup.disable();
     }
   }
 
@@ -82,8 +85,8 @@ export class RegisterComponent {
         await this.alertService.toastError(`Atenção! Email inválido informado!`);
         break;
       }
-      if (this.formGroup.controls['login'].errors && this.formGroup.controls['login'].errors['minlength']) {
-        await this.alertService.toastError(`O login pelo menos 8 caracteres.`);
+      if (this.formGroup.controls['username'].errors && this.formGroup.controls['username'].errors['minlength']) {
+        await this.alertService.toastError(`O login pelo menos 6 caracteres.`);
         break;
       }
       if (this.formGroup.controls['password'].errors && this.formGroup.controls['password'].errors['minlength']) {
