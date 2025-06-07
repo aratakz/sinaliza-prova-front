@@ -12,7 +12,7 @@ export class AlertService {
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 2000,
+      timer: 1000,
       timerProgressBar: true
     }).fire({
       icon: "success",
@@ -24,7 +24,7 @@ export class AlertService {
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 2000,
+      timer: 1000,
       timerProgressBar: true
     }).fire({
       icon: "error",
@@ -36,7 +36,7 @@ export class AlertService {
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 2000,
+      timer: 1000,
       timerProgressBar: true
     }).fire({
       icon: "warning",
@@ -48,7 +48,7 @@ export class AlertService {
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 2000,
+      timer: 1000,
       timerProgressBar: true
     }).fire({
       icon: "info",
@@ -60,7 +60,7 @@ export class AlertService {
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 2000,
+      timer: 1000,
       timerProgressBar: true
     }).fire({
       icon: "question",
