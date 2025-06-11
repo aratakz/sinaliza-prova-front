@@ -11,6 +11,7 @@ import {UserData} from '../../../shared/types';
 })
 export class HeaderComponent implements OnInit {
     loggedUser: string = '';
+    showNotification: string|boolean =  '';
 
     constructor(
       private authService: AuthService,
@@ -42,4 +43,11 @@ export class HeaderComponent implements OnInit {
     return parseName;
   }
 
+  displayNotifications() {
+      if (this.showNotification === '') {
+        this.showNotification = 'active';
+      } else {
+        this.showNotification = '';
+      }
+  }
 }
