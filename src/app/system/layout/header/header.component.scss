@@ -53,6 +53,11 @@
 }
 
 .notifications.active {
+  button {
+    .fi.fi-sr-bell {
+      color: var(--primary);
+    }
+  }
   .notification-container {
     background: var(--primary-foreground);
     display: flex;
@@ -70,7 +75,6 @@
       color: var(--primary-foreground);
       background: var(--primary);
       border-radius: 7px 7px 0 0;
-      border: 1px solid #000000;
 
     }
     .notification {
