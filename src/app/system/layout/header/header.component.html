@@ -4,16 +4,19 @@
   </div>
   <div class="header-right">
     <div class="user-data">
-      <i class="fi fi-rr-user"></i> {{loggedUser}}
+      <div class="avatar">
+        <img alt="avatar" src="https://i0.wp.com/ovicio.com.br/wp-content/uploads/2021/08/20210825-adidas-ultraboost-copa-naruto-kakashi.jpg?fit=1439%2C856&ssl=1">
+      </div>
+
+      {{loggedUser}}
     </div>
     <div class="notifications {{showNotification}}">
-      <button type="button" (click)="displayNotifications()">
+      <button type="button"  class="bell" (click)="displayNotifications()">
         @if (showNotification != '') {
           <i class="fi fi-sr-bell"></i>
         } @else {
-          <i class="fi fi-rr-bell"></i>
+          <i class="fi fi-rr-bell "></i>
         }
-
       </button>
       <div class="notification-container">
         <div class="notifications-header">

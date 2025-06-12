@@ -31,16 +31,28 @@
 }
 
 .user-data {
+  cursor: pointer;
+  border-radius: 24px;
   display: flex;
   justify-content: center;
   min-width: 40px;
   margin: 0 10px;
   align-items: center;
+  padding: 5px;
   i {
     font-size: 14px;
     align-self: flex-end;
     margin: 0 4px;
 
+  }
+}
+
+
+.user-data:hover {
+  color: var(--primary);
+  background-color: var(--shadow);
+  .i-config {
+    display: block;
   }
 }
 
@@ -82,5 +94,35 @@
       padding:20px 16px;
       border-top: 1px  solid #000000;
     }
+  }
+}
+.avatar {
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  clip-path: circle(50% at 50% 50%);
+  img {
+    height: 100%;
+  }
+}
+.i-config {
+  justify-self: center !important;
+  align-self: center !important;
+  display: none;
+}
+.bell {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bell:hover {
+  border-radius: 24px;
+  background: var(--shadow) !important;
+  i {
+    color: var(--primary);
   }
 }
