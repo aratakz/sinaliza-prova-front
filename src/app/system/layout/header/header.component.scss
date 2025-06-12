@@ -59,6 +59,7 @@
     }
   }
   .notification-container {
+    z-index: 999999999999;
     background: var(--primary-foreground);
     display: flex;
     flex-direction: column;
