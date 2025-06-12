@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-verify-email',
@@ -15,18 +17,29 @@ export class VerifyEmailComponent {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private alertService: AlertService,
     ) {
     this.formGroup = formBuilder.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
     })
   }
 
   async onSubmit() {
-    await this.router.navigate(['auth/send-email'], {
-        queryParams: {
-          message:"Enviamos um e-mail  com as instruções de recuperação para",
-          email: this.formGroup.value.email,
+    this.authService.requestChangePass(this.formGroup.value).subscribe({
+      next: async () => {
+        await this.router.navigate(['auth/send-email'], {
+          queryParams: {
+            message:"Enviamos um e-mail  com as instruções de recuperação para",
+            email: this.formGroup.value.email,
+          }
+        });
+      },
+      error: async (err) => {
+        if (err.status === 404) {
+          await this.alertService.toastError('Email informado não localizado');
         }
-      });
+      }
+    });
   }
 }

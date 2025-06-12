@@ -39,6 +39,10 @@ export class AuthService {
       });
     }
   }
+  requestChangePass(formData: any) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.http.post(`${this.baseUrl}/requestPassChange`, JSON.stringify(formData), {headers: headers});
+  }
 
   get userData ():string|null {
     return window.localStorage.getItem('userData');

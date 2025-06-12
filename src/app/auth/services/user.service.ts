@@ -12,7 +12,6 @@ export class UserService {
 
   registerStudent(registerData: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-
     return this.http.post(`${this.baseUrl}/register`, JSON.stringify(registerData), {headers: headers});
   }
 }
