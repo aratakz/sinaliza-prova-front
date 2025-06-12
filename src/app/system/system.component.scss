@@ -1,3 +1,19 @@
+@keyframes collapse-in{
+  from {
+      width: 20%;
+  }
+  to {
+    width: 75px;
+  }
+}
+@keyframes collapse-out {
+  from {
+    width: 75px;
+  }
+  to {
+    width: 20%;
+  }
+}
 .container {
   width: 99%;
   min-height: 100vh;
@@ -8,9 +24,11 @@
     display: flex;
     height: 100%;
     width: 20%;
+    animation: collapse-out .5s;
   }
   app-navbar.collapse {
     width: 75px;
+    animation: collapse-in 500ms;
   }
 }
 .content {
