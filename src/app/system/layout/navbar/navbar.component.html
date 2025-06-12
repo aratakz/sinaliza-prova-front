@@ -1,4 +1,4 @@
-<div class="navbar">
+<section class="navbar">
   <section class="nav-header">
     <i class="fi fi-br-menu-burger collapse-control" (click)="collapse()"></i>
     @if (!isCollapsed) {
@@ -27,9 +27,15 @@
       <div class="nav-item">
         <i class="fi fi-rr-graduation-cap"></i>
         @if (!isCollapsed) {
-          <p>Profissionais</p>
+          <p>Disciplinas</p>
         }
 
+      </div>
+      <div class="nav-item">
+        <i class="fi fi-rr-memo-circle-check"></i>
+        @if (!isCollapsed) {
+          <p>Provas</p>
+        }
       </div>
       <div class="nav-item">
         <i class="fi fi-rr-user-graduate"></i>
@@ -44,4 +50,16 @@
       }
     </div>
   </section>
-</div>
+  @if (!isCollapsed) {
+    <section class="storage-container">
+      <div class="storage-title">Total de armazenamento</div>
+      <div class="storage">
+        <div class="storage-total">
+          10%
+        </div>
+      </div>
+    </section>
+  }
+</section>
+
+
