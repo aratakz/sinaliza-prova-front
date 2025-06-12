@@ -12,6 +12,7 @@
     </div>
     <div class="notifications {{showNotification}}">
       <button type="button"  class="bell" (click)="displayNotifications()">
+        <div class="notify-count">0</div>
         @if (showNotification != '') {
           <i class="fi fi-sr-bell"></i>
         } @else {

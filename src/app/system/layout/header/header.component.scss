@@ -118,6 +118,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 .bell:hover {
   border-radius: 24px;
@@ -125,4 +126,20 @@
   i {
     color: var(--primary);
   }
+}
+.notify-count {
+  font-size:12px;
+  height: 15px;
+  width: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  margin-right: -15px;
+  top: 5px;
+  font-weight: bold;
+  background: var(--primary);
+  padding: 3px;
+  color: var(--primary-foreground);
+  border-radius: 20px;
 }
