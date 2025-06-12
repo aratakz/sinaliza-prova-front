@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {GlobalService} from '../../services/global.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,5 +8,22 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+    collapseControl = '';
+    isCollapsed = false;
 
+    constructor(private globalService: GlobalService ) {
+      globalService.navbarBehavior.next(this.collapseControl)
+    }
+
+    collapse() {
+      if (!this.isCollapsed) {
+          this.isCollapsed = true;
+          this.collapseControl = 'collapse';
+          this.globalService.navbarBehavior.next(this.collapseControl);
+      } else {
+        this.isCollapsed = false;
+        this.collapseControl = '';
+        this.globalService.navbarBehavior.next(this.collapseControl);
+      }
+    }
 }

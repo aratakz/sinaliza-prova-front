@@ -1,25 +1,47 @@
 <div class="navbar">
   <section class="nav-header">
-    <i class="bi bi-list"></i> Sinaliza prova
+    <i class="fi fi-br-menu-burger collapse-control" (click)="collapse()"></i>
+    @if (!isCollapsed) {
+      <span>Sinaliza Prova</span>
+    }
   </section>
   <section class="nav-menu">
       <div class="nav-item" routerLinkActive="active" routerLink="../system/dashboard">
-        <i class="fi fi-rr-apps"></i> Dashboard
+        <i class="fi fi-rr-apps"></i>
+        @if (!isCollapsed) {
+          <p>Dashboard</p>
+        }
       </div>
       <div class="nav-item">
-        <i class="fi fi-rr-users"></i> Alunos
+        <i class="fi fi-rr-users"></i>
+        @if (!isCollapsed) {
+          <p>Alunos</p>
+        }
       </div>
       <div class="nav-item">
-        <i class="fi fi-rr-users"></i> Profissionais
+        <i class="fi fi-rr-users"></i>
+        @if (!isCollapsed) {
+          <p>Profissionais</p>
+        }
       </div>
       <div class="nav-item">
-        <i class="fi fi-rr-graduation-cap"></i> Profissionais
+        <i class="fi fi-rr-graduation-cap"></i>
+        @if (!isCollapsed) {
+          <p>Profissionais</p>
+        }
+
       </div>
       <div class="nav-item">
-        <i class="fi fi-rr-user-graduate"></i> Turmas
+        <i class="fi fi-rr-user-graduate"></i>
+        @if (!isCollapsed) {
+          <p>Turmas</p>
+        }
       </div>
     <div class="nav-item">
-      <i class="fi fi-rr-to-do"></i> Questões
+      <i class="fi fi-rr-to-do"></i>
+      @if (!isCollapsed) {
+        <p>Questões</p>
+      }
     </div>
   </section>
 </div>
