@@ -7,6 +7,8 @@ import {History} from '../../../shared/types';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-  historyCollection: Array<History> = [];
+  historyCollection: Array<History> = [{
+    id: 'asa'
+  }];
   protected readonly history = history;
 }

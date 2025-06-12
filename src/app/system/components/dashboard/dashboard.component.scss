@@ -1,14 +1,20 @@
-.content {
+.dash-content {
   display: flex;
+  height: 87vh;
   width: 100%;
   flex-direction: column;
   padding: 0 20px;
   background: var(--primary-foreground);
-  border-radius: 16px 10px 0 0;
+  border-radius: 16px ;
+  overflow: auto;
   border: 2px solid #CDC9C9;
+  scrollbar-color: var(--shadow) transparent;
   .content-header {
     padding: 20px 0;
     font-size: 20px;
     font-weight: normal;
+    position: sticky;
+    background: #FFFFFF;
+    top: 0;
   }
 }

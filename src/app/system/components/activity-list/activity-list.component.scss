@@ -14,7 +14,19 @@
 
 .history-item {
   min-height: 100px;
+  display: flex;
+  width: 96%;
   padding: 16px;
-  border: 2px solid#CDC9C9;
+  border: 2px solid #CDC9C9;
   border-radius: 8px;
+  margin: 16px 0;
 }
+
+.record {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--shadow);
+  font-weight: bold;
+}
+
