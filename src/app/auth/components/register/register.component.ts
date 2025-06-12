@@ -12,7 +12,9 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent {
   formGroup: FormGroup;
-
+  strength: string = '';
+  passStatus:string =  'strong';
+  showStrength:string = '';
 
   constructor(
     private alertService: AlertService,
@@ -98,5 +100,9 @@ export class RegisterComponent {
         break;
       }
     }
+  }
+
+  checkPassStrength() {
+
   }
 }
