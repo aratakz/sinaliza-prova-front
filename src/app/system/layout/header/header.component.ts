@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AlertService} from '../../../shared/services/alert.service';
 import {UserData} from '../../../shared/types';
 import {GlobalService} from '../../services/global.service';
+import {UserService} from '../../../auth/services/user.service';
 @Component({
   selector: 'app-header',
   standalone: false,
@@ -20,11 +21,12 @@ export class HeaderComponent implements OnInit {
       private authService: AuthService,
       private router: Router,
       private alertService: AlertService,
-      private globalService: GlobalService) {
+      private globalService: GlobalService,
+      private userService: UserService) {
     }
     ngOnInit(): void {
       this.loggedUser = this.parseUserName();
-      this.avatarLink = this.getAvatar();
+      this.getAvatar();
       this.globalService.activeRouteBehavior.subscribe({
         next: (route) => {
           this.activeRoute = route;
@@ -54,10 +56,12 @@ export class HeaderComponent implements OnInit {
   }
   getAvatar ()  {
     if (this.authService.userData) {
-      const parseUser:UserData =  JSON.parse(this.authService.userData);
-      return parseUser.avatar;
-      }
-    return '';
+      this.userService.getUseData().subscribe({
+        next: (userData: any) => {
+          this.avatarLink = userData.user.avatar;
+        }
+      })
+    }
   }
 
   displayNotifications() {
