@@ -6,12 +6,26 @@ import {config} from '../../../config';
   providedIn: 'root'
 })
 export class UserService {
-  readonly baseUrl = `${config.api_host}/auth`;
+  readonly baseUrlAuth = `${config.api_host}/auth`;
+  readonly baseUrlUsers = `${config.api_host}/users`;
 
   constructor(private http : HttpClient) { }
 
   registerStudent(registerData: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    return this.http.post(`${this.baseUrl}/register`, JSON.stringify(registerData), {headers: headers});
+    return this.http.post(`${this.baseUrlAuth}/register`, JSON.stringify(registerData), {headers: headers});
+  }
+
+  getUseData() {
+    const userData = window.localStorage.getItem('userData') || '';
+    const token = window.localStorage.getItem('token') || '';
+    const userDataObject = JSON.parse(userData);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+
+    return this.http.get(`${this.baseUrlUsers}/userdata/${userDataObject.id}`, {headers: headers});
   }
 }

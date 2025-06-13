@@ -38,6 +38,7 @@ body {
     width: 100%;
   }
   .form-input {
+    background: var(--primary-foreground);
     height: 40px;
     width: 100%;
     border-radius: 8px;
@@ -46,6 +47,14 @@ body {
     color: var(--default-input);
     font-size: 16px;
   }
+}
+label {
+  font-size: 15px;
+}
+.form-input:disabled {
+  background: #dfdfdf;
+  cursor: not-allowed;
+  color: #959595;
 }
 .form-group.inline {
   flex-direction: row;

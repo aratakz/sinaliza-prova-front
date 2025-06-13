@@ -1,3 +1,31 @@
 <div class="user-content">
-
+  <div class="form-container">
+    <div class="avatar-container" style="background-image: url('{{user.avatar}}'); background-size: cover">
+      <div class="avatar-cover">
+        <i class="fi fi-rs-pencil"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Nome</label>
+      <input class="form-input" [disabled]="true" value="{{user.name}}">
+    </div>
+    <div class="form-group">
+      <label>Nascimemto</label>
+      <input class="form-input" [disabled]="true" value="{{user.birthday}}">
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input class="form-input" [disabled]="true" value="{{user.email}}">
+    </div>
+    <div class="form-group">
+      <label>Credenciais de acesso</label>
+      <input class="form-input" value="" placeholder="Senha">
+      <input class="form-input" value="" placeholder="Credenciais de acesso">
+    </div>
+    <div class="form-group form-bottom">
+      <button class="primary-button">
+        Salvar
+      </button>
+    </div>
+  </div>
 </div>
