@@ -1,11 +1,11 @@
 <section class="header">
   <div class="header-left">
-    Dashboard
+    {{activeRoute.charAt(0).toUpperCase() +activeRoute.slice(1) }}
   </div>
   <div class="header-right">
-    <div class="user-data">
+    <div class="user-data" routerLink="user-details" routerLinkActive="active">
       <div class="avatar">
-        <img alt="avatar" src="https://i0.wp.com/ovicio.com.br/wp-content/uploads/2021/08/20210825-adidas-ultraboost-copa-naruto-kakashi.jpg?fit=1439%2C856&ssl=1">
+        <img alt="avatar" src="{{avatarLink}}">
       </div>
 
       {{loggedUser}}

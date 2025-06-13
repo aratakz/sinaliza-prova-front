@@ -9,6 +9,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import {AuthService} from "../auth/services/auth.service";
 import {provideHttpClient} from "@angular/common/http";
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ActivityListComponent } from './components/activity-list/activity-list.
     DashboardComponent,
     NavbarComponent,
     HeaderComponent,
-    ActivityListComponent
+    ActivityListComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,

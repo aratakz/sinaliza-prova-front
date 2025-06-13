@@ -3,6 +3,7 @@ import {AuthService} from '../../../auth/services/auth.service';
 import {Router} from '@angular/router';
 import {AlertService} from '../../../shared/services/alert.service';
 import {UserData} from '../../../shared/types';
+import {GlobalService} from '../../services/global.service';
 @Component({
   selector: 'app-header',
   standalone: false,
@@ -12,14 +13,23 @@ import {UserData} from '../../../shared/types';
 export class HeaderComponent implements OnInit {
     loggedUser: string = '';
     showNotification: string|boolean =  '';
+    activeRoute: string = '';
+    avatarLink: string = '';
 
     constructor(
       private authService: AuthService,
       private router: Router,
-      private alertService: AlertService) {
+      private alertService: AlertService,
+      private globalService: GlobalService) {
     }
     ngOnInit(): void {
       this.loggedUser = this.parseUserName();
+      this.avatarLink = this.getAvatar();
+      this.globalService.activeRouteBehavior.subscribe({
+        next: (route) => {
+          this.activeRoute = route;
+        }
+      });
     }
     async logout() {
       await this.alertService.alertOptions(async () =>  {
@@ -42,6 +52,13 @@ export class HeaderComponent implements OnInit {
     }
     return parseName;
   }
+  getAvatar ()  {
+    if (this.authService.userData) {
+      const parseUser:UserData =  JSON.parse(this.authService.userData);
+      return parseUser.avatar;
+      }
+    return '';
+  }
 
   displayNotifications() {
       if (this.showNotification === '') {
@@ -50,4 +67,6 @@ export class HeaderComponent implements OnInit {
         this.showNotification = '';
       }
   }
+
+
 }

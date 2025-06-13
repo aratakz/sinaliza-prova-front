@@ -143,3 +143,9 @@
   color: var(--primary-foreground);
   border-radius: 20px;
 }
+.user-data.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: bold;
+  border: 1px solid #000000;
+}

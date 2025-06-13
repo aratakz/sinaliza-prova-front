@@ -9,4 +9,5 @@ export class GlobalService {
   constructor() { }
 
   navbarBehavior: BehaviorSubject<string> = new BehaviorSubject('');
+  activeRouteBehavior: BehaviorSubject<string> = new BehaviorSubject('');
 }
