@@ -10,6 +10,7 @@ import {AuthService} from "../auth/services/auth.service";
 import {provideHttpClient} from "@angular/common/http";
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { UserComponent } from './components/user/user.component';
+import {ImageCropperComponent} from 'ngx-image-cropper';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { UserComponent } from './components/user/user.component';
   imports: [
     CommonModule,
     SystemRoutingModule,
+    ImageCropperComponent
   ],
   providers: [
       AuthService,

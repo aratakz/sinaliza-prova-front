@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GlobalService} from '../../services/global.service';
 import {UserService} from '../../../auth/services/user.service';
+import {SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user',
@@ -9,7 +10,7 @@ import {UserService} from '../../../auth/services/user.service';
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnDestroy, OnInit {
-
+  imagePath: any;
   user: any;
 
   constructor(private globalService: GlobalService,
@@ -27,5 +28,15 @@ export class UserComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.globalService.activeRouteBehavior.next('');
+  }
+
+  onImageSelect(event: any) {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    if (fileList) {
+      if (fileList.item(0)) {
+        this.imagePath = URL.createObjectURL(fileList[0])
+      }
+    }
   }
 }
