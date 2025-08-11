@@ -12,10 +12,15 @@ import {SafeUrl} from '@angular/platform-browser';
 export class UserComponent implements OnDestroy, OnInit {
   imagePath: any;
   user: any;
+  gravatarCheckActive: any; 
+  useGravatar: any; 
+
 
   constructor(private globalService: GlobalService,
               private userService: UserService) {
     this.globalService.activeRouteBehavior.next('Dados Cadastrais');
+    this.gravatarCheckActive = '';
+    this.useGravatar = false
   }
 
   ngOnInit(): void {
@@ -37,6 +42,14 @@ export class UserComponent implements OnDestroy, OnInit {
       if (fileList.item(0)) {
         this.imagePath = URL.createObjectURL(fileList[0])
       }
+    }
+  }
+
+  changeGravatar() {
+    this.useGravatar = !this.useGravatar;
+    this.gravatarCheckActive = '';
+    if (this.useGravatar) {
+        this.gravatarCheckActive = 'checked'
     }
   }
 }

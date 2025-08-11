@@ -6,6 +6,13 @@
         <input type="file" class="upload" (change)="onImageSelect($event)" title="Editar" >
       </div>
     </div>
+    <div class="from-group">
+      <button id="gravatar-btn" (click)="changeGravatar()">
+        <span id="gravatar-check" [class]="gravatarCheckActive">
+          <i class="fi fi-bs-check"></i>        
+        </span> Usar gravatar
+      </button>
+    </div>
     <div class="form-group">
       <label>Nome</label>
       <input class="form-input" value="{{user.name}}">
