@@ -67,9 +67,10 @@
   min-height: 100%;
   padding:  10px 30px;
   display: flex;
-  width: 40%;
-  flex-direction: column;
+  width: 100%;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   border-radius: 12px;
 }
 
@@ -97,8 +98,9 @@
   font-size: 18px;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 170px;
   align-items: center;
+  justify-self: center;
   #gravatar-check {
     padding: 5px;
     color: #FFFFFF;
@@ -133,4 +135,16 @@
   #gravatar-check {
     color: #000000;
   }
+}
+
+.form-column {
+  padding: 0 2%;
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+
+}
+
+form {
+  display: contents;
 }

@@ -1,7 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GlobalService} from '../../services/global.service';
 import {UserService} from '../../../auth/services/user.service';
-import {SafeUrl} from '@angular/platform-browser';
+import {FormBuilder, FormGroup } from '@angular/forms';
+import * as CryptoJS from 'crypto-js';
+import { AlertService } from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-user',
@@ -14,19 +16,33 @@ export class UserComponent implements OnDestroy, OnInit {
   user: any;
   gravatarCheckActive: any; 
   useGravatar: any; 
-
+  usersForm: FormGroup;
 
   constructor(private globalService: GlobalService,
-              private userService: UserService) {
+              private userService: UserService,
+              private formBuilder: FormBuilder,
+              private alertService: AlertService) {
     this.globalService.activeRouteBehavior.next('Dados Cadastrais');
     this.gravatarCheckActive = '';
-    this.useGravatar = false
+    this.useGravatar = false;
+    this.usersForm = this.formBuilder.group({
+      name: [null],
+      birthday: [null],
+      email: [null],
+      password: [null],
+      confirmPassword: [null]
+    });
   }
 
   ngOnInit(): void {
     this.userService.getUseData().subscribe({
       next: (userData: any) => {
         this.user = userData.user;
+        this.usersForm.patchValue({
+          name: this.user.name,
+          email: this.user.email,
+          birthday: this.user.birthday
+        });
       }
     });
   }
@@ -40,7 +56,8 @@ export class UserComponent implements OnDestroy, OnInit {
     let fileList: FileList | null = element.files;
     if (fileList) {
       if (fileList.item(0)) {
-        this.imagePath = URL.createObjectURL(fileList[0])
+        this.imagePath = URL.createObjectURL(fileList[0]);
+        this.userService.avatarSubject.next(this.imagePath);
       }
     }
   }
@@ -48,8 +65,21 @@ export class UserComponent implements OnDestroy, OnInit {
   changeGravatar() {
     this.useGravatar = !this.useGravatar;
     this.gravatarCheckActive = '';
+    this.imagePath = this.user.avatar;
+    this.userService.avatarSubject.next(this.imagePath  ||this.user.avatar);
     if (this.useGravatar) {
-        this.gravatarCheckActive = 'checked'
+        if (!this.usersForm.value.email) {
+          this.alertService.toastError('forneça um email valido para ultilizar essa função.');
+          this.useGravatar = false;
+        } else {
+          this.gravatarCheckActive = 'checked';
+          this.imagePath = `https://www.gravatar.com/avatar/${CryptoJS.MD5(this.usersForm.value.email).toString()}?s=500`;
+          this.userService.avatarSubject.next(this.imagePath);
+        }
     }
+  }
+
+  onSubmit() {
+    this.alertService.toastSuccess("Cadastro atualizado com sucesso!");
   }
 }

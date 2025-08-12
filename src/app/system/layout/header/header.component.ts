@@ -32,6 +32,11 @@ export class HeaderComponent implements OnInit {
           this.activeRoute = route;
         }
       });
+      this.userService.avatarSubject.subscribe({
+        next: (link) => {
+          this.avatarLink = link
+        }
+      });
     }
     async logout() {
       await this.alertService.alertOptions(async () =>  {

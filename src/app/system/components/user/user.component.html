@@ -1,39 +1,48 @@
 <div class="user-content">
   <div class="form-container">
-    <div class="avatar-container" style="background-image: url('{{imagePath || user.avatar}}'); background-size: cover">
-      <div class="avatar-cover" aria-hidden="true">
-        <i class="fi fi-rs-pencil"></i>
-        <input type="file" class="upload" (change)="onImageSelect($event)" title="Editar" >
+    <form [formGroup]="usersForm" (submit)="onSubmit()">
+      <div class="form-column">
+        <div class="avatar-container" style="background-image: url('{{imagePath || user.avatar}}'); background-size: cover">
+          <div class="avatar-cover" aria-hidden="true">
+            <i class="fi fi-rs-pencil"></i>
+            <input type="file" class="upload" (change)="onImageSelect($event)" title="Editar" >
+          </div>
+        </div>
+        <div class="from-group">
+          <button id="gravatar-btn" (click)="changeGravatar()" type="button">
+            <span id="gravatar-check" [class]="gravatarCheckActive">
+              <i class="fi fi-bs-check"></i>        
+            </span> Usar gravatar
+          </button>
+        </div>
+        <div class="form-group">
+          <label>Nome</label>
+          <input class="form-input" formControlName="name">
+        </div>
+        <div class="form-group">
+          <label>Nascimento</label>
+          <input class="form-input" formControlName="birthday">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input class="form-input" formControlName="email">
+        </div>
       </div>
-    </div>
-    <div class="from-group">
-      <button id="gravatar-btn" (click)="changeGravatar()">
-        <span id="gravatar-check" [class]="gravatarCheckActive">
-          <i class="fi fi-bs-check"></i>        
-        </span> Usar gravatar
-      </button>
-    </div>
-    <div class="form-group">
-      <label>Nome</label>
-      <input class="form-input" value="{{user.name}}">
-    </div>
-    <div class="form-group">
-      <label>Nascimento</label>
-      <input class="form-input" value="{{user.birthday}}">
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input class="form-input" value="{{user.email}}">
-    </div>
-    <div class="form-group">
-      <label>Credenciais de acesso</label>
-      <input class="form-input" value="" type="password" placeholder="Senha">
-      <input class="form-input" value="" type="password" placeholder="Confirme a senha">
-    </div>
-    <div class="form-group form-bottom">
-      <button class="primary-button">
-        Salvar
-      </button>
-    </div>
+      <div class="form-column">
+        <div class="avatar-container" style="border: none;">
+    
+        </div>
+        <div class="form-group">
+          <label>Credenciais de acesso</label>
+          <input class="form-input" value="" type="password" formControlName="password" placeholder="Senha">
+          <input class="form-input" value="" type="password" formControlName="confirmPassword" placeholder="Confirme a senha">
+        </div>
+        <div class="form-group form-bottom">
+          <button class="primary-button">
+            Salvar
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

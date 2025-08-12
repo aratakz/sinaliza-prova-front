@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {config} from '../../../config';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import {config} from '../../../config';
 export class UserService {
   readonly baseUrlAuth = `${config.api_host}/auth`;
   readonly baseUrlUsers = `${config.api_host}/users`;
-
+  avatarSubject:BehaviorSubject<string> = new BehaviorSubject<string>('');
   constructor(private http : HttpClient) { }
 
   registerStudent(registerData: any) {

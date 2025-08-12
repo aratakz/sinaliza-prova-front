@@ -11,6 +11,7 @@ import {provideHttpClient} from "@angular/common/http";
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { UserComponent } from './components/user/user.component';
 import {ImageCropperComponent} from 'ngx-image-cropper';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,12 +21,13 @@ import {ImageCropperComponent} from 'ngx-image-cropper';
     NavbarComponent,
     HeaderComponent,
     ActivityListComponent,
-    UserComponent
+    UserComponent,
   ],
   imports: [
     CommonModule,
     SystemRoutingModule,
-    ImageCropperComponent
+    ImageCropperComponent,
+    ReactiveFormsModule
   ],
   providers: [
       AuthService,
