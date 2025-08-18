@@ -64,13 +64,5 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  displayNotifications() {
-      if (this.showNotification === '') {
-        this.showNotification = 'active';
-      } else {
-        this.showNotification = '';
-      }
-  }
-
 
 }
