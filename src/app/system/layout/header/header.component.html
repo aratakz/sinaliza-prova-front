@@ -10,22 +10,6 @@
 
       {{loggedUser}}
     </div>
-    <div class="notifications {{showNotification}}">
-      <button type="button"  class="bell" (click)="displayNotifications()">
-        <div class="notify-count">0</div>
-        @if (showNotification != '') {
-          <i class="fi fi-sr-bell"></i>
-        } @else {
-          <i class="fi fi-rr-bell "></i>
-        }
-      </button>
-      <div class="notification-container">
-        <div class="notifications-header">
-          Notificações
-        </div>
-        <div class="notification"></div>
-      </div>
-    </div>
     <button type="button" (click)="logout()">
       <i class="fi fi-rs-exit"></i>
     </button>
