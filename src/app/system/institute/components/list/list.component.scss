@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+.d-actions,
+#h-actions {
+  text-align: center;
+  width: 100px;
+}
+.d-name,
+#h-name {
+  text-align: left;
+}
+  tr {
+    height: 40px;
+    th {
+      border-bottom: 2px solid #CDC9C9;
+    }
+    td {
+    border-bottom: 1px solid #CDC9C9;
+  }
+  }

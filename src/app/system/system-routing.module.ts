@@ -22,7 +22,13 @@ const routes: Routes = [
       },
       {
         path: 'user-details',
+        canActivate: [authGuard],
         component: UserComponent
+      },
+      {
+        path: 'institute',
+        canActivate: [authGuard],
+        loadChildren: () => import('./institute/institute.module').then(m => m.InstituteModule),
       }
     ]
   }

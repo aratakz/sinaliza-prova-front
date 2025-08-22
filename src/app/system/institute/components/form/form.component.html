@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <div class="form-group">
+    <label>Nome</label>
+    <input class="form-input" formControlName="name">
+  </div>
+  <div class="form-group form-bottom">
+    <button class="primary-button save" (click)="onSubmit()" >
+      Salvar
+    </button>
+  </div>
+</form>

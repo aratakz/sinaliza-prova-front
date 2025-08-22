@@ -10,4 +10,5 @@ export class GlobalService {
 
   navbarBehavior: BehaviorSubject<string> = new BehaviorSubject('');
   activeRouteBehavior: BehaviorSubject<string> = new BehaviorSubject('');
+  actionControlBehavior: BehaviorSubject<boolean> = new BehaviorSubject(false);
 }

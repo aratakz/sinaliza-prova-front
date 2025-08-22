@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th id="h-name">Nome</th>
+      <th id="h-actions">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let institute of institutes">
+      <td class="d-name">{{institute.name}}</td>
+      <td class="d-actions">
+        <button>
+          <i class="fi fi-rr-pencil"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

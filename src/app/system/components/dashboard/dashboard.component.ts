@@ -12,7 +12,7 @@ export class DashboardComponent implements OnDestroy{
     id: 'asa'
   }];
   constructor(private globalService: GlobalService) {
-    this.globalService.activeRouteBehavior.next('dashboard');
+    this.globalService.activeRouteBehavior.next('mural');
   }
 
   ngOnDestroy(): void {
