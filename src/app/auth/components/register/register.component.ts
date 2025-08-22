@@ -1,28 +1,32 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../../shared/services/alert.service';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
-
+import {InstituteService} from '../../../shared/services/institute.service';
 @Component({
   selector: 'app-register',
   standalone: false,
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   formGroup: FormGroup;
   strength: string = '';
   passStatus:string =  'strong';
   showStrength:string = '';
+  institutes: Array<any> = [
+  ];
+  selectedInstitute: any;
 
   constructor(
     private alertService: AlertService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private instituteService: InstituteService,
   ) {
-    this.formGroup = formBuilder.group({
+    this.formGroup = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(6)]],
       name: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -30,6 +34,15 @@ export class RegisterComponent {
       birthday: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       institute: ['', [Validators.required]],
+    })
+  }
+  ngOnInit() {
+    this.instituteService.getAll().subscribe({
+      next: (response: any) => {
+        for (const institute of response) {
+          this.institutes.push({value: institute.id, label: institute.name.toUpperCase()});
+        }
+      }
     })
   }
 
@@ -103,6 +116,10 @@ export class RegisterComponent {
   }
 
   checkPassStrength() {
+
+  }
+
+  onInstituteUpdate ($event: any) {
 
   }
 }

@@ -12,6 +12,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthService} from './services/auth.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClient, HttpHandler, provideHttpClient} from '@angular/common/http';
+import {Select2, Select2Hint, Select2Label} from 'ng-select2-component';
 
 
 @NgModule({
@@ -28,6 +29,9 @@ import {HttpClient, HttpHandler, provideHttpClient} from '@angular/common/http';
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    Select2,
+    Select2Hint,
+    Select2Label
   ],
   providers: [
     AuthService,

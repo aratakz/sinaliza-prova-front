@@ -37,12 +37,13 @@ body {
     margin: 0 8px;
     width: 100%;
   }
+  .select2-selection,
   .form-input {
     background: var(--primary-foreground);
-    height: 40px;
+    height: 40px !important;
     width: 100%;
-    border-radius: 8px;
-    border: 1px solid var(--default-input);
+    border-radius: 8px !important;
+    border: 1px solid var(--default-input) !important;
     padding: 0 15px;
     color: var(--default-input);
     font-size: 16px;
@@ -120,4 +121,8 @@ app-dashboard {
 }
 .swal2-confirm  {
   background: var(--primary);
+}
+
+.select2-selection {
+  padding: 5px !important;
 }

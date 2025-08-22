@@ -80,6 +80,19 @@ export class UserComponent implements OnDestroy, OnInit {
   }
 
   onSubmit() {
+    const formValue = this.usersForm.value;
+    if (this.usersForm.value.birthday) {
+      formValue.birthday = this.parseBirthday(this.usersForm.value.birthday);
+    }
+
+    this.userService.update(formValue).subscribe({
+      next: () => {}
+    });
     this.alertService.toastSuccess("Cadastro atualizado com sucesso!");
+  }
+
+  private parseBirthday (birthday: string) {
+    const split = birthday.split('/');
+    return `${split[2]}-${split[1]}-${split[0]}`;
   }
 }

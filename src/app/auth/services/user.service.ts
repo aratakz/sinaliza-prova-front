@@ -29,4 +29,18 @@ export class UserService {
 
     return this.http.get(`${this.baseUrlUsers}/userdata/${userDataObject.id}`, {headers: headers});
   }
+
+  update(userData:any) {
+    
+    const storedUserData = window.localStorage.getItem('userData') || '';
+    const token = window.localStorage.getItem('token') || '';
+    const userDataObject = JSON.parse(storedUserData);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.patch(`${this.baseUrlUsers}/update/${userDataObject.id}`, userData, {headers: headers});
+
+  }
 }
