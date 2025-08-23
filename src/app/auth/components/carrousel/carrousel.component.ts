@@ -11,9 +11,7 @@ export class CarrouselComponent implements OnInit {
   currentText:  undefined|string = undefined;
 
   images= [
-    './assets/carrousel_1.jpg',
-    './assets/carrousel_2.webp',
-    './assets/carrousel_3.jpg',
+    './assets/carrousel_1.png',
   ];
 
   texts = [
