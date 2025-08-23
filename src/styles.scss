@@ -132,3 +132,27 @@ app-dashboard {
 .select2-selection {
   padding: 5px !important;
 }
+.btn-edit {
+  border: none;
+  width: 50px;
+  padding: 5px;
+  border-radius: 8px  0 0 8px;
+  color: #015fda;
+  background: #E7E7E7;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.btn-remove {
+  border: none;
+  width: 50px;
+  padding: 5px;
+  border-radius: 0 8px 8px 0;
+  color: red;
+  background: #E7E7E7;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.btn-remove:hover,
+.btn-edit:hover {
+  background: #CDC9C9;
+}

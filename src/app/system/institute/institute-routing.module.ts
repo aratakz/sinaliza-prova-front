@@ -20,6 +20,10 @@ const routes: Routes = [{
     {
       path: 'register',
       component: FormComponent,
+    },
+    {
+      path: 'register/:id',
+      component: FormComponent,
     }
   ]
 }];

@@ -3,6 +3,7 @@ import {config} from '../../../config';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {lastValueFrom, Observable} from 'rxjs';
 import {AlertService} from '../../shared/services/alert.service';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +11,9 @@ export class AuthService {
 
   constructor(
     private alertService: AlertService,
-    private http: HttpClient,) {}
+    private http: HttpClient,
+    private router: Router,
+    ) {}
 
 
   login(loginData: any):Observable<Object> {
@@ -46,5 +49,10 @@ export class AuthService {
 
   get userData ():string|null {
     return window.localStorage.getItem('userData');
+  }
+
+  async logout() {
+    await this.destroyToken();
+    await this.router.navigate(['/']);
   }
 }

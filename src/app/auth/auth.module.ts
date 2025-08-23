@@ -13,6 +13,7 @@ import {AuthService} from './services/auth.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClient, HttpHandler, provideHttpClient} from '@angular/common/http';
 import {Select2, Select2Hint, Select2Label} from 'ng-select2-component';
+import { CarrouselComponent } from './components/carrousel/carrousel.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {Select2, Select2Hint, Select2Label} from 'ng-select2-component';
     VerifyEmailComponent,
     RenewPasswordComponent,
     SendEmailComponent,
-    AuthComponent
+    AuthComponent,
+    CarrouselComponent
   ],
   imports: [
     CommonModule,

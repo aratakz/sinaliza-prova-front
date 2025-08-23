@@ -9,8 +9,11 @@
     <tr *ngFor="let institute of institutes">
       <td class="d-name">{{institute.name}}</td>
       <td class="d-actions">
-        <button>
+        <button type="button" class="btn-edit" routerLink="../register/{{institute.id}}">
           <i class="fi fi-rr-pencil"></i>
+        </button>
+        <button type="button" class="btn-remove">
+          <i class="fi fi-rr-trash"></i>
         </button>
       </td>
     </tr>
