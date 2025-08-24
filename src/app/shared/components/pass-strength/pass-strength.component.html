@@ -1,0 +1,52 @@
+@if (showPassStrength) {
+  <div class="strength-container">
+    <div [class]="['strength-bar',passStatus]" [style.width.%]="passStrength"></div>
+  </div>
+  <div class="pass-rules">
+      @if (hasMinlength) {
+        <div class="valid">
+          <i class="fi fi-sr-check-circle"></i> A senha deve possuir ao menos 8 caracteres.
+        </div>
+      } @else {
+        <div class="error">
+          <i class="fi fi-rr-cross-circle"></i> A senha deve possuir ao menos 8 caracteres.
+        </div>
+      }
+      @if (hasUpperLetter) {
+        <div class="valid">
+          <i class="fi fi-sr-check-circle"></i> A senha deve possuir ao menos uma letra maiúscula.
+        </div>
+      } @else {
+        <div class="error">
+          <i class="fi fi-rr-cross-circle"></i> A senha deve possuir ao menos uma letra maiúscula.
+        </div>
+      }
+    @if (hasLowerLetter) {
+      <div class="valid">
+        <i class="fi fi-sr-check-circle"></i> A senha deve possuir ao menos uma letra minúscula.
+      </div>
+    } @else {
+      <div class="error">
+        <i class="fi fi-rr-cross-circle"></i> A senha deve possuir ao menos uma letra minúscula.
+      </div>
+    }
+    @if (hasNumber) {
+      <div class="valid">
+        <i class="fi fi-sr-check-circle"></i> A senha deve possuir ao menos um número.
+      </div>
+    } @else {
+      <div class="error">
+        <i class="fi fi-rr-cross-circle"></i> A senha deve possuir ao menos um número.
+      </div>
+    }
+    @if (hasSpecialChars) {
+      <div class="valid">
+        <i class="fi fi-sr-check-circle"></i> A senha deve possuir ao menos um caractere especial.
+      </div>
+    } @else {
+      <div class="error">
+        <i class="fi fi-rr-cross-circle"></i> A senha deve possuir ao menos um caractere especial.
+      </div>
+    }
+  </div>
+}

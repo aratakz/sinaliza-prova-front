@@ -9,11 +9,13 @@ import { BehaviorSubject } from 'rxjs';
 export class UserService {
   readonly baseUrlAuth = `${config.api_host}/auth`;
   readonly baseUrlUsers = `${config.api_host}/users`;
-  avatarSubject:BehaviorSubject<string> = new BehaviorSubject<string>('');
-  constructor(private http : HttpClient) { }
+  avatarSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  constructor(private http: HttpClient) {
+  }
 
   registerStudent(registerData: any) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    let headers = new HttpHeaders({'Content-Type': 'application/JSON'});
     return this.http.post(`${this.baseUrlAuth}/register`, JSON.stringify(registerData), {headers: headers});
   }
 
@@ -30,8 +32,8 @@ export class UserService {
     return this.http.get(`${this.baseUrlUsers}/userdata/${userDataObject.id}`, {headers: headers});
   }
 
-  update(userData:any) {
-    
+  update(userData: any) {
+
     const storedUserData = window.localStorage.getItem('userData') || '';
     const token = window.localStorage.getItem('token') || '';
     const userDataObject = JSON.parse(storedUserData);
@@ -41,6 +43,9 @@ export class UserService {
       'Authorization': `Bearer ${token}`,
     });
     return this.http.patch(`${this.baseUrlUsers}/update/${userDataObject.id}`, userData, {headers: headers});
+  }
 
+  checkUsername(text: string) {
+    return this.http.get(`${this.baseUrlUsers}/checkUsername/${text}`);
   }
 }

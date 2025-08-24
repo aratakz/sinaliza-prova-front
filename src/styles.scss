@@ -25,7 +25,6 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    min-width: 100vw;
 }
 
 .form-group {
@@ -155,4 +154,19 @@ app-dashboard {
 .btn-remove:hover,
 .btn-edit:hover {
   background: #CDC9C9;
+}
+.select2-search {
+  margin-top: -5px !important;
+  input {
+    height: 40px !important;
+    border-color: #000000 !important;
+    border-radius:8px !important; ;
+  }
+}
+.select2-dropdown {
+  border: 1px solid #000000 !important;
+  margin-top: -5px !important;
+  border-top: 1px solid #FFFFFF !important;
+  padding-top: 10px !important;
+  border-radius: 0 0  8px 8px!important;
 }

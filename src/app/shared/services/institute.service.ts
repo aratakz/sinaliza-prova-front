@@ -26,4 +26,13 @@ export class InstituteService {
     return this.http.post(`${this.instituteURL}/create`, JSON.stringify(formValue), {headers: headers});
   }
 
+  searchByText (value: any) {
+    const token = window.localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.get(`${this.instituteURL}/search/${value}`, {headers: headers});
+  }
+
 }
