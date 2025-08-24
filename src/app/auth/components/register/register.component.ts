@@ -4,6 +4,7 @@ import {AlertService} from '../../../shared/services/alert.service';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {InstituteService} from '../../../shared/services/institute.service';
+
 @Component({
   selector: 'app-register',
   standalone: false,
@@ -12,12 +13,11 @@ import {InstituteService} from '../../../shared/services/institute.service';
 })
 export class RegisterComponent implements OnInit {
   formGroup: FormGroup;
-  strength: string = '';
-  passStatus:string =  'strong';
-  showStrength:string = '';
-  institutes: Array<any> = [
-  ];
+  institutes: Array<any> = [];
   selectedInstitute: any;
+  showStrength: boolean = false;
+  controlPassword: string = '';
+  usernameError = false;
 
   constructor(
     private alertService: AlertService,
@@ -36,33 +36,44 @@ export class RegisterComponent implements OnInit {
       institute: ['', [Validators.required]],
     })
   }
-  ngOnInit() {
-    this.instituteService.getAll().subscribe({
-      next: (response: any) => {
-        for (const institute of response) {
-          this.institutes.push({value: institute.id, label: institute.name.toUpperCase()});
-        }
-      }
-    })
-  }
+  ngOnInit() {}
 
   async onSubmit() {
-
     if (!this.formGroup.valid) {
       this.formGroup.enable();
       await this.displayErrors();
     } else {
-      this.userService.registerStudent(this.formGroup.value).subscribe({
-        next: async () => {
-          await this.router.navigate(['/auth/send-email'], {
-            queryParams: {
-              message:"Enviamos um e-mail  com as instruções de ativação para",
-              email: this.formGroup.value.email,
+      let isWeak = false;
+      isWeak = this.formGroup.controls['password'].value.length >= 8;
+      isWeak = !this.formGroup.controls['password'].value.match(/[a-z]+/);
+      isWeak = !this.formGroup.controls['password'].value.match(/[A-Z]+/);
+      isWeak = !this.formGroup.controls['password'].value.match(/[0-9]+/);
+      isWeak = !this.formGroup.controls['password'].value.match(/[$@#&!]+/);
+
+      if (isWeak) {
+        await this.alertService.toastError(`Senha fora dos padrões.`);
+        this.formGroup.enable();
+      } else {
+        this.userService.registerStudent(this.formGroup.value).subscribe({
+          next: async () => {
+            await this.router.navigate(['/auth/send-email'], {
+              queryParams: {
+                message: "Enviamos um e-mail  com as instruções de ativação para",
+                email: this.formGroup.value.email,
+              }
+            });
+          },
+          error: (errorResponse: any) => {
+            this.formGroup.enable();
+            if (errorResponse.status == 422) {
+              if (errorResponse.error.message == "pre-registered record") {
+                this.alertService.toastError('Usuário não disponível.');
+              }
             }
-          })
-        },
-        error: () => this.formGroup.enable()
-      });
+          }
+        });
+      }
+
       this.formGroup.disable();
     }
   }
@@ -116,10 +127,38 @@ export class RegisterComponent implements OnInit {
   }
 
   checkPassStrength() {
-
+   const password = this.formGroup.get('password')?.value;
+   this.controlPassword = password;
+   this.showStrength = !!password;
   }
 
   onInstituteUpdate ($event: any) {
+  }
 
+  onSelectSearch($event: any) {
+    const search = $event.search;
+    this.institutes = [];
+    if (search) {
+      this.instituteService.searchByText(search).subscribe({
+        next: async (response: any) => {
+          this.institutes = response;
+        },
+        error: () => {
+        },
+      });
+    }
+  }
+
+  checkUsername ($event: any) {
+    const username: string = $event.target.value;
+    this.userService.checkUsername(username).subscribe({
+      next: async (result: any) => {
+        if (result.available) {
+          this.usernameError = false;
+        } else {
+          this.usernameError = true;
+        }
+      }
+    });
   }
 }

@@ -1,0 +1,53 @@
+.pass-rules {
+  font-size: 12px;
+  border: 1px solid #d7d7d7;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+
+  div {
+     display: flex;
+     margin: 5px 0;
+     align-items: center;
+      i {
+        font-size: 16px;
+        margin-right: 5px;
+      }
+   }
+}
+.strength-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #d7d7d7;
+  margin-top: 10px;
+  padding: 2px;
+  border-radius: 8px;
+}
+.strength-bar {
+  display: flex;
+  flex-direction: row;
+  height: 5px;
+  background-color: #d7d7d7;
+  border-radius: 8px;
+}
+
+.error {
+  color: red;
+}
+
+.valid {
+  color: darkgreen;
+}
+
+.weak {
+  background: red;
+}
+
+.moderate {
+  background: orange;
+}
+
+.strong {
+  background: darkgreen;
+}

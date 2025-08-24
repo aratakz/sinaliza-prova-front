@@ -5,18 +5,27 @@
 </section>
 <section class="form-wrapper">
   <form [formGroup]="formGroup">
-    <div class="form-group inline">
-      <input class="form-input" placeholder="Login" formControlName="username">
-      <input class="form-input" placeholder="Nome Completo" formControlName="name">
+    <div class="form-group">
+      <select2 formControlName="institute"
+               customSearchEnabled
+               style="width: 96%; margin: 0 10px"
+               [data]="institutes"
+               [value]="selectedInstitute"
+               (update)="onInstituteUpdate($event)"
+               (search)="onSelectSearch($event)"
+               placeholder="Selecione sua instituição" ></select2>
     </div>
     <div class="form-group inline">
       <div class="input-group">
-        <input class="form-input" placeholder="Senha" type="password" formControlName="password" (input)="checkPassStrength() ">
-        <div class="pass-strength {{showStrength}}">
-          <div class="strength {{passStatus}}" style="width: {{strength}}"></div>
-        </div>
+        @if (usernameError) {
+          <span id="username-error">
+          <i class="fi fi-sr-diamond-exclamation"></i>
+          Nome de usuário não disponível
+        </span>
+        }
+        <input class="form-input" placeholder="Login" formControlName="username" (input)="checkUsername($event)">
       </div>
-      <input class="form-input" placeholder="Confirme sua senha" type="password" formControlName="confirmPassword">
+      <input class="form-input" placeholder="Nome Completo" formControlName="name">
     </div>
     <div class="form-group inline">
       <input
@@ -27,10 +36,16 @@
         class="form-input"
         formControlName="birthday">
       <input class="form-input" placeholder="Email" type="email" formControlName="email">
+
     </div>
-    <div class="form-group">
-      <select2 formControlName="institute" style="width: 96%; margin: 0 10px" [data]="institutes" [value]="selectedInstitute" (update)="onInstituteUpdate($event)"
-               placeholder="Selecione a instituição"></select2>
+    <div class="form-group inline">
+      <div class="input-group">
+        <input class="form-input" placeholder="Senha" type="password" formControlName="password" (input)="checkPassStrength() ">
+        <app-pass-strength [showPassStrength]="showStrength" [password]="controlPassword"></app-pass-strength>
+      </div>
+      <div class="input-group">
+        <input class="form-input" placeholder="Confirme sua senha" type="password" formControlName="confirmPassword">
+      </div>
     </div>
     <div class="form-group">
       <button type="button" class="secondary-button medium" (click)="onSubmit()">ENVIAR</button>
