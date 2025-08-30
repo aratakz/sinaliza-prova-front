@@ -12,7 +12,7 @@
         <button type="button" class="btn-edit" routerLink="../register/{{institute.id}}">
           <i class="fi fi-rr-pencil"></i>
         </button>
-        <button type="button" class="btn-remove">
+        <button type="button" class="btn-remove" (click)="remove(institute.id)">
           <i class="fi fi-rr-trash"></i>
         </button>
       </td>

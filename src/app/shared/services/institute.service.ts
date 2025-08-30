@@ -52,4 +52,13 @@ export class InstituteService {
     });
     return this.http.put(`${this.instituteURL}/update/${id}`, JSON.stringify(formValue), {headers: headers});
   }
+
+  remove (id: any) {
+    const token = window.localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.delete(`${this.instituteURL}/remove/${id}`, {headers: headers});
+  }
 }

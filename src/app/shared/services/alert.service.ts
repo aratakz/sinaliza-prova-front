@@ -68,7 +68,7 @@ export class AlertService {
     });
   }
 
-  async alertOptions(onConfirm: Function = () => {}, onCancel: Function = () => {}) {
+  async alertOptions(text: string, onConfirm: Function = () => {}, onCancel: Function = () => {}) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "",
@@ -78,7 +78,7 @@ export class AlertService {
       buttonsStyling: true
     });
     swalWithBootstrapButtons.fire({
-      text: "Deseja realmente sair?",
+      text: text,
       showCancelButton: true,
       confirmButtonText: "Confirmar",
       cancelButtonText: "Não",

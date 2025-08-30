@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
       });
     }
     async logout() {
-      await this.alertService.alertOptions(async () =>  {
+      await this.alertService.alertOptions('Deseja realmente sair?', async () =>  {
         this.authService.destroyToken().then(async () => {
           await this.router.navigate(['../auth']);
           await this.alertService.toastSuccess('Logout realizado com sucesso!');
