@@ -1,0 +1,11 @@
+<div class="table-wrapper">
+  <table class="data-table">
+    <thead>
+      <tr>
+        @for (column of tableColumns; track column.index) {
+          <th [class]="[column.align]">{{column.title}}</th>
+        }
+      </tr>
+    </thead>
+  </table>
+</div>

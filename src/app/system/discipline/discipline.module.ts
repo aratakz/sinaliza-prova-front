@@ -5,6 +5,8 @@ import { DisciplineRoutingModule } from './discipline-routing.module';
 import { DisciplineComponent } from './discipline.component';
 import { ListComponent } from './components/list/list.component';
 import { FormComponent } from './components/form/form.component';
+import {SharedModule} from '../../shared/shared.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { FormComponent } from './components/form/form.component';
   ],
   imports: [
     CommonModule,
-    DisciplineRoutingModule
+    DisciplineRoutingModule,
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class DisciplineModule { }
