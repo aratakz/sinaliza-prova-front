@@ -18,6 +18,8 @@ export class FormComponent  implements OnInit {
   id: string|null = null;
   subscriptionName: string|null = null;
   subscriptionAmount: string|null = null;
+  showDetails = false;
+  opened = '';
 
   constructor(
     private globalService: GlobalService,
@@ -73,6 +75,16 @@ export class FormComponent  implements OnInit {
           this.subscriptionAmount = response.subscriptions.totalStorage;
         }
       });
+    }
+  }
+
+  triggerDetails() {
+    this.showDetails = !this.showDetails;
+
+    if (this.showDetails) {
+      this.opened = 'opened';
+    } else {
+      this.opened = '';
     }
   }
 }

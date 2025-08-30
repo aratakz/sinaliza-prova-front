@@ -4,19 +4,28 @@
     <input class="form-input" formControlName="name">
   </div>
   @if (id) {
-    <div class="plan-details">
-      <div class="detail-title">
+    <div [class]="['plan-details', opened]">
+      <div class="detail-title" (click)="triggerDetails()">
         Detalhes do meu plano
+        @if (showDetails) {
+          <i class="fi fi-rs-circle-xmark"></i>        }
       </div>
-      <div class="detail-item">
-        <span class="item-title">Nome: </span> {{subscriptionName}}
+      @if (!showDetails) {
+        <div class="detail-expand">
+          <i class="fi fi-sr-angle-small-down"></i>
+        </div>
+      }
+      @if (showDetails) {
+        <div class="detail-item">
+          <span class="item-title">Nome: </span> {{subscriptionName}}
+        </div>
+        <div class="detail-item">
+          <span class="item-title">Armazenamento contratado: </span> {{subscriptionAmount}}Mb
+        </div>
+        <div class="detail-item last">
+          <span class="item-title">Aarmazenamento ultilizado: </span>
       </div>
-      <div class="detail-item">
-        <span class="item-title">Armazenamento contratado: </span> {{subscriptionAmount}}Mb
-      </div>
-      <div class="detail-item last">
-        <span class="item-title">Aarmazenamento ultilizado: </span>
-      </div>
+      }
     </div>
   }
   <div class="form-group form-bottom">
