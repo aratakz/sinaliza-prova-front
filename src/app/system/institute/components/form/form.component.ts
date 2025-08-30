@@ -5,6 +5,7 @@ import {InstituteService} from '../../../../shared/services/institute.service';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../../auth/services/auth.service';
+import {async} from 'rxjs';
 
 @Component({
   selector: 'app-form',
@@ -31,27 +32,42 @@ export class FormComponent  implements OnInit {
   }
 
   onSubmit() {
-    this.instituteService.register(this.form.value).subscribe({
-      next: async response => {
-        await this.alertService.toastSuccess('Cadastro realizado com sucesso!');
-        await this.router.navigate(['../system/institute/list']);
-      },
-      error: async (error) => {
-        if (error.status === 401) {
-          this.alertService.toastInfo('Sua sessão expirou, realize o login novamente.');
-         await this.authService.logout()
+    if (this.id) {
+      this.instituteService.update(this.id, this.form.value).subscribe({
+        next: async () => {
+          await this.alertService.toastSuccess('Cadastro atualizado com sucesso!');
+          await this.router.navigate(['../system/institute/list']);
+        },
+        error: async (err) => {
+          await this.alertService.toastError('Não foi possível atualziar a instituição');
         }
-      }
-    })
+      });
+    } else {
+      this.instituteService.register(this.form.value).subscribe({
+        next: async response => {
+          await this.alertService.toastSuccess('Cadastro realizado com sucesso!');
+          await this.router.navigate(['../system/institute/list']);
+        },
+        error: async (error) => {
+          if (error.status === 401) {
+            this.alertService.toastInfo('Sua sessão expirou, realize o login novamente.');
+            await this.authService.logout()
+          }
+        }
+      });
+    }
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.form.patchValue({
-        name: '',
+      this.instituteService.findById(this.id).subscribe({
+        next: (response: any) => {
+          this.form.patchValue({
+            name: response.name,
+          });
+        }
       });
     }
-
   }
 }
