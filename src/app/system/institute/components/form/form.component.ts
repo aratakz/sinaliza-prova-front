@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GlobalService} from '../../../services/global.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {InstituteService} from '../../../../shared/services/institute.service';
@@ -13,7 +13,7 @@ import {async} from 'rxjs';
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
-export class FormComponent  implements OnInit {
+export class FormComponent  implements OnInit, OnDestroy {
   form: FormGroup;
   id: string|null = null;
   subscriptionName: string|null = null;
@@ -66,6 +66,7 @@ export class FormComponent  implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
+      this.globalService.activeRouteBehavior.next("Editar institução");
       this.instituteService.findById(this.id).subscribe({
         next: (response: any) => {
           this.form.patchValue({
@@ -75,6 +76,8 @@ export class FormComponent  implements OnInit {
           this.subscriptionAmount = response.subscriptions.totalStorage;
         }
       });
+    } else {
+      this.globalService.activeRouteBehavior.next('Nova instituição');
     }
   }
 
@@ -87,4 +90,10 @@ export class FormComponent  implements OnInit {
       this.opened = '';
     }
   }
+
+  ngOnDestroy(): void {
+    this.globalService.activeRouteBehavior.next("Intituições");
+  }
+
+
 }

@@ -21,6 +21,7 @@ export class ListComponent implements OnInit {
     }
 
   ngOnInit(): void {
+      this.globalService.activeRouteBehavior.next("Instituiçoes");
       this.instituteService.getAll().subscribe({
         next: async (response: any) => {
           for (const institute of response) {
