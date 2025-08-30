@@ -16,6 +16,9 @@ import {async} from 'rxjs';
 export class FormComponent  implements OnInit {
   form: FormGroup;
   id: string|null = null;
+  subscriptionName: string|null = null;
+  subscriptionAmount: string|null = null;
+
   constructor(
     private globalService: GlobalService,
     private formBuilder: FormBuilder,
@@ -66,6 +69,8 @@ export class FormComponent  implements OnInit {
           this.form.patchValue({
             name: response.name,
           });
+          this.subscriptionName= response.subscriptions.name;
+          this.subscriptionAmount = response.subscriptions.totalStorage;
         }
       });
     }

@@ -3,6 +3,22 @@
     <label>Nome</label>
     <input class="form-input" formControlName="name">
   </div>
+  @if (id) {
+    <div class="plan-details">
+      <div class="detail-title">
+        Detalhes do meu plano
+      </div>
+      <div class="detail-item">
+        <span class="item-title">Nome: </span> {{subscriptionName}}
+      </div>
+      <div class="detail-item">
+        <span class="item-title">Armazenamento contratado: </span> {{subscriptionAmount}}Mb
+      </div>
+      <div class="detail-item last">
+        <span class="item-title">Aarmazenamento ultilizado: </span>
+      </div>
+    </div>
+  }
   <div class="form-group form-bottom">
     <button class="primary-button save" (click)="onSubmit()" >
       Salvar

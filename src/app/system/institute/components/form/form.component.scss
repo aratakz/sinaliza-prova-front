@@ -2,3 +2,33 @@
   width: 100px;
   align-self: flex-end;
 }
+
+.plan-details {
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+  border: 3px solid #CCCCCC;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  padding: 10px 5px;
+}
+.detail-title {
+  font-weight: bold;
+  color: #686868;
+  border-bottom: 2px solid #CCCCCC;
+  padding-bottom: 5px;
+}
+
+.detail-item {
+  padding: 5px 0;
+  font-size: 15px;
+  border-bottom: 1px solid #CCCCCC;
+   span {
+     color: #808080;
+     font-weight: bold;
+   }
+}
+.detail-item.last {
+  border-bottom: none;
+  padding-bottom: 0;
+}
