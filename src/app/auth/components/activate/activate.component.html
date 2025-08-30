@@ -1,0 +1,15 @@
+<div id="message">
+  @if (!validToken) {
+    <p class="icon">
+      <i class="fi fi-rr-exclamation"></i>
+    </p>
+    <p class="title">Ops</p>
+    <p>Infelizmente o token informado encontra-se inválido ou expirado.</p>
+  } @else {
+    <p class="icon">
+      <i class="fi fi-rr-check-circle"></i>
+    </p>
+    <p class="title">Oba!</p>
+    <p>Seu cadastro foi ativado com sucesso!</p>
+  }
+</div>

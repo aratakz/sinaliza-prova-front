@@ -1,0 +1,18 @@
+#message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .icon {
+    margin: 10px 0;
+    font-size: 50px;
+    color: var(--primary);
+  }
+
+  .title {
+    margin: 0;
+    font-size: 40px;
+    font-weight: bolder;
+  }
+}

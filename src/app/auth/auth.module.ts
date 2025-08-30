@@ -15,6 +15,7 @@ import {HttpClient, HttpHandler, provideHttpClient} from '@angular/common/http';
 import {Select2, Select2Hint, Select2Label} from 'ng-select2-component';
 import { CarrouselComponent } from './components/carrousel/carrousel.component';
 import {SharedModule} from '../shared/shared.module';
+import { ActivateComponent } from './components/activate/activate.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {SharedModule} from '../shared/shared.module';
     RenewPasswordComponent,
     SendEmailComponent,
     AuthComponent,
-    CarrouselComponent
+    CarrouselComponent,
+    ActivateComponent
   ],
   imports: [
     CommonModule,

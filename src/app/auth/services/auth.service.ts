@@ -55,4 +55,12 @@ export class AuthService {
     await this.destroyToken();
     await this.router.navigate(['/']);
   }
+
+  checkToken(token:string): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/checkTwoFactorToken/${token}`);
+  }
+  activate(token:string):Observable<any> {
+    return this.http.patch(`${this.baseUrl}/activate/${token}`, {});
+
+  }
 }

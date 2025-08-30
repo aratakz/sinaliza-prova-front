@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
 import {SendEmailComponent} from './components/send-email/send-email.component';
+import {ActivateComponent} from './components/activate/activate.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: "send-email",
         component: SendEmailComponent
+      },
+      {
+        path: "activate/:token",
+        component: ActivateComponent
       }
     ]
   }

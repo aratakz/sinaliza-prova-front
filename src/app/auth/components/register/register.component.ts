@@ -111,10 +111,6 @@ export class RegisterComponent implements OnInit {
         await this.alertService.toastError(`Atenção! Email inválido informado!`);
         break;
       }
-      if (this.formGroup.controls['username'].errors && this.formGroup.controls['username'].errors['minlength']) {
-        await this.alertService.toastError(`O login pelo menos 6 caracteres.`);
-        break;
-      }
       if (this.formGroup.controls['password'].errors && this.formGroup.controls['password'].errors['minlength']) {
         await this.alertService.toastError(`A senha deve conter pelo menos 8 caracteres.`);
         break;
