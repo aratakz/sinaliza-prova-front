@@ -20,4 +20,22 @@ export class DisciplineService {
     });
     return this.http.post(`${config.api_host}/disciplines/create`, formData, {headers: headers});
   }
+
+  getAll() {
+    const token = window.localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.get(`${config.api_host}/disciplines`, {headers: headers});
+  }
+
+  remove (disciplineId: string) {
+    const token = window.localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.delete(`${config.api_host}/disciplines/remove/${disciplineId}`, {headers: headers});
+  }
 }

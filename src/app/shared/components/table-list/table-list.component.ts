@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TableColumn} from '../../../@types';
+import {TableColumn, TableData, TableLine} from '../../../@types';
 
 @Component({
   selector: 'app-table-list',
@@ -10,6 +10,7 @@ import {TableColumn} from '../../../@types';
 export class TableListComponent implements OnInit {
 
   @Input() tableColumns: TableColumn[] = [];
+  @Input() tableLines: TableLine[] = [];
 
   ngOnInit(): void {
 

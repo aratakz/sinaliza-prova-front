@@ -7,5 +7,28 @@
         }
       </tr>
     </thead>
+    <tbody>
+      @for (line of tableLines; track line.index) {
+        <tr>
+          @for(field of line.fields; track field.index) {
+            <td [class]="field.classes">
+              @if (field.value) {
+                {{field.value}}
+              } @else {
+                @if (field.buttons) {
+                  @for(button of field.buttons; track button.index) {
+                    <button (click)="button.onClick()" [class]="button.classes">
+                      @if (button.icon) {
+                        <i [class]="button.icon"></i>
+                      }
+                    </button>
+                  }
+                }
+              }
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
   </table>
 </div>

@@ -13,3 +13,13 @@ th,td  {
 .align-right {
   text-align: right;
 }
+
+th,td {
+  padding: 10px;
+}
+th {
+   border-bottom: 2px solid #CDC9C9;
+}
+td {
+  border-bottom: 1px solid #CDC9C9;
+}
