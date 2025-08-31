@@ -3,6 +3,7 @@ import {GlobalService} from '../../../services/global.service';
 import {TableColumn, TableData, TableLine} from '../../../../@types';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {DisciplineService} from '../../../services/discipline.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -28,7 +29,8 @@ export class ListComponent implements OnInit {
   constructor(
     private globalService: GlobalService,
     private alertService: AlertService,
-    private disciplineService: DisciplineService
+    private disciplineService: DisciplineService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -87,7 +89,7 @@ export class ListComponent implements OnInit {
   }
 
   async onEdit(disciplineId: string) {
-
+    await this.router.navigate([`system/discipline/form/${disciplineId}`])
   }
 
 }
