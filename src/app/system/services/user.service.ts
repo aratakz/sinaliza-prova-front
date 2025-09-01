@@ -22,4 +22,11 @@ export class UserService {
   register (formData: any) {
     return this.http.post(`${this.baseUrl}/create`, formData, {headers: this.headers});
   }
+  getAllStudents() {
+    return this.http.get(`${this.baseUrl}/students`, {headers: this.headers});
+  }
+
+  remove(userId:string) {
+    return this.http.delete(`${this.baseUrl}/students/remove/${userId}`, {headers: this.headers});
+  }
 }
