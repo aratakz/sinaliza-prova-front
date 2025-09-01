@@ -31,7 +31,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 16px;
+  margin: 16px 4px;
   select {
     margin: 0 8px;
     width: 100%;
@@ -203,3 +203,15 @@ fieldset {
   align-self: flex-end;
 }
 
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0;
+}
+.form-group.f-5 {
+  width: 50%;
+}
+
+.form-row {
+  display: flex;
+}

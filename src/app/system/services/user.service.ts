@@ -1,0 +1,25 @@
+import { Injectable } from '@angular/core';
+import {config} from '../../../config';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+
+  readonly baseUrl: string = `${config.api_host}/users`;
+  readonly token = window.localStorage.getItem('token') || '';
+  readonly headers = new HttpHeaders({
+    'Content-Type': 'application/JSON',
+    'Authorization': `Bearer ${this.token}`,
+
+  });
+
+  constructor(
+    private http: HttpClient
+  ) {}
+
+  register (formData: any) {
+    return this.http.post(`${this.baseUrl}/create`, formData, {headers: this.headers});
+  }
+}
