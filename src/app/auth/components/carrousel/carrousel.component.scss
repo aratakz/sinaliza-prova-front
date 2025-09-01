@@ -1,45 +1,26 @@
 .carrousel {
   display: flex;
-  width: 600px;
-  height: 600px;
+  width: 100%;
+  height:100%;
   align-items: center;
-  padding: 30px;
   justify-content: space-around;
   flex-direction: column;
   color: #FFFFFF;
 }
 
-.control-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  font-size: 40px;
-  text-align: center;
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  border: 2px solid #FFFFFF;
-  background: transparent;
-  cursor: pointer;
-  color: #FFFFFF;
-}
-
 .image-container  {
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #FFFFFF;
   font-weight: bolder;
   text-align: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 20px;
   overflow-wrap: break-word;
   overflow: hidden;
   word-wrap: break-word;
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-
+  background-size: 100% 100%;
 }
