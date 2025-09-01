@@ -138,7 +138,9 @@ export class FormComponent  implements OnInit {
 
   private submitUpdate() {
     if (this.id) {
-      this.userService.updateStudent(this.id, this.form.value).subscribe({
+      let formData = this.form.value;
+      formData.disciplines = this.selectedDisciplines;
+      this.userService.updateStudent(this.id, formData).subscribe({
         next: async (data: any) => {
           await this.alertService.toastSuccess('Aluno atualizado com exito');
           await this.router.navigate(['system/students/list']);
