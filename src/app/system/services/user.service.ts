@@ -33,4 +33,7 @@ export class UserService {
   findById(id:string) {
     return this.http.get(`${this.baseUrl}/students/${id}`, {headers: this.headers});
   }
+  updateStudent(studentId: string, formData: any) {
+    return this.http.patch(`${this.baseUrl}/students/update/${studentId}`, formData,{headers: this.headers});
+  }
 }
