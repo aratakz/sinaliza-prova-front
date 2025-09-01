@@ -31,10 +31,30 @@
           <select2
             [data]="disciplines"
             placeholder="Buscar"
+            (update)="onSelectDiscipline($event)"
+            formControlName="selectedDiscipline"
           ></select2>
         </div>
       </div>
-      <div class="discipline-container"></div>
+      <div class="discipline-container">
+        <div class="discipline-header">
+          <div>Nome</div>
+        </div>
+        @if (selectedDisciplines.length) {
+          @for(discipline of selectedDisciplines; track discipline.value) {
+            <div class="discipline-line">
+              <div>{{discipline.label}}</div>
+              <button class="remove-discipline" (click)="removeSelected(discipline)">
+                <i class="fi fi-rr-cross-circle"></i>
+              </button>
+            </div>
+          }
+        } @else {
+          <div class="discipline-line no-results">
+            <div>Nenhuma disciplina selecionada</div>
+          </div>
+        }
+      </div>
     </fieldset>
     <div class="form-group form-bottom">
       <button class="primary-button save" (click)="onSubmit()" >

@@ -16,6 +16,7 @@ export class FormComponent  implements OnInit {
   // @ts-ignore
   form: FormGroup;
   id: string | null = null;
+  selectedDisciplines: Array<any> = [];
 
   constructor(
     private disciplineService: DisciplineService,
@@ -44,12 +45,38 @@ export class FormComponent  implements OnInit {
     }
   }
 
+  onSelectDiscipline($event: any) {
+    const selectedItemId:string = $event.value;
+    let selectedItem:any;
+    for (const discipline of this.disciplines) {
+        if (discipline.value === selectedItemId) {
+          selectedItem = discipline;
+          this.disciplines.splice(this.disciplines.indexOf(selectedItem), 1);
+        }
+    }
+    this.selectedDisciplines.push(selectedItem);
+    this.form.patchValue({
+      selectedDiscipline: ''
+    })
+  }
+
+  removeSelected(discipline:any) {
+    for (const selection of this.selectedDisciplines) {
+      if (selection.value === discipline.value) {
+        this.selectedDisciplines.splice(this.selectedDisciplines.indexOf(selection), 1);
+      }
+      this.disciplines.push(discipline);
+    }
+  }
+
+
   private initForm() {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       cpf: ['', Validators.required],
       email: ['', Validators.required],
-      birthday: ['', Validators.required]
+      birthday: ['', Validators.required],
+      selectedDiscipline: [''],
     });
   }
 
@@ -62,7 +89,21 @@ export class FormComponent  implements OnInit {
             cpf: student.cpf,
             email: student.email,
             birthday: student.birthday
-          })
+          });
+          if (student.disciplines && student.disciplines.length) {
+            for (let storageDiscipline of student.disciplines) {
+              this.selectedDisciplines.push({
+                value: storageDiscipline.id,
+                label: storageDiscipline.name,
+              });
+
+              for (const discipline of this.disciplines) {
+                  if (discipline.value === storageDiscipline.id) {
+                    this.disciplines.splice(this.disciplines.indexOf(discipline), 1);
+                  }
+              }
+            }
+          }
         }
       });
     }
@@ -82,7 +123,9 @@ export class FormComponent  implements OnInit {
   }
 
   private submitCreate() {
-    this.userService.register(this.form.value).subscribe({
+    let formData = this.form.value;
+    formData.disciplines = this.selectedDisciplines;
+    this.userService.register(formData).subscribe({
       next: async (data: any) => {
         await this.alertService.toastSuccess('Usuário cadastrado com sucesso!');
         await this.router.navigate(['system/students/list']);
@@ -106,4 +149,5 @@ export class FormComponent  implements OnInit {
       });
     }
   }
+
 }
