@@ -3,6 +3,7 @@ import {DisciplineService} from '../../../services/discipline.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
 import {AlertService} from '../../../../shared/services/alert.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -14,33 +15,24 @@ export class FormComponent  implements OnInit {
   disciplines: Array<any> = []
   // @ts-ignore
   form: FormGroup;
-  id: string|undefined;
+  id: string|null = null;
 
   constructor(
     private disciplineService: DisciplineService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      name: ['', Validators.required],
-      cpf: ['', Validators.required],
-      email: ['', Validators.required],
-      birthday: ['', Validators.required]
-    });
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.initForm();
+    this.loadDisciplines();
+    if (this.id) {
+      this.feedForm();
+    }
 
-    this.disciplineService.getAll().subscribe({
-      next: (data:any)  => {
-        for (const discipline of data) {
-          this.disciplines.push({
-            value: discipline.id,
-            label: discipline.name
-          });
-        }
-      }
-    });
   }
 
   onSubmit() {
@@ -57,5 +49,39 @@ export class FormComponent  implements OnInit {
       });
     }
   }
+  private initForm() {
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      cpf: ['', Validators.required],
+      email: ['', Validators.required],
+      birthday: ['', Validators.required]
+    });
+  }
+  private feedForm() {
+    if (this.id) {
+      this.userService.findById(this.id).subscribe({
+        next: async (student: any) => {
+          this.form.patchValue({
+            name: student.name,
+            cpf: student.cpf,
+            email: student.email,
+            birthday: student.birthday
+          })
+        }
+      });
+    }
+  }
 
+  private loadDisciplines() {
+    this.disciplineService.getAll().subscribe({
+      next: (data:any)  => {
+        for (const discipline of data) {
+          this.disciplines.push({
+            value: discipline.id,
+            label: discipline.name
+          });
+        }
+      }
+    });
+  }
 }

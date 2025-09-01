@@ -95,7 +95,9 @@ export class ListComponent implements OnInit {
     }
   }
 
-  onEdit(userId:string) {}
+  async onEdit(userId:string) {
+   await this.router.navigate([`system/students/form/${userId}`]);
+  }
 
   async onRemove(userId:string) {
     await this.alertService.alertOptions(`Deseja realmente excluir esse aluno?`,

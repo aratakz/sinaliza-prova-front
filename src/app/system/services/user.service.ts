@@ -29,4 +29,8 @@ export class UserService {
   remove(userId:string) {
     return this.http.delete(`${this.baseUrl}/students/remove/${userId}`, {headers: this.headers});
   }
+
+  findById(id:string) {
+    return this.http.get(`${this.baseUrl}/students/${id}`, {headers: this.headers});
+  }
 }
