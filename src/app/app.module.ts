@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import {AlertService} from './shared/services/alert.service';
-import {FormsModule} from '@angular/forms';
 import {provideHttpClient} from '@angular/common/http';
+import {BsModalService} from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import {provideHttpClient} from '@angular/common/http';
   ],
   providers: [
     AlertService,
+    BsModalService,
     provideHttpClient()
   ],
   bootstrap: [AppComponent]

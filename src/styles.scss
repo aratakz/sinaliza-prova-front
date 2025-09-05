@@ -94,6 +94,7 @@ app-login {
 
 .primary-button.small,
 .secondary-button.small
+
 {
   width: auto;
 }
@@ -111,6 +112,18 @@ app-login {
   background: var(--secundary);
 }
 
+.secondary-button.thin {
+  height: 20px;
+  font-size: 13px;
+  font-weight: normal;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  i {
+    display: flex;
+    align-self: center;
+  }
+}
 .f-end {
   justify-content: flex-end;
 }
@@ -195,6 +208,10 @@ fieldset {
     margin-top: -10px;
     font-size: 20px;
     font-weight: bold;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 

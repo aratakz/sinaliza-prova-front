@@ -4,6 +4,8 @@ import {DisciplineService} from '../../../services/discipline.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
+import {CurriculumComponent} from '../modals/curriculum/curriculum.component';
 
 @Component({
   selector: 'app-form',
@@ -15,6 +17,8 @@ export class FormComponent implements OnInit {
   // @ts-ignore
   form: FormGroup;
   id: string|null = '';
+  curriculumList: any = [];
+
 
   constructor(
     private globalService: GlobalService,
@@ -23,6 +27,7 @@ export class FormComponent implements OnInit {
     private alertService: AlertService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private bsModalService: BsModalService,
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +53,10 @@ export class FormComponent implements OnInit {
     } else {
       this.createNew();
     }
+  }
+
+  openRegisterModal(): void {
+
   }
 
   private update() {

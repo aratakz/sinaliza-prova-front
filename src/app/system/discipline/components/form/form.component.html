@@ -5,24 +5,30 @@
       <input class="form-input" formControlName="name">
     </div>
     <fieldset>
-      <legend>Ementa</legend>
-      <table class="table-ementa">
-        <thead>
-          <tr>
-            <th colspan="2">Nome</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="alg-left">aa</td>
-            <td class="alg-right" [style.width.%]="5">
-              <button class="remove-menu" type="button">
-                <i class="fi fi-rs-circle-xmark"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <legend>
+        Ementa
+        <button class="secondary-button small thin" (click)="openRegisterModal()">
+          <i class="fi fi-br-plus-small"></i> Ementa
+        </button>
+      </legend>
+      <div class="curriculum-wrapper">
+        <div class="curriculum-heading">
+            <div>Nome</div>
+            <div>Peso</div>
+            <div>
+              &nbsp;
+            </div>
+        </div>
+        <div class="curriculum-body">
+          @if (curriculumList.length) {
+
+          } @else {
+            <div class="no-curriculum">
+                Nenhum item cadastrado
+            </div>
+          }
+        </div>
+      </div>
     </fieldset>
     <div class="form-group">
       <button type="button" class="primary-button save" (click)="onSubmit()">

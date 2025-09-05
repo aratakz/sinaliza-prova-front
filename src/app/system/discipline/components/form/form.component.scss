@@ -55,3 +55,28 @@
   width: 100%;
   cursor: pointer;
 }
+
+.curriculum-wrapper {
+  border: 1px solid #000000;
+  min-height: 100px;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.curriculum-heading {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #000000;
+}
+
+.no-curriculum {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
