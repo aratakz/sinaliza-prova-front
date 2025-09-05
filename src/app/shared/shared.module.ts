@@ -8,7 +8,7 @@ import { TableListComponent } from './components/table-list/table-list.component
 @NgModule({
   declarations: [
     PassStrengthComponent,
-     TableListComponent
+     TableListComponent,
   ],
   imports: [
     CommonModule

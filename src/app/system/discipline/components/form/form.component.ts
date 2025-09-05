@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ComponentRef, OnInit, TemplateRef} from '@angular/core';
 import {GlobalService} from '../../../services/global.service';
 import {DisciplineService} from '../../../services/discipline.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
+import {ModalService} from '../../../../shared/services/modal.service';
 import {CurriculumComponent} from '../modals/curriculum/curriculum.component';
+import {BsModalService} from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-form',
@@ -27,7 +28,8 @@ export class FormComponent implements OnInit {
     private alertService: AlertService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private bsModalService: BsModalService,
+    private modalService: ModalService,
+    private modalRef: BsModalService,
   ) { }
 
   ngOnInit(): void {
@@ -55,8 +57,8 @@ export class FormComponent implements OnInit {
     }
   }
 
-  openRegisterModal(): void {
-
+  openRegisterModal(template: TemplateRef<any>): void {
+    this.modalService.open(template, CurriculumComponent);
   }
 
   private update() {
