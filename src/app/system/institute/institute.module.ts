@@ -9,16 +9,19 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
-  declarations: [
-    InstituteComponent,
-    ListComponent,
-    FormComponent
-  ],
-  imports: [
-    CommonModule,
-    InstituteRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+    declarations: [
+        InstituteComponent,
+        ListComponent,
+        FormComponent
+    ],
+    exports: [
+        ListComponent
+    ],
+    imports: [
+        CommonModule,
+        InstituteRoutingModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class InstituteModule { }
