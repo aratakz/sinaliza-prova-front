@@ -1,4 +1,11 @@
-import {Component, ComponentFactoryResolver, Inject, Injectable, Injector, TemplateRef} from '@angular/core';
+import {
+  ComponentFactoryResolver,
+  ElementRef,
+  Inject,
+  Injectable,
+  Injector,
+  TemplateRef
+} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
 @Injectable({
@@ -23,7 +30,7 @@ export class ModalService {
     this.document.body.prepend(modalComponent.location.nativeElement);
   }
 
-  close(templateRef: TemplateRef<any>) {
-
+  close(templateRef: ElementRef) {
+      templateRef.nativeElement.remove();
   }
 }

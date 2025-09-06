@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
+import {ModalService} from '../../../../../shared/services/modal.service';
 
 @Component({
   selector: 'app-curriculum',
@@ -7,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './curriculum.component.scss'
 })
 export class CurriculumComponent {
+  constructor(
+    private modalService: ModalService,
+    private elementRef: ElementRef,
+  ) {}
 
+  onClose() {
+    this.modalService.close(this.elementRef);
+  }
 }
