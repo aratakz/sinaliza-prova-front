@@ -21,12 +21,12 @@
         </div>
         <div class="curriculum-body">
           @if (curriculumList.length) {
-            @for (curriculum of curriculumList ; track curriculum.id) {
+            @for (curriculum of curriculumList ; track curriculum.id; let index = $index) {
               <div class="curriculum-element">
                 <div>{{curriculum.name}}</div>
                 <div>{{curriculum.weight}}</div>
                 <div>
-                  <button class="remove-curriculum">
+                  <button class="remove-curriculum" (click)="onRemove(index)">
                     <i class="fi fi-rr-cross-circle"></i>
                   </button>
                 </div>

@@ -114,4 +114,12 @@ export class FormComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  onRemove (index: any) {
+    for (const curriculum of this.curriculumList) {
+      if (this.curriculumList.indexOf(curriculum) === index) {
+        this.curriculumList.splice(this.curriculumList.indexOf(curriculum), 1);
+      }
+    }
+  }
 }
