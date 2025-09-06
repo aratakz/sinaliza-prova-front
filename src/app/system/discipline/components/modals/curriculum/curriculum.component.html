@@ -7,17 +7,17 @@
       </button>
     </div>
     <div class="dialog-content">
-      <form>
+      <form [formGroup]="form">
         <div class="form-group">
           <label>Nome</label>
-          <input class="form-input">
+          <input class="form-input" formControlName="name">
         </div>
         <div class="form-group">
           <label>Peso</label>
-          <input type="number" min="0" class="form-input">
+          <input type="number" min="0" class="form-input" formControlName="weight">
         </div>
         <div class="form-group">
-          <button type="button" class="secondary-button large">
+          <button type="button" class="secondary-button large" (click)="onSubmit()">
             Adicionar
           </button>
         </div>

@@ -21,7 +21,17 @@
         </div>
         <div class="curriculum-body">
           @if (curriculumList.length) {
-
+            @for (curriculum of curriculumList ; track curriculum.id) {
+              <div class="curriculum-element">
+                <div>{{curriculum.name}}</div>
+                <div>{{curriculum.weight}}</div>
+                <div>
+                  <button class="remove-curriculum">
+                    <i class="fi fi-rr-cross-circle"></i>
+                  </button>
+                </div>
+              </div>
+            }
           } @else {
             <div class="no-curriculum">
                 Nenhum item cadastrado

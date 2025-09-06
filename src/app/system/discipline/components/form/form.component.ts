@@ -1,4 +1,4 @@
-import {Component, ComponentRef, OnInit, TemplateRef} from '@angular/core';
+import {Component, ComponentRef, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import {GlobalService} from '../../../services/global.service';
 import {DisciplineService} from '../../../services/discipline.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -6,7 +6,8 @@ import {AlertService} from '../../../../shared/services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalService} from '../../../../shared/services/modal.service';
 import {CurriculumComponent} from '../modals/curriculum/curriculum.component';
-import {BsModalService} from 'ngx-bootstrap/modal';
+import {CurriculumService} from '../../../services/curriculum.service';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
   selector: 'app-form',
@@ -14,12 +15,12 @@ import {BsModalService} from 'ngx-bootstrap/modal';
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
+  private _destroy$: Subject<void> = new Subject<void>();
   // @ts-ignore
   form: FormGroup;
   id: string|null = '';
-  curriculumList: any = [];
-
+  curriculumList: Array<any> = [];
 
   constructor(
     private globalService: GlobalService,
@@ -29,8 +30,13 @@ export class FormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private modalService: ModalService,
-    private modalRef: BsModalService,
-  ) { }
+    private curriculumService: CurriculumService
+  ) {}
+
+  ngOnDestroy(): void {
+        this.curriculumList = [];
+        this._destroy$.next();
+  }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -42,11 +48,25 @@ export class FormComponent implements OnInit {
         next: (discipline: any) => {
           this.form.patchValue({
             name: discipline.name,
-          })
+          });
+          if (this.id) {
+            this.curriculumList = [];
+            if (discipline.curriculums) {
+                this.curriculumList = discipline.curriculums;
+            }
+          }
         }
-      })
+      });
     }
     this.globalService.activeRouteBehavior.next('Nova disciplina');
+    this.curriculumService.curriculumBehavior.pipe(takeUntil(this._destroy$)).subscribe({
+      next: (curriculumItem: any) => {
+       if (curriculumItem.length) {
+         this.curriculumList.push(curriculumItem[0]);
+         this.curriculumService.curriculumBehavior.next([]);
+       }
+      }
+    });
   }
 
   onSubmit() {
@@ -63,7 +83,11 @@ export class FormComponent implements OnInit {
 
   private update() {
     if (this.id) {
-      this.disciplineService.update(this.id, this.form.value).subscribe({
+      let formValues = this.form.value;
+      if(this.curriculumList.length) {
+        formValues.curriculum = this.curriculumList;
+      }
+      this.disciplineService.update(this.id, formValues).subscribe({
         next: async () => {
           await this.alertService.toastSuccess('Disciplina autalizada com êxito.');
           await this.router.navigate(['../system/discipline/list']);
@@ -76,7 +100,11 @@ export class FormComponent implements OnInit {
   }
 
   private createNew() {
-    this.disciplineService.register(this.form.value).subscribe({
+    let formValues = this.form.value;
+    if(this.curriculumList.length) {
+      formValues.curriculum = this.curriculumList;
+    }
+    this.disciplineService.register(formValues).subscribe({
       next: async () => {
         await this.alertService.toastSuccess('Disciplina cadastrada com êxito.');
         await this.router.navigate(['../system/discipline/list']);
