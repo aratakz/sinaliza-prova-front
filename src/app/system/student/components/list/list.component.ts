@@ -4,7 +4,6 @@ import {TableColumn, TableData, TableLine} from '../../../../@types';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {AlertService} from '../../../../shared/services/alert.service';
-import {userInfo} from 'node:os';
 import {AuthService} from '../../../../auth/services/auth.service';
 
 @Component({
@@ -22,6 +21,10 @@ export class ListComponent implements OnInit {
     {
       index: new Date().toISOString(),
       title: 'Email',
+    },
+    {
+      index: new Date().toISOString(),
+      title: 'Turma',
     },
     {
       index: new Date().toISOString(),
@@ -67,6 +70,19 @@ export class ListComponent implements OnInit {
         index: new Date().toISOString(),
         value: student.email
       };
+      let roomField
+      if (student.room) {
+        roomField = {
+          index: new Date().toISOString(),
+          value: student.room.name.toUpperCase(),
+        };
+      } else {
+        roomField = {
+          index: new Date().toISOString(),
+          value: '--'
+        };
+      }
+
       const lineActions: TableData = {
         index: new Date().toISOString(),
         classes: ['align-right'],
@@ -87,6 +103,7 @@ export class ListComponent implements OnInit {
       };
       fields.push(nameField);
       fields.push(emailField);
+      fields.push(roomField);
       fields.push(lineActions);
       this.tableLines.push({
         index: Date.toString(),

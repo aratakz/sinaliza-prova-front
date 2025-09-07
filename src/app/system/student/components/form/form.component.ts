@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {RoomService} from '../../../services/room.service';
 
 @Component({
   selector: 'app-form',
@@ -17,6 +18,8 @@ export class FormComponent  implements OnInit {
   form: FormGroup;
   id: string | null = null;
   selectedDisciplines: Array<any> = [];
+  rooms: Array<any> = [];
+
 
   constructor(
     private disciplineService: DisciplineService,
@@ -25,12 +28,14 @@ export class FormComponent  implements OnInit {
     private alertService: AlertService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private roomService: RoomService,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.initForm();
-    this.loadDisciplines();
+    await this.loadDisciplines();
+    await this.loadRooms();
     if (this.id) {
       this.feedForm();
     }
@@ -77,6 +82,7 @@ export class FormComponent  implements OnInit {
       email: ['', Validators.required],
       birthday: ['', Validators.required],
       selectedDiscipline: [''],
+      selectedRoom: ['']
     });
   }
 
@@ -84,11 +90,22 @@ export class FormComponent  implements OnInit {
     if (this.id) {
       this.userService.findById(this.id).subscribe({
         next: async (student: any) => {
+          let selectedRoom: any = {
+            value: '',
+          };
+          if (student.room) {
+            for (const room of this.rooms) {
+                if (room.value == student.room.id) {
+                  selectedRoom = room
+                }
+            }
+          }
           this.form.patchValue({
             name: student.name,
             cpf: student.cpf,
             email: student.email,
-            birthday: student.birthday
+            birthday: student.birthday,
+            selectedRoom: selectedRoom.value
           });
           if (student.disciplines && student.disciplines.length) {
             for (let storageDiscipline of student.disciplines) {
@@ -110,15 +127,21 @@ export class FormComponent  implements OnInit {
   }
 
   private loadDisciplines() {
-    this.disciplineService.getAll().subscribe({
-      next: (data: any) => {
-        for (const discipline of data) {
-          this.disciplines.push({
-            value: discipline.id,
-            label: discipline.name
-          });
+    return new Promise((resolve, reject) => {
+      this.disciplineService.getAll().subscribe({
+        next: (data: any) => {
+          for (const discipline of data) {
+            this.disciplines.push({
+              value: discipline.id,
+              label: discipline.name
+            });
+          }
+          resolve(true);
+        },
+        error: (error) => {
+          reject(error);
         }
-      }
+      });
     });
   }
 
@@ -151,5 +174,19 @@ export class FormComponent  implements OnInit {
       });
     }
   }
-
+  async loadRooms() {
+    return new Promise((resolve, reject) => {
+      this.roomService.list().subscribe({
+        next: async (rooms: any) => {
+          for (const room of rooms) {
+            this.rooms.push({
+              value: room.id,
+              label: room.name,
+            });
+          }
+          resolve(true);
+        }
+      });
+    });
+  }
 }
