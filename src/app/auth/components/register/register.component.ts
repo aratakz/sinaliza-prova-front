@@ -27,12 +27,10 @@ export class RegisterComponent implements OnInit {
     private instituteService: InstituteService,
   ) {
     this.formGroup = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(6)]],
-      name: ['', [Validators.required]],
+      login: ['', [Validators.required]],
+      cpf: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
-      birthday: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
       institute: ['', [Validators.required]],
     })
   }
@@ -83,26 +81,21 @@ export class RegisterComponent implements OnInit {
       if (this.formGroup.controls[control].errors && this.formGroup.controls[control].errors['required']) {
         let fieldName = "";
         switch (control) {
-          case 'email':
-            fieldName = "email";
-            break;
           case 'password':
             fieldName = "senha";
             break;
-          case 'username':
+          case 'login':
             fieldName = "login";
             break;
-          case  'name':
-            fieldName = "nome completo"
+          case  'cpf':
+            fieldName = "CPF"
             break;
           case 'confirmPassword':
             fieldName = "confirmar senha"
             break;
-          case 'birthday':
-            fieldName = "Data de nascimento"
-            break;
           case "institute":
             fieldName = "instituição"
+            break;
         }
         await this.alertService.toastError(`Atenção! O campo ${fieldName} não foi preenchido!`);
         break;

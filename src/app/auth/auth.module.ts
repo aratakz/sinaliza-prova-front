@@ -16,6 +16,7 @@ import {Select2, Select2Hint, Select2Label} from 'ng-select2-component';
 import { CarrouselComponent } from './components/carrousel/carrousel.component';
 import {SharedModule} from '../shared/shared.module';
 import { ActivateComponent } from './components/activate/activate.component';
+import {NgxMaskDirective, provideNgxMask} from "ngx-mask";
 
 
 @NgModule({
@@ -29,19 +30,21 @@ import { ActivateComponent } from './components/activate/activate.component';
     CarrouselComponent,
     ActivateComponent
   ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    Select2,
-    Select2Hint,
-    Select2Label,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        Select2,
+        Select2Hint,
+        Select2Label,
+        SharedModule,
+        NgxMaskDirective
+    ],
   providers: [
     AuthService,
     provideHttpClient(),
+    provideNgxMask({})
   ]
 })
 export class AuthModule { }
