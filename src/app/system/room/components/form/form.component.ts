@@ -15,6 +15,7 @@ export class FormComponent implements OnInit {
   // @ts-ignore
   form: FormGroup;
   id: any;
+  room: any = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +34,7 @@ export class FormComponent implements OnInit {
     if (this.id) {
       this.roomService.findById(this.id).subscribe({
         next: (rom: any) => {
+          this.room = rom;
          this.form.patchValue({
            name: rom.name,
          });

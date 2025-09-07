@@ -4,6 +4,20 @@
       <label>Nome</label>
       <input class="form-input" formControlName="name">
     </div>
+    @if (id && room && room.students) {
+      <div class="students-list">
+        <div class="students-list-heading">
+          <div>Alunos</div>
+        </div>
+        <div class="students-list-body">
+          @for (student of room.students; track student.id) {
+            <div class="student">
+              <span class="avatar">{{student.name[0].toUpperCase()}}</span> {{student.name.toUpperCase()}}
+            </div>
+          }
+        </div>
+      </div>
+    }
     <div class="form-group">
       <button type="button" class="primary-button save" (click)="onSubmit()">
         Salvar

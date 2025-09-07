@@ -1,0 +1,47 @@
+.students-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.students-list-heading {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  height: 30px;
+  font-weight: bold;
+  border-bottom: 1px solid #000000;
+}
+.students-list-body {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0 10px;
+}
+.student {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #000000;
+}
+.student:last-child {
+  border-bottom: none;
+}
+.avatar {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  background: #CDC9C9;
+  border-radius: 50%;
+  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  font-size: 30px;
+}
