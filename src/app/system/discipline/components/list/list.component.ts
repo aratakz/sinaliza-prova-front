@@ -44,11 +44,12 @@ export class ListComponent implements OnInit {
     await this.alertService.alertOptions(`Deseja realmente excluir essa disciplina?`,
       () => {
           this.disciplineService.remove(disciplineId).subscribe({
-            next: () => {
-              this.alertService.toastSuccess('Registro removido com sucesso!');
+            next:async () => {
+             await this.alertService.toastSuccess('Registro removido com sucesso!');
+             location.reload();
             },
             error: err => {
-              this.alertService.toastError('Não foi possível remover');
+              this.alertService.toastError('Não foi possível remover o registro');
             }
           });
       }
