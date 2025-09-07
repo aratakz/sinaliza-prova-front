@@ -56,9 +56,6 @@ export class PassStrengthComponent implements OnChanges {
     if (this.passStrength > 66.6 && this.passStrength <=  100) {
       this.passStatus =  'strong';
     }
-
-
-    console.debug('passStrength', this.passStrength);
   }
 
 }
