@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import {authGuard} from '../../shared/guards/auth.guard';
 import {RoomComponent} from './room.component';
 import {ListComponent} from './components/list/list.component';
+import {FormComponent} from './components/form/form.component';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     component: RoomComponent,
     children: [
       {
@@ -18,6 +19,14 @@ const routes: Routes = [
       {
         path: 'list',
         component: ListComponent,
+      },
+      {
+        path: 'form',
+        component: FormComponent,
+      },
+      {
+        path: 'form/:id',
+        component: FormComponent,
       }
     ]
   }

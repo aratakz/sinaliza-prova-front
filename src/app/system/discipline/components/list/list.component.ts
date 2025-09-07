@@ -56,7 +56,7 @@ export class ListComponent implements OnInit {
   }
 
   async onEdit(disciplineId: string) {
-    await this.router.navigate([`system/discipline/form/${disciplineId}`])
+    await this.router.navigate([`system/discipline/form/${disciplineId}`]);
   }
 
 

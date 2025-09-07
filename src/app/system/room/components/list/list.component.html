@@ -1,1 +1,6 @@
-<app-table-list></app-table-list>
+<div class="actions">
+  <button type="button" class="secondary-button small" routerLink="../form">
+    Nova disciplina
+  </button>
+</div>
+<app-table-list [tableColumns]="tableColumns" [tableLines]="tableData"></app-table-list>

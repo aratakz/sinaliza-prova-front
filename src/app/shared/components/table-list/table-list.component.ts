@@ -9,7 +9,7 @@ import {TableColumn, TableData, TableLine} from '../../../@types';
 })
 export class TableListComponent implements OnInit {
 
-  @Input() tableColumns: TableColumn[] = [];
+  @Input({required: true}) tableColumns: TableColumn[] = [];
   @Input() tableLines: TableLine[] = [];
 
   ngOnInit(): void {
