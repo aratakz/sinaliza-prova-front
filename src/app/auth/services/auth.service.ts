@@ -63,4 +63,8 @@ export class AuthService {
     return this.http.patch(`${this.baseUrl}/activate/${token}`, {});
 
   }
+
+  updatePass(token: string, formData: any) {
+    return this.http.patch(`${this.baseUrl}/updatePass/${token}`, formData);
+  }
 }

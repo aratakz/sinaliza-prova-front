@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
 import {SendEmailComponent} from './components/send-email/send-email.component';
 import {ActivateComponent} from './components/activate/activate.component';
+import {RenewPasswordComponent} from './components/renew-password/renew-password.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
       {
         path: "activate/:token",
         component: ActivateComponent
+      },
+      {
+        path: "recover/:token",
+        component: RenewPasswordComponent
       }
     ]
   }

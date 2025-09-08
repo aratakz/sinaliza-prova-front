@@ -21,7 +21,7 @@ export class VerifyEmailComponent {
     private alertService: AlertService,
     ) {
     this.formGroup = formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      cpf: ['', [Validators.required, Validators.email]],
     })
   }
 

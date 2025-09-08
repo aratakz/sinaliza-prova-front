@@ -41,14 +41,13 @@ export class RegisterComponent implements OnInit {
       this.formGroup.enable();
       await this.displayErrors();
     } else {
-      let isWeak = false;
-      isWeak = this.formGroup.controls['password'].value.length >= 8;
-      isWeak = !this.formGroup.controls['password'].value.match(/[a-z]+/);
-      isWeak = !this.formGroup.controls['password'].value.match(/[A-Z]+/);
-      isWeak = !this.formGroup.controls['password'].value.match(/[0-9]+/);
-      isWeak = !this.formGroup.controls['password'].value.match(/[$@#&!]+/);
+      let isWeakLength = this.formGroup.controls['password'].value.length <= 8;
+      let isWeakLower = !this.formGroup.controls['password'].value.match(/[a-z]+/);
+      let isWeakUpper = !this.formGroup.controls['password'].value.match(/[A-Z]+/);
+      let isWeakNumbers = !this.formGroup.controls['password'].value.match(/[0-9]+/);
+      let isWeakSpecialChars = !this.formGroup.controls['password'].value.match(/[$@#&!]+/);
 
-      if (isWeak) {
+      if (isWeakLower || isWeakUpper || isWeakNumbers|| isWeakLength || isWeakSpecialChars) {
         await this.alertService.toastError(`Senha fora dos padrões.`);
         this.formGroup.enable();
       } else {

@@ -2,12 +2,12 @@
   <h1>
     Esqueceu a senha?
   </h1>
-  <span>Digite o seu e-mail para recuperar a senha</span>
+  <span>Digite o seu CPF para recuperar a senha</span>
 </section>
 <section class="form-wrapper">
   <form [formGroup]="formGroup">
     <div class="form-group">
-      <input class="form-input" formControlName="email" placeholder="Email" type="email">
+      <input class="form-input" formControlName="cpf" placeholder="CPF" mask="000.000.000-00" type="text">
     </div>
     <div class="form-group">
       <button type="button" class="secondary-button medium" (click)="onSubmit()">ENVIAR</button>
