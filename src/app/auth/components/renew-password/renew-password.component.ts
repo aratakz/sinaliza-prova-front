@@ -56,7 +56,10 @@ export class RenewPasswordComponent implements OnInit {
         }
 
         this.authService.updatePass(this.token, this.form.value).subscribe({
-          next: () => {},
+          next: async () => {
+            await this.alertService.toastSuccess('Senha atualizada com êxito');
+            await this.router.navigate(['/']);
+          },
           error: (error) => {
             this.alertService.toastError('Não foi possível atuzalizar as crecenciais');
           }
