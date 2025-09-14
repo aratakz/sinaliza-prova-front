@@ -1,10 +1,6 @@
 <div class="overlay">
   <div class="dialog">
-    <div class="dialog-header">
-      <button class="dialog-close" (click)="onClose()">
-        <i class="fi fi-rs-circle-xmark"></i>
-      </button>
-    </div>
+    <div class="dialog-header"></div>
     <div class="dialog-content">
       @if (!showVideo) {
         <div class="action">
@@ -21,7 +17,7 @@
         </div>
       } @else {
         <div class="video-container">
-          <video [srcObject]="videoStream" [src]="videoUrl" #videoElement autoplay></video>
+          <video [srcObject]="videoStream" [src]="videoUrl" #videoElement [autoplay]="autoplay"></video>
           <div class="video-controls">
             @if (type.type == 'player') {
               <button (click)="playVideo(videoElement)">
@@ -31,6 +27,12 @@
                   <i class="fi fi-rr-pause"></i>
                 }
               </button>
+              <button class="video-approve">
+                <i class="fi fi-br-check"></i>
+              </button>
+              <button class="video-close" (click)="onClose()">
+                <i class="fi fi-bs-cross"></i>
+              </button>
             }
             @if (type.type == 'record') {
               <button class="action-rec" (click)="startStopRecording()">
@@ -39,6 +41,9 @@
                 } @else {
                   <i class="fi fi-sr-rec"></i>
                 }
+              </button>
+              <button class="video-close" (click)="onClose()">
+                <i class="fi fi-bs-cross"></i>
               </button>
             }
           </div>

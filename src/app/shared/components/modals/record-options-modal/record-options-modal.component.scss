@@ -112,6 +112,12 @@ video {
     border: none;
 
   }
+  button.video-approve{
+    background-color: green;
+  }
+  button.video-close {
+    background-color: red;
+  }
 }
 
 video {

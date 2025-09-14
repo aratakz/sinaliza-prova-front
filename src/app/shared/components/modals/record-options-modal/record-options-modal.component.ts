@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import {ModalService} from '../../../services/modal.service';
 import {BehaviorSubject} from 'rxjs';
+import {AlertService} from '../../../services/alert.service';
 
 enum RecoderType {
   record = 'record',
@@ -24,14 +25,18 @@ export class RecordOptionsModalComponent implements OnInit {
   showVideo: boolean = false
   playing: boolean = false;
   recording: boolean = false;
-  videoStream: MediaStream | null = null;
+  videoStream: MediaStream | null | void = null;
+  recorder: MediaRecorder| null | void = null;
+  autoplay: boolean = false;
+
 
   @Input({required: true}) type: any;
 
   constructor(
     private elementRef: ElementRef,
     private modalService: ModalService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private alertService: AlertService,
   ) {}
   ngOnInit(): void {
     this.updateVideoBehavior.subscribe({
@@ -43,6 +48,10 @@ export class RecordOptionsModalComponent implements OnInit {
 
   onClose() {
     this.modalService.close(this.elementRef);
+    if (this.recorder) {
+      this.recorder.stop();
+      this.recorder = null;
+    }
   }
 
  async onVideoSelect($event:any) {
@@ -52,8 +61,8 @@ export class RecordOptionsModalComponent implements OnInit {
     fileReader.readAsDataURL($event.target.files[0]);
     fileReader.onloadend = (event) => {
       this.videoUrl = (<FileReader>event.target).result
-
       this.updateVideoBehavior.next(true);
+      this.autoplay = false;
       this.changeDetectorRef.detectChanges();
     }
   }
@@ -72,17 +81,43 @@ export class RecordOptionsModalComponent implements OnInit {
     this.videoUrl = null;
     this.videoStream = await window.navigator.mediaDevices.getUserMedia({
       video: true,
+    }).catch(async (error) => {
+      this.videoStream = null;
+      if (error == 'NotAllowedError: Permission denied') {
+        await this.alertService.toastError('Permissão para câmera negada ');
+      } else {
+        await this.alertService.toastError('Não foi possível iniciar a câmera');
+      }
     });
-    this.type = {type: RecoderType.record};
-    this.updateVideoBehavior.next(true);
-    this.changeDetectorRef.detectChanges();
+
+    if (this.videoStream) {
+      this.type = {type: RecoderType.record};
+      this.updateVideoBehavior.next(true);
+      this.autoplay = true;
+      this.changeDetectorRef.detectChanges();
+    }
   }
+
   startStopRecording() {
     this.recording = !this.recording;
     if (this.recording && this.videoStream) {
-      const mediaRecorder = new MediaRecorder(this.videoStream, {
+      this.recorder = new MediaRecorder(this.videoStream, {
         mimeType: 'video/webm',
       })
+      this.recorder.ondataavailable = (event) => {
+        this.videoStream = null;
+        this.type = {type: RecoderType.player};
+        this.videoUrl = URL.createObjectURL(event.data);
+        this.autoplay = false
+        this.changeDetectorRef.detectChanges();
+      };
+      this.recorder.start();
+
+    } else {
+      if (this.recorder) {
+        this.recorder.stop();
+        this.videoStream= null
+      }
 
     }
     this.changeDetectorRef.detectChanges();
