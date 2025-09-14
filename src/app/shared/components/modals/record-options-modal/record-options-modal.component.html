@@ -1,0 +1,49 @@
+<div class="overlay">
+  <div class="dialog">
+    <div class="dialog-header">
+      <button class="dialog-close" (click)="onClose()">
+        <i class="fi fi-rs-circle-xmark"></i>
+      </button>
+    </div>
+    <div class="dialog-content">
+      @if (!showVideo) {
+        <div class="action">
+          <input type="file" id="upload-movie" (change)="onVideoSelect($event)" accept="video/mp4, video/mkv, video/avi">
+          <i class="fi fi-br-cloud-upload"></i>
+          <span>
+            Enviar arquivos <br>
+            <small>(.avi .mp4 .mkv)</small>
+          </span>
+        </div>
+        <div class="action" (click)="openRecorder()">
+          <i class="fi fi-rr-video-camera-alt"></i>
+          <span>Gravar vídeo</span>
+        </div>
+      } @else {
+        <div class="video-container">
+          <video [srcObject]="videoStream" [src]="videoUrl" #videoElement autoplay></video>
+          <div class="video-controls">
+            @if (type.type == 'player') {
+              <button (click)="playVideo(videoElement)">
+                @if (!playing) {
+                  <i class="fi fi-br-play"></i>
+                } @else {
+                  <i class="fi fi-rr-pause"></i>
+                }
+              </button>
+            }
+            @if (type.type == 'record') {
+              <button class="action-rec" (click)="startStopRecording()">
+                @if (recording) {
+                  <i class="fi fi-sr-stop"></i>
+                } @else {
+                  <i class="fi fi-sr-rec"></i>
+                }
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

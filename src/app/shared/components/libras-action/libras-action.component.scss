@@ -1,0 +1,22 @@
+.add-libras {
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+  right: 0;
+  button {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: -15px;
+    right: 15px;
+    background: var(--primary);
+    border: none;
+    color: #FFFFFF;
+    border-radius: 20px;
+    cursor: pointer;
+    background-size: 60% 60%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 10px;
+  }
+}

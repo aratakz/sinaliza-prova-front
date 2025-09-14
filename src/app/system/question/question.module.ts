@@ -5,6 +5,8 @@ import { QuestionRoutingModule } from './question-routing.module';
 import { QuestionComponent } from './question.component';
 import { ListComponent } from './components/list/list.component';
 import { FormComponent } from './components/form/form.component';
+import {SharedModule} from "../../shared/shared.module";
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { FormComponent } from './components/form/form.component';
   ],
   imports: [
     CommonModule,
-    QuestionRoutingModule
+    QuestionRoutingModule,
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class QuestionModule { }

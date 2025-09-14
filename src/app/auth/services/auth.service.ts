@@ -5,7 +5,9 @@ import {lastValueFrom, Observable} from 'rxjs';
 import {AlertService} from '../../shared/services/alert.service';
 import {Router} from '@angular/router';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   readonly baseUrl = `${config.api_host}/auth`;
 
@@ -56,8 +58,11 @@ export class AuthService {
     await this.router.navigate(['/']);
   }
 
-  checkToken(token:string): Observable<Object> {
+  checkToken(token:string|null): Observable<Object> {
     return this.http.get(`${this.baseUrl}/checkTwoFactorToken/${token}`);
+  }
+  checkAuthToken(token:string|null): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/checkAuthToken/${token}`);
   }
   activate(token:string):Observable<any> {
     return this.http.patch(`${this.baseUrl}/activate/${token}`, {});

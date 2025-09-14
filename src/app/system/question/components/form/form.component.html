@@ -1,1 +1,30 @@
-<p>form works!</p>
+<div class="wrapper">
+  <div class="form-group">
+    <label>Nome</label>
+    <app-libras-action [type]="'player'"></app-libras-action>
+    <input class="form-input">
+  </div>
+  <div class="form-group">
+    <label>Enunciado</label>
+    <app-libras-action [type]="'record'"></app-libras-action>
+    <input class="form-input">
+  </div>
+  <div class="form-group">
+    <label>Informações adicionais</label>
+    <app-libras-action [type]="'player'"></app-libras-action>
+    <textarea class="textarea"></textarea>
+  </div>
+  <div class="form-group">
+    <label> Tpo de questão</label>
+    <div class="form-row">
+      <input class="form-input" type="radio">
+      <label>Objetiva</label>
+      <input class="form-input" type="radio">
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="button" class="primary-button save" (click)="onSubmit()">
+      Salvar
+    </button>
+  </div>
+</div>

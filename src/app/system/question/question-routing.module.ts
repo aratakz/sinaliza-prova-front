@@ -19,7 +19,11 @@ const routes: Routes = [
         component: ListComponent,
       },
       {
-        path: 'register',
+        path: 'form',
+        component: FormComponent,
+      },
+      {
+        path: 'form/:id',
         component: FormComponent,
       }
     ]

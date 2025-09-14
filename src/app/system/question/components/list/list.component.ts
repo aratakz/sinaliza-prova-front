@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TableColumn} from '../../../../@types';
 
 @Component({
   selector: 'app-list',
@@ -6,6 +7,22 @@ import { Component } from '@angular/core';
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
+  constructor() {}
+
+  tableColumns:TableColumn[] = [
+    {
+      index: new Date().toISOString(),
+      title: "Título"
+    },
+    {
+      index: new Date().toISOString(),
+      title: ""
+    }
+  ]
+
+  ngOnInit(): void {
+
+  }
 
 }

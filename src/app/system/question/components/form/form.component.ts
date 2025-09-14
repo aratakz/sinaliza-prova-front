@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-form',
@@ -6,6 +6,11 @@ import { Component } from '@angular/core';
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
-export class FormComponent {
+export class FormComponent implements OnInit {
+  constructor() {}
 
+  ngOnInit(): void {
+  }
+
+  onSubmit() {}
 }

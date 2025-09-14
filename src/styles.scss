@@ -37,6 +37,7 @@ body {
     width: 100%;
   }
   .select2-selection,
+  .textarea,
   .form-input {
     background: var(--primary-foreground);
     height: 40px !important;
@@ -47,6 +48,10 @@ body {
     color: var(--default-input);
     font-size: 16px;
   }
+}
+.textarea {
+  padding: 10px !important;
+  min-height: 100px !important;
 }
 label {
   font-size: 15px;
@@ -241,6 +246,7 @@ fieldset {
   background: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: flex-start;
+  z-index: 9999999999999999999;
 }
 .dialog-close {
   background: none;
@@ -269,4 +275,14 @@ fieldset {
   display: flex;
   width: 100%;
   flex-direction: column;
+}
+.form-row {
+  align-items: center;
+  label {
+    font-size: 14px;
+    margin-right: 16px;
+  }
+  input[type=radio] {
+    width: auto !important;
+  }
 }

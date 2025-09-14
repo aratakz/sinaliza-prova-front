@@ -1,0 +1,119 @@
+.dialog {
+  min-height: 500px;
+}
+.dialog-header {
+  justify-content: flex-end;
+}
+.dialog-content {
+  flex-direction: row;
+  width: 100%;
+  .action {
+    display: flex;
+    width: 50%;
+    border: 3px dashed #000000;
+    border-radius: 16px;
+    height: 400px;
+    margin: 10px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    flex-direction: column;
+    span {
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+      small {
+        font-size: 12px;
+        font-weight: normal;
+        text-align: center;
+      }
+    }
+  }
+
+  .action:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+}
+.action {
+  cursor: pointer;
+  i,
+  span {
+    position: absolute;
+  }
+  span {
+    top: 35%
+  }
+}
+
+#upload-movie {
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 99999999;
+}
+
+video {
+  width: 100%;
+}
+.video-container {
+  display: flex;
+  width: 100%;
+}
+.video-controls {
+  z-index: 9999999;
+  padding: 10px 20px;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  margin-left: -100px;
+  button {
+    margin: 10px 0;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: var(--primary);
+    color: #FFFFFF;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+
+    i {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  button.action-stop {
+    background-color: transparent;
+    font-size: 15px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    border: none;
+    color: #FF0000 ;
+  }
+  button.action-rec {
+    font-size: 60px;
+    background-color: transparent;
+    color: #FF0000 ;
+    border: none;
+
+  }
+}
+
+video {
+  border-radius: 8px;
+}
