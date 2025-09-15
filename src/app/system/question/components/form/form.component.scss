@@ -1,0 +1,78 @@
+fieldset {
+  display: flex;
+  width: 100%;
+}
+.gallery {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 250px 250px 250px 250px;
+  gap: 20px;
+  width: 100%;
+  border: 1px solid #000000;
+  padding: 10px;
+  min-height: 100px;
+  border-radius: 8px;
+  * {
+    margin: 0 4px;
+  }
+}
+
+.add-image {
+  display: flex;
+  width: 200px;
+  top: 0;
+  height: 110px;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  background-color: #CDC9C9;
+  border: 1px solid #000000;
+  cursor: pointer;
+  flex-direction: column;
+}
+.add-image:before {
+  content: "+";
+  position: relative;
+  top: 30px;
+}
+.add-file {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: relative;
+  top: -18px;
+}
+
+.image-container {
+  display: flex;
+  width: 200px;
+  height: 100px;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  background-size: cover;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+
+  .remove-image {
+    display: flex;
+    width: 40px;
+    height:40px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff0000;
+    color: white;
+    align-self: flex-end;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    i {
+
+      display: flex;
+    }
+  }
+}
