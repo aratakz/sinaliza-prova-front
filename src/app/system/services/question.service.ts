@@ -18,4 +18,8 @@ export class QuestionService {
     this.headers.append('Content-Type', 'multipart/form-data');
     return this.http.post(`${this.baseUrl}/register`, body, {headers: this.headers});
   }
+
+  list() {
+    return this.http.get(`${this.baseUrl}/list`, {headers: this.headers});
+  }
 }
