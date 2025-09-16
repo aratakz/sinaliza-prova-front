@@ -23,3 +23,8 @@ th {
 td {
   border-bottom: 1px solid #CDC9C9;
 }
+.line:last-child {
+  td {
+    border-bottom: none;
+  }
+}

@@ -9,7 +9,7 @@
     </thead>
     <tbody>
       @for (line of tableLines; track line.index) {
-        <tr>
+        <tr class="line">
           @for(field of line.fields; track field.index) {
             <td [class]="field.classes">
               @if (field.value) {
