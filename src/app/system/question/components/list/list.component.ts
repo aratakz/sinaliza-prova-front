@@ -40,12 +40,27 @@ export class ListComponent implements OnInit {
   }
 
   feedTable(questions:any) {
-    for (const discipline of questions) {
+    let title: TableData|null = null;
+
+    for (const question of questions) {
       const fields: TableData[] = [];
       const field: TableData = {
         index: new Date().toISOString(),
-        value: discipline.name
+        value: question.name
       };
+      if (question.fields) {
+        for (const questionField of question.fields) {
+          if (questionField.fieldValue) {
+            if (questionField.fieldType == 'title') {
+              title = {
+                index: questionField.id,
+                value: questionField.fieldValue
+              };
+            }
+          }
+        }
+      }
+
       const lineActions: TableData = {
         index: new Date().toISOString(),
         classes: ['align-right'],
@@ -54,17 +69,25 @@ export class ListComponent implements OnInit {
             index: new Date().toISOString(),
             classes: ['btn-edit'],
             icon: 'fi fi-rr-pencil',
-            onClick: async () => this.onEdit(discipline.id),
+            onClick: async () => this.onEdit(question.id),
           },
           {
             index: new Date().toISOString(),
             classes: ['btn-remove'],
             icon: 'fi fi-rr-trash',
-            onClick: async () => await this.onRemove(discipline.id)
+            onClick: async () => await this.onRemove(question.id)
           }
         ]
       };
       fields.push(field);
+      if (title) {
+        fields.push(title);
+      } else {
+        fields.push({
+          index: new Date().toISOString(),
+          value: ''
+        });
+      }
       fields.push(lineActions);
       this.tableLines.push({
         index: Date.toString(),
