@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../../services/question.service';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {Router} from '@angular/router';
@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
   // @ts-ignore
   form: FormGroup;
   addedImages: Array<File> = [];
+  options: Array<any> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,22 +34,24 @@ export class FormComponent implements OnInit {
       name: ['', Validators.required],
       title: ['', Validators.required],
       support_data: [''],
+      options: this.formBuilder.array([])
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     const formValues:any  = this.form.value;
-    const  formData = new FormData();
-
-    for (const addedImage of this.addedImages) {
-      formData.append(`image_${new Date().toString()}`, addedImage);
+    const images:Array<any>  = [];
+    for (const item of this.addedImages) {
+      images.push(await this.fileToBase64(item));
     }
 
-    formValues.files = formData;
+    formValues.file = images;
+
+
     this.questionService.register(formValues).subscribe({
       next: async () => {
         await this.alertService.toastSuccess('Questão criada com sucesso!');
-        await this.router.navigate(['system/question/list']);
+        // await this.router.navigate(['system/question/list']);
       }
     });
   }
@@ -69,4 +72,27 @@ export class FormComponent implements OnInit {
   removeImage(index: any) {
     this.galleryList.splice(index, 1);
   }
+
+
+  addOption() {
+    this.options.push({
+      track: new Date().toISOString(),
+      text: '',
+      isAnswer: false
+    });
+  }
+
+  removeOption(index: any) {
+    this.options.splice(index, 1);
+  }
+
+  fileToBase64(file: File)  {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file); // Reads the file and returns a data URL (Base64 encoded)
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
 }

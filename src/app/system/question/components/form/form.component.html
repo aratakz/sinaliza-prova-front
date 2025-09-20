@@ -10,6 +10,40 @@
       <app-libras-action [type]="'record'"></app-libras-action>
       <input class="form-input" formControlName="title">
     </div>
+    <fieldset>
+      <legend>Alternativas</legend>
+      <div class="options">
+        <div class="options-header">
+          <div>Texto</div>
+          <div></div>
+          <button class="secondary-button thin small" (click)="addOption()">
+            <i class="fi fi-br-plus-small"></i> Opção
+          </button>
+        </div>
+        <div class="options-body">
+          @if (!options.length) {
+            <div class=" option-item no-options">Nenhuma opção diponível </div>
+          } @else {
+            @for (option of options; track option.track; let index = $index) {
+            <div class="option-item">
+              <div>
+                <input type="text" class="form-input">
+                <app-libras-action [type]="'record'"></app-libras-action>
+              </div>
+              <div>
+                <input type="checkbox"> Resposta
+              </div>
+              <div class="remove-option">
+                <button (click)="removeOption(index)">
+                  <i class="fi fi-rr-cross-circle"></i>
+                </button>
+              </div>
+            </div>
+            }
+          }
+        </div>
+      </div>
+    </fieldset>
     <div class="form-group">
       <label>Informações adicionais</label>
       <app-libras-action [type]="'player'"></app-libras-action>

@@ -76,3 +76,79 @@ fieldset {
     }
   }
 }
+
+.options {
+  display: flex;
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid #000000;
+  padding: 10px;
+  flex-direction: column;
+  border-radius: 8px;
+}
+.options-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  width: 100%;
+  padding: 10px 5px;
+  border-bottom: 2px solid #000000;
+
+  * {
+    margin: 0 8px;
+  }
+  div {
+    width: 100%;
+  }
+  button {
+    i {
+      margin: 0;
+    }
+  }
+}
+
+.option-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #000000;
+  div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0 4px
+  }
+}
+
+.no-options {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.remove-option {
+  justify-content: flex-end;
+
+  button {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    background: none;
+    border: none;
+    color: #ff0000;
+    font-size: 20px;
+    cursor: pointer;
+    i {
+      display: flex;
+    }
+  }
+}
+.option-item:last-child {
+  border-bottom: none;
+}
+
