@@ -22,4 +22,8 @@ export class QuestionService {
   list() {
     return this.http.get(`${this.baseUrl}/list`, {headers: this.headers});
   }
+
+  remove(questionId: string) {
+    return this.http.delete(`${this.baseUrl}/${questionId}`, {headers: this.headers});
+  }
 }

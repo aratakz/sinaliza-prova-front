@@ -97,7 +97,19 @@ export class ListComponent implements OnInit {
   }
 
   async onRemove(questionId:any) {
-
+    await this.alertService.alertOptions(`Deseja realmente excluir essa disciplina?`,
+      () => {
+        this.questionService.remove(questionId).subscribe({
+          next:async () => {
+            await this.alertService.toastSuccess('Registro removido com sucesso!');
+            location.reload();
+          },
+          error: err => {
+            this.alertService.toastError('Não foi possível remover o registro');
+          }
+        });
+      }
+    );
   }
   async onEdit(questionId:any) {}
 }
