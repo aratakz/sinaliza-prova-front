@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../../services/question.service';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {Router} from '@angular/router';
@@ -34,7 +34,7 @@ export class FormComponent implements OnInit {
       name: ['', Validators.required],
       title: ['', Validators.required],
       support_data: [''],
-      options: this.formBuilder.array([])
+      answers: this.formBuilder.array([])
     });
   }
 
@@ -75,15 +75,15 @@ export class FormComponent implements OnInit {
 
 
   addOption() {
-    this.options.push({
-      track: new Date().toISOString(),
-      text: '',
-      isAnswer: false
-    });
+    const answersGroup = this.form.get('answers') as FormArray;
+    answersGroup.push(new FormGroup({
+      isAnswer: new FormControl([]),
+      questionTitle : new FormControl([]),
+    }));
   }
 
   removeOption(index: any) {
-    this.options.splice(index, 1);
+    this.formAnswers.removeAt(index);
   }
 
   fileToBase64(file: File)  {
@@ -95,4 +95,40 @@ export class FormComponent implements OnInit {
     });
   };
 
+  checkAsAnswer(index: any, event: Event) {
+    if (this.formAnswers.controls[index].value) {
+      if (this.formAnswers.controls[index].value.isAnswer === true) {
+        this.formAnswers.controls[index].patchValue({
+          isAnswer: false,
+        });
+        for (const option of this.formAnswers.controls) {
+          option.enable();
+        }
+      } else {
+        this.formAnswers.controls[index].patchValue({
+          isAnswer: true,
+        });
+        for (const option of this.formAnswers.controls) {
+          if (option.value.isAnswer !== true) {
+            option.disable();
+          }
+        }
+      }
+    }
+  }
+
+  setQuestionTitle(index: any, event: Event) {
+    if (this.formAnswers.controls[index].value) {
+      this.formAnswers.controls[index].patchValue({
+        questionTitle : (event.target as HTMLInputElement).value
+      });
+    }
+  }
+
+  get formAnswers(): FormArray {
+    return this.form.get('answers') as FormArray;
+  }
+
+
 }
+

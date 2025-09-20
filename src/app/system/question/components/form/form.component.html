@@ -21,17 +21,23 @@
           </button>
         </div>
         <div class="options-body">
-          @if (!options.length) {
+          @if (!formAnswers.controls.length) {
             <div class=" option-item no-options">Nenhuma opção diponível </div>
           } @else {
-            @for (option of options; track option.track; let index = $index) {
+            @if (form && form.get('answers')) {
+            @for (option of formAnswers.controls; track formAnswers.controls.indexOf(option); let index = $index) {
             <div class="option-item">
               <div>
-                <input type="text" class="form-input">
+                <input
+                  type="text" class="form-input" (input)="setQuestionTitle(index, $event)">
                 <app-libras-action [type]="'record'"></app-libras-action>
               </div>
               <div>
-                <input type="checkbox"> Resposta
+                <input type="checkbox"
+                       (click)="checkAsAnswer(index, $event)"
+                       class="answer"
+                       [disabled]="formAnswers.controls[index].disabled"
+                > Resposta correta
               </div>
               <div class="remove-option">
                 <button (click)="removeOption(index)">
@@ -39,6 +45,7 @@
                 </button>
               </div>
             </div>
+            }
             }
           }
         </div>
