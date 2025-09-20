@@ -78,7 +78,7 @@ export class FormComponent implements OnInit {
     const answersGroup = this.form.get('answers') as FormArray;
     answersGroup.push(new FormGroup({
       isAnswer: new FormControl([]),
-      questionTitle : new FormControl([]),
+      title : new FormControl([]),
     }));
   }
 
@@ -120,7 +120,7 @@ export class FormComponent implements OnInit {
   setQuestionTitle(index: any, event: Event) {
     if (this.formAnswers.controls[index].value) {
       this.formAnswers.controls[index].patchValue({
-        questionTitle : (event.target as HTMLInputElement).value
+        title : (event.target as HTMLInputElement).value
       });
     }
   }
