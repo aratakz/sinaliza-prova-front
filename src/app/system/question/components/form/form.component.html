@@ -29,13 +29,18 @@
             <div class="option-item">
               <div>
                 <input
-                  type="text" class="form-input" (input)="setQuestionTitle(index, $event)">
+                  type="text"
+                  class="form-input"
+                  (input)="setQuestionTitle(index, $event)"
+                  [value]="formAnswers.value[index].title"
+                >
                 <app-libras-action [type]="'record'"></app-libras-action>
               </div>
               <div>
                 <input type="checkbox"
                        (click)="checkAsAnswer(index, $event)"
                        class="answer"
+                       [checked]="formAnswers.value[index].isAnswer"
                        [disabled]="formAnswers.controls[index].disabled"
                 > Resposta correta
               </div>

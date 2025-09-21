@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../../services/question.service';
 import {AlertService} from '../../../../shared/services/alert.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 type galleryItem = {
   id: any;
@@ -26,8 +26,11 @@ export class FormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private questionService: QuestionService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {}
+  question: any;
+  questionId:any;
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -36,6 +39,37 @@ export class FormComponent implements OnInit {
       support_data: [''],
       answers: this.formBuilder.array([])
     });
+    this.questionId = this.activatedRoute.snapshot.paramMap.get('id')
+
+    if (this.questionId) {
+      this.questionService.findOne(this.questionId).subscribe((question: any) => {
+        this.question = question;
+        this.form.patchValue({
+          name: question.name
+        });
+
+        if (question.fields) {
+          for (const field of question.fields) {
+              if (field.fieldType == 'title') {
+                this.form.patchValue({
+                  title: field.fieldValue
+                });
+              }
+              if (field.fieldType == 'support_data') {
+                this.form.patchValue({
+                    support_data: field.fieldValue
+                });
+              }
+          }
+        }
+
+        if (question.options) {
+          for (const option of question.options) {
+            this.loadOption(option.title, option.isAnswer);
+          }
+        }
+      });
+    }
   }
 
   async onSubmit() {
@@ -51,7 +85,7 @@ export class FormComponent implements OnInit {
     this.questionService.register(formValues).subscribe({
       next: async () => {
         await this.alertService.toastSuccess('Questão criada com sucesso!');
-        // await this.router.navigate(['system/question/list']);
+        await this.router.navigate(['system/question/list']);
       }
     });
   }
@@ -80,6 +114,19 @@ export class FormComponent implements OnInit {
       isAnswer: new FormControl([]),
       title : new FormControl([]),
     }));
+  }
+
+  loadOption(title:any,isAnswer:boolean) {
+    const answersGroup = this.form.get('answers') as FormArray;
+    const formData = new FormGroup({
+      isAnswer: new FormControl(),
+      title : new FormControl(['sas']),
+    });
+    formData.patchValue({
+      title: title,
+      isAnswer: isAnswer
+    });
+    answersGroup.push(formData);
   }
 
   removeOption(index: any) {

@@ -26,4 +26,8 @@ export class QuestionService {
   remove(questionId: string) {
     return this.http.delete(`${this.baseUrl}/${questionId}`, {headers: this.headers});
   }
+
+  findOne(questionId: string) {
+    return this.http.get(`${this.baseUrl}/find/${questionId}`, {headers: this.headers});
+  }
 }

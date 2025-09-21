@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TableColumn, TableData, TableLine} from '../../../../@types';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {QuestionService} from '../../../services/question.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -12,7 +13,8 @@ import {QuestionService} from '../../../services/question.service';
 export class ListComponent implements OnInit {
   constructor(
     private alertService: AlertService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private router: Router
   ) {}
 
   tableColumns:TableColumn[] = [
@@ -111,5 +113,7 @@ export class ListComponent implements OnInit {
       }
     );
   }
-  async onEdit(questionId:any) {}
+  async onEdit(questionId:any) {
+    await this.router.navigate([`system/question/form/${questionId}`]);
+  }
 }
