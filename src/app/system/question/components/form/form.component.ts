@@ -17,6 +17,8 @@ type galleryItem = {
 export class FormComponent implements OnInit {
 
   galleryList: galleryItem[] = [];
+
+
   // @ts-ignore
   form: FormGroup;
   addedImages: Array<File> = [];
@@ -60,6 +62,15 @@ export class FormComponent implements OnInit {
                     support_data: field.fieldValue
                 });
               }
+          }
+        }
+
+        if (question.images) {
+          for (const image of question.images) {
+            this.galleryList.push({
+              id: image.id,
+              link: image.url
+            });
           }
         }
 
@@ -109,24 +120,55 @@ export class FormComponent implements OnInit {
 
 
   addOption() {
-    const answersGroup = this.form.get('answers') as FormArray;
-    answersGroup.push(new FormGroup({
-      isAnswer: new FormControl([]),
-      title : new FormControl([]),
+    let answers = [];
+    for (const item of this.formAnswers.value) {
+      answers.push(item);
+    }
+    this.formAnswers.clear();
+    this.formAnswers.push(new FormGroup({
+      isAnswer: new FormControl(false),
+      title : new FormControl(),
     }));
+    for (let answer of answers) {
+      this.loadOption(answer.title, answer.isAnswer);
+    }
+    this.enableDisableOption();
+
+    let unsetOptions: Array<any> = [];
+    for (const control of this.formAnswers.controls) {
+      if (control.disabled) {
+        unsetOptions.push(1);
+      }
+    }
+    if (unsetOptions.length >= this.formAnswers.controls.length) {
+      for (const control of this.formAnswers.controls) {
+        control.enable();
+      }
+    }
+  }
+
+  enableDisableOption() {
+    for (let control of this.formAnswers.controls) {
+      control.disable();
+
+      if (control.value.isAnswer) {
+        control.enable({onlySelf: true});
+      }
+    }
   }
 
   loadOption(title:any,isAnswer:boolean) {
-    const answersGroup = this.form.get('answers') as FormArray;
     const formData = new FormGroup({
       isAnswer: new FormControl(),
-      title : new FormControl(['sas']),
+      title : new FormControl(),
     });
     formData.patchValue({
       title: title,
       isAnswer: isAnswer
     });
-    answersGroup.push(formData);
+    this.formAnswers.push(formData);
+    this.enableDisableOption();
+
   }
 
   removeOption(index: any) {
@@ -143,25 +185,7 @@ export class FormComponent implements OnInit {
   };
 
   checkAsAnswer(index: any, event: Event) {
-    if (this.formAnswers.controls[index].value) {
-      if (this.formAnswers.controls[index].value.isAnswer === true) {
-        this.formAnswers.controls[index].patchValue({
-          isAnswer: false,
-        });
-        for (const option of this.formAnswers.controls) {
-          option.enable();
-        }
-      } else {
-        this.formAnswers.controls[index].patchValue({
-          isAnswer: true,
-        });
-        for (const option of this.formAnswers.controls) {
-          if (option.value.isAnswer !== true) {
-            option.disable();
-          }
-        }
-      }
-    }
+
   }
 
   setQuestionTitle(index: any, event: Event) {
