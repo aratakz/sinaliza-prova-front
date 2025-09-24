@@ -14,9 +14,10 @@ import { AlertService } from '../../../shared/services/alert.service';
 export class UserComponent implements OnDestroy, OnInit {
   imagePath: any;
   user: any;
-  gravatarCheckActive: any; 
-  useGravatar: any; 
+  gravatarCheckActive: any;
+  useGravatar: any;
   usersForm: FormGroup;
+  imageData: any;
 
   constructor(private globalService: GlobalService,
               private userService: UserService,
@@ -56,8 +57,15 @@ export class UserComponent implements OnDestroy, OnInit {
     let fileList: FileList | null = element.files;
     if (fileList) {
       if (fileList.item(0)) {
+        const fileReader = new FileReader();
         this.imagePath = URL.createObjectURL(fileList[0]);
         this.userService.avatarSubject.next(this.imagePath);
+        fileReader.readAsDataURL(fileList[0]);
+
+        fileReader.onloadend = (event) => {
+          this.imageData = (<FileReader>event.target).result
+          console.debug(this.imageData);
+        }
       }
     }
   }
@@ -79,16 +87,16 @@ export class UserComponent implements OnDestroy, OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     const formValue = this.usersForm.value;
     if (this.usersForm.value.birthday) {
       formValue.birthday = this.parseBirthday(this.usersForm.value.birthday);
     }
-
-    this.userService.update(formValue).subscribe({
+    formValue.image = this.imageData;
+    this.userService.updateUser(formValue).subscribe({
       next: () => {}
     });
-    this.alertService.toastSuccess("Cadastro atualizado com sucesso!");
+    await this.alertService.toastSuccess("Cadastro atualizado com sucesso!");
   }
 
   private parseBirthday (birthday: string) {

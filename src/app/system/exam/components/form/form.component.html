@@ -1,0 +1,75 @@
+<div class="wrapper">
+  <form class="checkout-form" [formGroup]="form" >
+    <div class="form-row">
+      <div class="form-group">
+        <label>Título</label>
+        <input class="form-input" formControlName="title">
+      </div>
+      <div class="form-group">
+        <label>Disciplina</label>
+        <select2
+          [data]="disciplines"
+          formControlName="discipline"
+          resettable
+          [minCountForSearch]="2"
+          [minCharForSearch]="3"
+          placeholder="Selecine"
+        ></select2>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Turma</label>
+        <select2
+          [data]="rooms"
+          formControlName="room"
+          resettable
+          [minCharForSearch]="3"
+          [minCountForSearch]="2"
+          placeholder="Selecine"
+        ></select2>
+      </div>
+      <div class="form-group">
+        <label>Data</label>
+        <input class="form-input" type="date" formControlName="date">
+      </div>
+    </div>
+    <fieldset>
+      <legend>Questões</legend>
+      <div class="form-group">
+        <select2 class="ignore"
+                 [data]="questions"
+                 customSearchEnabled
+                 resettable
+                 [minCharForSearch]="3"
+                 [minCountForSearch]="2"
+                 (search)="onQuestionSearch($event)"
+                 (update)="onSelectQuestion($event)"
+                 placeholder="Busque pelo enunciado"
+        ></select2>
+      </div>
+      <div class="question-list">
+        <div class="quetion-header">
+          <div class="header-label">Nome</div>
+          <div class="header-label"></div>
+        </div>
+        @if (selectedQuestions.length) {
+          @for (question of selectedQuestions; track question.id; let index = $index) {
+            <div class="question-item">
+              <div>{{question.name}}</div>
+              <div>
+                <button (click)="removeQuestion(index)">
+                  <i class="fi fi-rr-cross-circle"></i>
+                </button>
+              </div>
+            </div>
+          }
+        } @else {
+          <div class="no-questions">
+            Nenhuma questão selecionada
+          </div>
+        }
+      </div>
+    </fieldset>
+  </form>
+</div>

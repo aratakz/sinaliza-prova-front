@@ -49,6 +49,11 @@ const routes: Routes = [
         path: 'room',
         canActivate: [authGuard],
         loadChildren: () => import('./room/room.module').then(m => m.RoomModule),
+      },
+      {
+        path: "exam",
+        canActivate: [authGuard],
+        loadChildren: () => import('./exam/exam.module').then((m) => m.ExamModule)
       }
     ]
   }

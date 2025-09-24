@@ -31,6 +31,10 @@ export class QuestionService {
     return this.http.get(`${this.baseUrl}/find/${questionId}`, {headers: this.headers});
   }
 
+  findByTitle(search: string) {
+    return this.http.get(`${this.baseUrl}/search/?search=${search}`, {headers: this.headers});
+  }
+
   update(questionId: string, question: any) {
     return this.http.patch(`${this.baseUrl}/update/${questionId}`, question, {headers: this.headers});
   }

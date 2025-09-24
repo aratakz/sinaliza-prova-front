@@ -45,6 +45,19 @@ export class UserService {
     return this.http.patch(`${this.baseUrlUsers}/update/${userDataObject.id}`, userData, {headers: headers});
   }
 
+  updateUser(userData: any) {
+
+    const storedUserData = window.localStorage.getItem('userData') || '';
+    const token = window.localStorage.getItem('token') || '';
+    const userDataObject = JSON.parse(storedUserData);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.patch(`${this.baseUrlUsers}/update/${userDataObject.id}`, userData, {headers: headers});
+  }
+
   checkUsername(text: string) {
     return this.http.get(`${this.baseUrlUsers}/checkUsername/${text}`);
   }
