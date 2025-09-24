@@ -22,6 +22,8 @@ export class FormComponent implements OnInit {
   // @ts-ignore
   form: FormGroup;
   addedImages: Array<File> = [];
+  removedImages: Array<string> = [];
+
   options: Array<any> = [];
 
   constructor(
@@ -92,13 +94,22 @@ export class FormComponent implements OnInit {
 
     formValues.file = images;
 
-
-    this.questionService.register(formValues).subscribe({
-      next: async () => {
-        await this.alertService.toastSuccess('Questão criada com sucesso!');
-        await this.router.navigate(['system/question/list']);
-      }
-    });
+   if (this.questionId) {
+     formValues.removedImages = this.removedImages;
+     this.questionService.update(this.questionId, formValues).subscribe({
+       next: async () => {
+         await this.alertService.toastSuccess('Questão criada com sucesso!');
+         await this.router.navigate(['system/question/list']);
+       }
+     });
+   } else {
+     this.questionService.register(formValues).subscribe({
+       next: async () => {
+         await this.alertService.toastSuccess('Questão criada com sucesso!');
+         await this.router.navigate(['system/question/list']);
+       }
+     });
+   }
   }
 
   addImage($event: any) {
@@ -115,6 +126,7 @@ export class FormComponent implements OnInit {
   }
 
   removeImage(index: any) {
+    this.removedImages.push(this.galleryList[index].id);
     this.galleryList.splice(index, 1);
   }
 

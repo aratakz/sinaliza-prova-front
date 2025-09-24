@@ -30,4 +30,8 @@ export class QuestionService {
   findOne(questionId: string) {
     return this.http.get(`${this.baseUrl}/find/${questionId}`, {headers: this.headers});
   }
+
+  update(questionId: string, question: any) {
+    return this.http.patch(`${this.baseUrl}/update/${questionId}`, question, {headers: this.headers});
+  }
 }
