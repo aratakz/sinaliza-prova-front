@@ -2,6 +2,7 @@
   <div class="form-container">
     <form [formGroup]="usersForm" (submit)="onSubmit()">
       <div class="form-column">
+
         <div class="avatar-container" style="background-image: url('{{imagePath || user.avatar}}'); background-size: cover">
           <div class="avatar-cover" aria-hidden="true">
             <i class="fi fi-rs-pencil"></i>

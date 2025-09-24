@@ -5,7 +5,11 @@
   <div class="header-right">
     <div class="user-data" routerLink="user-details" routerLinkActive="active">
       <div class="avatar">
-        <img alt="avatar" src="{{avatarLink}}">
+        @if (avatarLink) {
+          <img alt="avatar" src="{{avatarLink}}">
+        } @else {
+          <i class="fi fi-rr-circle-user avatar"></i>
+        }
       </div>
 
       {{loggedUser}}
