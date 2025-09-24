@@ -9,14 +9,14 @@ import {GlobalService} from '../services/global.service';
   styleUrl: './institute.component.scss'
 })
 export class InstituteComponent {
-  showButtons:boolean = true;
+  showButtons:boolean = false;
 
   constructor(
     private router: Router,
     private globalService: GlobalService,
     ) {
     globalService.actionControlBehavior.subscribe((actionControl: boolean) => {
-      this.showButtons = actionControl;
+      this.showButtons = false;
     });
   }
 }
