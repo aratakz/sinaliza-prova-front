@@ -39,6 +39,14 @@ export class UserComponent implements OnDestroy, OnInit {
     this.userService.getUseData().subscribe({
       next: (userData: any) => {
         this.user = userData.user;
+        if (this.user.avatar) {
+            this.userService.getAvatar(this.user.avatar).subscribe({
+              next: (avatar: any) => {
+                this.user.avatar = avatar;
+                this.userService.avatarSubject.next(avatar);
+              }
+            })
+        }
         this.usersForm.patchValue({
           name: this.user.name,
           email: this.user.email,

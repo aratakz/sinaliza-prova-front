@@ -61,4 +61,15 @@ export class UserService {
   checkUsername(text: string) {
     return this.http.get(`${this.baseUrlUsers}/checkUsername/${text}`);
   }
+  getAvatar(avatarLink: string) {
+    const storedUserData = window.localStorage.getItem('userData') || '';
+    const token = window.localStorage.getItem('token') || '';
+    const userDataObject = JSON.parse(storedUserData);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.baseUrlUsers}/avatarLink/`, {avatarLink: avatarLink}, {headers: headers});
+  }
 }
