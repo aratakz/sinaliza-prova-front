@@ -10,6 +10,25 @@
       <app-libras-action [type]="'record'"></app-libras-action>
       <input class="form-input" formControlName="title">
     </div>
+    <fieldset class="tag-area">
+      <legend>Tags</legend>
+        <div class="tag-container">
+          @for (tag of tags ; track tag.id) {
+            <div class="tag">
+            <span class="remove-tag">
+              <i class="fi fi-rr-cross-circle"></i>
+            </span>
+            </div>
+          }
+
+        </div>
+        <div class="tag-input">
+          <input class="form-input" placeholder="Adicionar tag" (input)="inputTag($event)">
+          <button (click)="addTag()">
+            <i class="fi fi-rr-add"></i>
+          </button>
+        </div>
+    </fieldset>
     <fieldset>
       <legend>Alternativas</legend>
       <div class="options">

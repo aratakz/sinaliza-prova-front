@@ -3,6 +3,7 @@ import {TableColumn, TableData, TableLine} from '../../../../@types';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {QuestionService} from '../../../services/question.service';
 import {Router} from '@angular/router';
+import {GlobalService} from '../../../services/global.service';
 
 @Component({
   selector: 'app-list',
@@ -14,7 +15,8 @@ export class ListComponent implements OnInit {
   constructor(
     private alertService: AlertService,
     private questionService: QuestionService,
-    private router: Router
+    private router: Router,
+    private globalService: GlobalService,
   ) {}
 
   tableColumns:TableColumn[] = [
@@ -38,7 +40,8 @@ export class ListComponent implements OnInit {
       next: (response) => {
         this.feedTable(response);
       }
-    })
+    });
+    this.globalService.activeRouteBehavior.next('Questões')
   }
 
   feedTable(questions:any) {

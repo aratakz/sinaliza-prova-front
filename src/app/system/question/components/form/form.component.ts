@@ -23,8 +23,9 @@ export class FormComponent implements OnInit {
   form: FormGroup;
   addedImages: Array<File> = [];
   removedImages: Array<string> = [];
-
+  tags: Array<any> = [];
   options: Array<any> = [];
+  tagName: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -212,6 +213,16 @@ export class FormComponent implements OnInit {
     return this.form.get('answers') as FormArray;
   }
 
+  inputTag($event: any) {
+    console.debug($event.target.value)
+    this.tagName = $event.target.value;
+  }
+  addTag() {
+    this.tags.push({
+      id: new Date().toISOString(),
+      name: this.tagName
+    })
+  }
 
 }
 
