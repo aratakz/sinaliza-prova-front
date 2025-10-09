@@ -4,9 +4,8 @@
       <div class="form-column">
 
         <div class="avatar-container" style="background-image: url('{{imagePath || user.avatar}}'); background-size: cover">
-          <div class="avatar-cover" aria-hidden="true">
+          <div class="avatar-cover" aria-hidden="true" (click)="onImageSelect($event)">
             <i class="fi fi-rs-pencil"></i>
-            <input type="file" class="upload" (change)="onImageSelect($event)" title="Editar" >
           </div>
         </div>
         <div class="form-group">

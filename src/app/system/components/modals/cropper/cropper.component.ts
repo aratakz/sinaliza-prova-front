@@ -1,0 +1,50 @@
+import {Component, OnInit} from '@angular/core';
+import {ImageCroppedEvent, LoadedImage} from 'ngx-image-cropper';
+import {DomSanitizer} from '@angular/platform-browser';
+import {UserService} from '../../../../auth/services/user.service';
+import {BsModalRef} from 'ngx-bootstrap/modal';
+
+@Component({
+  selector: 'app-cropper',
+  standalone: false,
+  templateUrl: './cropper.component.html',
+  styleUrl: './cropper.component.scss'
+})
+export class CropperComponent implements OnInit {
+
+  imageChangedEvent:any;
+  croppedImage: any;
+
+  constructor(
+    private sanitizer: DomSanitizer,
+    private userService: UserService,
+    private   bsModalRef?: BsModalRef
+  ) {
+  }
+
+  ngOnInit(): void {
+  }
+
+  fileChangeEvent(event: Event): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    if (event.base64) {
+      this.croppedImage = event.base64;
+    }
+  }
+  imageLoaded(image: LoadedImage) {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
+  }
+
+  salvarImagem() {
+    this.userService.avatarSubject.next(this.croppedImage);
+    this.bsModalRef?.hide()
+  }
+}

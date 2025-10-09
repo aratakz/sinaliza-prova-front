@@ -10,8 +10,10 @@ import {AuthService} from "../auth/services/auth.service";
 import {provideHttpClient} from "@angular/common/http";
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { UserComponent } from './components/user/user.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import { CropperComponent } from './components/modals/cropper/cropper.component';
 import {ImageCropperComponent} from 'ngx-image-cropper';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,12 +24,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     ActivityListComponent,
     UserComponent,
+    CropperComponent,
   ],
   imports: [
     CommonModule,
     SystemRoutingModule,
+    ReactiveFormsModule,
+    ModalModule.forRoot(),
     ImageCropperComponent,
-    ReactiveFormsModule
   ],
   providers: [
       AuthService,

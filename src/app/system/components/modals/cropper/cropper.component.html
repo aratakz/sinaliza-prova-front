@@ -1,0 +1,41 @@
+<div class="mod-header">
+  <i class="fi fi-rr-circle-xmark"></i>
+</div>
+
+<div class="cropper-wrapper">
+  <div class="cropper">
+    @if (!imageChangedEvent) {
+      <div class="no-image">
+        <input id="addImage" type="file" (change)="fileChangeEvent($event)" />
+        <i class="fi fi-rr-add-image"></i>
+        Selecione uma imagem
+      </div>
+    } @else {
+      <div>Selecione a área para sua imagem de perfil</div>
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="false"
+        [containWithinAspectRatio]="true"
+        [aspectRatio]="16 / 9"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        [resizeToWidth]="800"
+        [resizeToHeight]="800"
+        [output]="'base64'"
+        [cropperStaticWidth]="150"
+        [cropperStaticHeight]="150"
+        [roundCropper]="true"
+        [backgroundColor]="'#FFFFFF'"
+        (imageLoaded)="imageLoaded($event)"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+    }
+  </div>
+  @if (imageChangedEvent) {
+    <div class="preview">
+      <img [src]="croppedImage" alt="preview">
+      <button type="button" class="primary-button large" (click)="salvarImagem()">Salvar imagem de perfil</button>
+    </div>
+  }
+</div>

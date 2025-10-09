@@ -4,6 +4,8 @@ import {UserService} from '../../../auth/services/user.service';
 import {FormBuilder, FormGroup } from '@angular/forms';
 import * as CryptoJS from 'crypto-js';
 import { AlertService } from '../../../shared/services/alert.service';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
+import {CropperComponent} from '../modals/cropper/cropper.component';
 
 @Component({
   selector: 'app-user',
@@ -19,10 +21,15 @@ export class UserComponent implements OnDestroy, OnInit {
   usersForm: FormGroup;
   imageData: any;
 
+  bsModalRef?: BsModalRef;
+
+
   constructor(private globalService: GlobalService,
               private userService: UserService,
               private formBuilder: FormBuilder,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private bsModalService: BsModalService,
+              ) {
     this.globalService.activeRouteBehavior.next('Dados Cadastrais');
     this.gravatarCheckActive = '';
     this.useGravatar = false;
@@ -52,8 +59,15 @@ export class UserComponent implements OnDestroy, OnInit {
           email: this.user.email,
           birthday: this.user.birthday
         });
+        this.userService.avatarSubject.subscribe({
+          next: (avatar: any) => {
+            this.imagePath = avatar;
+            this.imageData = avatar;
+          }
+        });
       }
     });
+
   }
 
   ngOnDestroy(): void {
@@ -61,38 +75,12 @@ export class UserComponent implements OnDestroy, OnInit {
   }
 
   onImageSelect(event: any) {
-    const element = event.currentTarget as HTMLInputElement;
-    let fileList: FileList | null = element.files;
-    if (fileList) {
-      if (fileList.item(0)) {
-        const fileReader = new FileReader();
-        this.imagePath = URL.createObjectURL(fileList[0]);
-        this.userService.avatarSubject.next(this.imagePath);
-        fileReader.readAsDataURL(fileList[0]);
+    const initialState: ModalOptions = {
+      class: 'modal-xl',
+    };
 
-        fileReader.onloadend = (event) => {
-          this.imageData = (<FileReader>event.target).result
-          console.debug(this.imageData);
-        }
-      }
-    }
-  }
-
-  changeGravatar() {
-    this.useGravatar = !this.useGravatar;
-    this.gravatarCheckActive = '';
-    this.imagePath = this.user.avatar;
-    this.userService.avatarSubject.next(this.imagePath  ||this.user.avatar);
-    if (this.useGravatar) {
-        if (!this.usersForm.value.email) {
-          this.alertService.toastError('forneça um email valido para ultilizar essa função.');
-          this.useGravatar = false;
-        } else {
-          this.gravatarCheckActive = 'checked';
-          this.imagePath = `https://www.gravatar.com/avatar/${CryptoJS.MD5(this.usersForm.value.email).toString()}?s=500`;
-          this.userService.avatarSubject.next(this.imagePath);
-        }
-    }
+    this.bsModalRef = this.bsModalService.show(CropperComponent, initialState);
+    this.bsModalRef.content.closeBtnName = 'Close';
   }
 
   async onSubmit() {

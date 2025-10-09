@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {config} from '../../../config';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class UserService {
     'Authorization': `Bearer ${this.token}`,
 
   });
+
+   public avatarBehavior: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(
     private http: HttpClient
