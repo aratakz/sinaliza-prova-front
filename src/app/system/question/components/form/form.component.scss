@@ -166,7 +166,7 @@ fieldset {
   flex-direction: column;
 
   .tag-input {
-    width: 30%;
+    width: 100%;
     align-self: flex-end;
     display: flex;
     .form-input {
@@ -223,7 +223,7 @@ fieldset {
   background-color: var(--primary);
   padding: 5px;
   color: #FFFFFF;
-  border-radius: 15px;
+  border-radius: 36px;
   margin: 2px;
   span {
     margin-left: 10px;

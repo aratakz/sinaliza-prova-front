@@ -301,3 +301,9 @@ fieldset {
   color: var(--default-input);
   font-size: 16px;
 }
+fieldset,
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

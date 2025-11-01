@@ -217,11 +217,23 @@ export class FormComponent implements OnInit {
     console.debug($event.target.value)
     this.tagName = $event.target.value;
   }
+
   addTag() {
-    this.tags.push({
-      id: new Date().toISOString(),
-      name: this.tagName
-    })
+    if (this.tagName !== '') {
+
+      let tagExists = this.tags.filter((tag) => tag.name === this.tagName);
+      if (!tagExists.length) {
+        this.tags.push({
+          id: new Date().toISOString(),
+          name: this.tagName
+        });
+      }
+    }
+
+  }
+
+  removeTag(index: any) {
+    this.tags.splice(index, 1);
   }
 
 }
