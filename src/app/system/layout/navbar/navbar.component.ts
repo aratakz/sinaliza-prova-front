@@ -10,6 +10,7 @@ import {GlobalService} from '../../services/global.service';
 export class NavbarComponent {
     collapseControl = '';
     isCollapsed = false;
+    collapseStatus = 'collapse-off';
 
     constructor(private globalService: GlobalService ) {
       if (window.localStorage.getItem("collapse")) {
@@ -23,11 +24,13 @@ export class NavbarComponent {
       if (!this.isCollapsed) {
           this.isCollapsed = true;
           this.collapseControl = 'collapse';
+          this.collapseStatus = 'collapse-on';
           window.localStorage.setItem('collapse', JSON.stringify(this.isCollapsed));
           this.globalService.navbarBehavior.next(this.collapseControl);
       } else {
         this.isCollapsed = false;
         this.collapseControl = '';
+        this.collapseStatus = 'collapse-off';
         window.localStorage.removeItem('collapse');
         this.globalService.navbarBehavior.next(this.collapseControl);
       }

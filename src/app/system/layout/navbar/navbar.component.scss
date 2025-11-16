@@ -17,6 +17,7 @@
   display: flex;
   width: 100%;
   height: 5%;
+  justify-content: space-between;
   align-items: center;
 
   i {
@@ -24,6 +25,44 @@
     font-weight: 100;
     margin-right: 8px;
   }
+  span {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    i {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+  }
+  span.collapse-btn {
+    background: #FFFFFF;
+    height: 30px;
+    width:30px;
+    position: relative;
+    border: 2px solid var(--primary);
+    font-size: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    * {
+      font-size: 15px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      width: 100%;
+      text-align: center;
+       color: var(--primary) !important;
+     }
+  }
+  span.collapse-btn.collapse-off {
+    right: -30px;
+  }
+  span.collapse-btn.collapse-on{
+    right: -40px;
+  }
+
 }
 .nav-menu {
   display: flex;

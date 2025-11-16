@@ -1,12 +1,11 @@
 <section class="navbar">
   <section class="nav-header">
-    <i class="fi fi-br-menu-burger collapse-control" (click)="collapse()"></i>
     @if (!isCollapsed) {
       <span>Sinaliza Prova</span>
     }
-<!--    <span class="collapse" (click)="collapse()">-->
-<!--      <i class="fi fi-rr-arrow-left"></i>-->
-<!--    </span>-->
+    <span  class="collapse-btn" (click)="collapse()" [class]="collapseStatus" title="Menu" >
+        <i class="fi fi-br-apps"></i>
+    </span>
   </section>
   <section class="nav-menu">
     <div class="nav-item" routerLinkActive="active" routerLink="../system/dashboard">
