@@ -12,6 +12,12 @@ export class NavbarComponent {
     isCollapsed = false;
     collapseStatus = 'collapse-off';
 
+    menuControls = {
+      security: {
+        show:  false
+      }
+    }
+
     constructor(private globalService: GlobalService ) {
       if (window.localStorage.getItem("collapse")) {
         this.collapseControl = 'collapse';
@@ -34,5 +40,10 @@ export class NavbarComponent {
         window.localStorage.removeItem('collapse');
         this.globalService.navbarBehavior.next(this.collapseControl);
       }
+    }
+
+    collapseMenu(controlKey:string) {
+      // @ts-ignore
+      this.menuControls[`${controlKey}`].show = !this.menuControls[`${controlKey}`].show;
     }
 }

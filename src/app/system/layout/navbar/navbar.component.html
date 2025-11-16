@@ -9,53 +9,80 @@
   </section>
   <section class="nav-menu">
     <div class="nav-item" routerLinkActive="active" routerLink="../system/dashboard">
-      <i class="fi fi-rs-chalkboard"></i>
-      @if (!isCollapsed) {
-        <p>Mural</p>
-      }
+      <div class="nav-item-label">
+        <i class="fi fi-rs-chalkboard"></i>
+        @if (!isCollapsed) {
+          <p>Mural</p>
+        }
+      </div>
     </div>
     <div class="nav-item" routerLinkActive="active" routerLink="../system/students">
-      <i class="fi fi-rr-student"></i>
-      @if (!isCollapsed) {
-        <p>Alunos</p>
+      <div class="nav-item-label">
+        <i class="fi fi-rr-student"></i>
+        @if (!isCollapsed) {
+          <p>Alunos</p>
+        }
+      </div>
+    </div>
+    <div class="nav-item has-child">
+      <div class="nav-item-label" (click)="collapseMenu('security')" >
+        <i class="fi fi-rr-shield-check"></i>
+        @if (!isCollapsed) {
+          <p>Segurança</p>
+        }
+      </div>
+      @if (!isCollapsed && menuControls.security.show) {
+        <div class="child-list list-hidden">
+        <div class="nav-item-child" routerLinkActive="active" routerLink="../system/access">
+          <span class="nav-option"></span>
+          <p>Perfis de acesso</p>
+        </div>
+        <div class="nav-item-child" routerLinkActive="active" routerLink="../system/profile">
+          <span class="nav-option"></span>
+          <p>Profissionais</p>
+        </div>
+      </div>
       }
     </div>
     <div class="nav-item" routerLinkActive="active" routerLink="../system/institute">
-      <i class="fi fi-rs-house-building"></i>
-      @if (!isCollapsed) {
-        <p>Instituição</p>
-      }
-    </div>
-    <div class="nav-item">
-      <i class="fi fi-rr-users"></i>
-      @if (!isCollapsed) {
-        <p>Profissionais</p>
-      }
+      <div class="nav-item-label">
+        <i class="fi fi-rs-house-building"></i>
+        @if (!isCollapsed) {
+          <p>Instituição</p>
+        }
+      </div>
     </div>
     <div class="nav-item" routerLinkActive="active" routerLink="../system/exam">
-      <i class="fi fi-rr-memo-circle-check"></i>
-      @if (!isCollapsed) {
-        <p>Provas</p>
-      }
+      <div class="nav-item-label">
+        <i class="fi fi-rr-memo-circle-check"></i>
+        @if (!isCollapsed) {
+          <p>Provas</p>
+        }
+      </div>
     </div>
     <div class="nav-item" routerLinkActive="active" routerLink="../system/discipline">
-      <i class="fi fi-rs-e-learning"></i>
-      @if (!isCollapsed) {
-        <p>Disciplinas</p>
-      }
-
+      <div class="nav-item-label">
+        <i class="fi fi-rs-e-learning"></i>
+        @if (!isCollapsed) {
+          <p>Disciplinas</p>
+        }
+      </div>
     </div>
     <div class="nav-item" routerLinkActive="active" routerLink="../system/room">
-      <i class="fi fi-br-users-class"></i>
-      @if (!isCollapsed) {
-        <p>Turmas</p>
-      }
+      <div class="nav-item-label">
+        <i class="fi fi-br-users-class"></i>
+        @if (!isCollapsed) {
+          <p>Turmas</p>
+        }
+      </div>
     </div>
     <div class="nav-item" routerLinkActive="active" routerLink="../system/question">
-      <i class="fi fi-rr-to-do"></i>
-      @if (!isCollapsed) {
-        <p>Questões</p>
-      }
+      <div class="nav-item-label">
+        <i class="fi fi-rr-to-do"></i>
+        @if (!isCollapsed) {
+          <p>Questões</p>
+        }
+      </div>
     </div>
   </section>
   @if (!isCollapsed) {
