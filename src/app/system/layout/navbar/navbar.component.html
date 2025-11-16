@@ -1,10 +1,13 @@
 <section class="navbar">
   <section class="nav-header">
+    <span class="brand-wrap">
+      <img alt="logo" src="assets/logo.png" class="brand">
+    </span>
     @if (!isCollapsed) {
-      <span>Sinaliza Prova</span>
+      <span class="brand-title">Sinaliza Prova</span>
     }
-    <span  class="collapse-btn" (click)="collapse()" [class]="collapseStatus" title="Menu" >
-        <i class="fi fi-br-apps"></i>
+    <span class=" brand-control collapse-btn" (click)="collapse()" [class]="collapseStatus" title="Menu">
+        <i class="fi fi-br-angle-double-small-left"></i>
     </span>
   </section>
   <section class="nav-menu">
@@ -30,7 +33,7 @@
 
     @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL].includes(user.access)) {
       <div class="nav-item has-child">
-        <div class="nav-item-label" (click)="collapseMenu('security')" >
+        <div class="nav-item-label"  (click)="collapseMenu('security')" >
           <i class="fi fi-rr-shield-check"></i>
           @if (!isCollapsed) {
             <p>Segurança</p>

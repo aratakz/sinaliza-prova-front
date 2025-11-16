@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalService} from '../../services/global.service';
 import {AuthService} from '../../../auth/services/auth.service';
 import {AccessLevel} from '../../enums/AccessLevel';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -25,10 +26,12 @@ export class NavbarComponent implements OnInit {
   constructor(
     private globalService: GlobalService,
     private authService: AuthService,
+    private router: Router,
   ) {
     if (window.localStorage.getItem("collapse")) {
       this.collapseControl = 'collapse';
       this.isCollapsed = true;
+      this.collapseStatus = 'collapse-on';
     }
     globalService.navbarBehavior.next(this.collapseControl)
   }
@@ -36,6 +39,15 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.authService.userData;
     this.user = JSON.parse(this.user);
+
+    const secSectionList = [
+      '/system/access/list',
+      '/system/profiles/list'
+    ];
+
+    if (secSectionList.includes(this.router.url)) {
+      this.menuControls.security.show = true;
+    }
   }
 
   collapse() {

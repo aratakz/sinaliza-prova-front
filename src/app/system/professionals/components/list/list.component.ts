@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TableColumn, TableData, TableLine} from '../../../../@types';
+import {GlobalService} from '../../../services/global.service';
 
 @Component({
   selector: 'app-list',
@@ -7,7 +8,13 @@ import {TableColumn, TableData, TableLine} from '../../../../@types';
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
-export class ListComponent {
+export class ListComponent  implements OnInit {
+
+  constructor(private globalService: GlobalService,) {
+  }
+  ngOnInit(): void {
+    this.globalService.activeRouteBehavior.next('Profissionais');
+  }
   tableColumns:TableColumn[] = [
     {
       index: new Date().toISOString(),
