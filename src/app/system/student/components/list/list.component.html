@@ -1,6 +1,12 @@
 <div class="actions">
-  <button type="button" class="secondary-button small" routerLink="../form">
-    Novo aluno
-  </button>
+  @if ([
+    AccessLevel.ADMIN,
+    AccessLevel.TEACHER,
+    AccessLevel.PROFESSIONAL
+  ].includes(user.access)) {
+    <button type="button" class="secondary-button small" routerLink="../form">
+      Novo aluno
+    </button>
+  }
 </div>
 <app-table-list [tableColumns]="tableColumns" [tableLines]="tableLines"></app-table-list>

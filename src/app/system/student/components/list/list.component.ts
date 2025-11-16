@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {AuthService} from '../../../../auth/services/auth.service';
+import {AccessLevel} from '../../../enums/AccessLevel';
 
 @Component({
   selector: 'app-list',
@@ -13,6 +14,8 @@ import {AuthService} from '../../../../auth/services/auth.service';
   styleUrl: './list.component.scss'
 })
 export class ListComponent implements OnInit {
+  user: any;
+
   tableColumns: TableColumn[] = [
     {
       index: new Date().toISOString(),
@@ -42,6 +45,8 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.user = this.authService.userData;
+    this.user = JSON.parse(this.user);
     this.globalService.activeRouteBehavior.next('Alunos');
     this.userService.getAllStudents().subscribe({
       next: (data:any) => this.feedTable(data)
@@ -131,4 +136,6 @@ export class ListComponent implements OnInit {
       }
     );
   }
+
+  protected readonly AccessLevel = AccessLevel;
 }

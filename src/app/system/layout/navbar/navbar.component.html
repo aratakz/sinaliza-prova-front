@@ -16,74 +16,96 @@
         }
       </div>
     </div>
-    <div class="nav-item" routerLinkActive="active" routerLink="../system/students">
-      <div class="nav-item-label">
-        <i class="fi fi-rr-student"></i>
-        @if (!isCollapsed) {
-          <p>Alunos</p>
-        }
-      </div>
-    </div>
-    <div class="nav-item has-child">
-      <div class="nav-item-label" (click)="collapseMenu('security')" >
-        <i class="fi fi-rr-shield-check"></i>
-        @if (!isCollapsed) {
-          <p>Segurança</p>
-        }
-      </div>
-      @if (!isCollapsed && menuControls.security.show) {
-        <div class="child-list list-hidden">
-        <div class="nav-item-child" routerLinkActive="active" routerLink="../system/access">
-          <span class="nav-option"></span>
-          <p>Perfis de acesso</p>
-        </div>
-        <div class="nav-item-child" routerLinkActive="active" routerLink="../system/profile">
-          <span class="nav-option"></span>
-          <p>Profissionais</p>
+
+    @if ([AccessLevel.ADMIN, AccessLevel.TEACHER, AccessLevel.PROFESSIONAL].includes(user.access)) {
+      <div class="nav-item" routerLinkActive="active" routerLink="../system/students">
+        <div class="nav-item-label">
+          <i class="fi fi-rr-student"></i>
+          @if (!isCollapsed) {
+            <p>Alunos</p>
+          }
         </div>
       </div>
-      }
-    </div>
-    <div class="nav-item" routerLinkActive="active" routerLink="../system/institute">
-      <div class="nav-item-label">
-        <i class="fi fi-rs-house-building"></i>
-        @if (!isCollapsed) {
-          <p>Instituição</p>
+    }
+
+    @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL].includes(user.access)) {
+      <div class="nav-item has-child">
+        <div class="nav-item-label" (click)="collapseMenu('security')" >
+          <i class="fi fi-rr-shield-check"></i>
+          @if (!isCollapsed) {
+            <p>Segurança</p>
+          }
+        </div>
+        @if (!isCollapsed && menuControls.security.show) {
+          <div class="child-list list-hidden">
+            <div class="nav-item-child" routerLinkActive="active" routerLink="../system/access">
+              <span class="nav-option"></span>
+              <p>Perfis de acesso</p>
+            </div>
+            <div class="nav-item-child" routerLinkActive="active" routerLink="../system/profile">
+              <span class="nav-option"></span>
+              <p>Profissionais</p>
+            </div>
+          </div>
         }
       </div>
-    </div>
-    <div class="nav-item" routerLinkActive="active" routerLink="../system/exam">
-      <div class="nav-item-label">
-        <i class="fi fi-rr-memo-circle-check"></i>
-        @if (!isCollapsed) {
-          <p>Provas</p>
-        }
+    }
+
+    @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL].includes(user.access)) {
+      <div class="nav-item" routerLinkActive="active" routerLink="../system/institute">
+        <div class="nav-item-label">
+          <i class="fi fi-rs-house-building"></i>
+          @if (!isCollapsed) {
+            <p>Instituição</p>
+          }
+        </div>
       </div>
-    </div>
-    <div class="nav-item" routerLinkActive="active" routerLink="../system/discipline">
-      <div class="nav-item-label">
-        <i class="fi fi-rs-e-learning"></i>
-        @if (!isCollapsed) {
-          <p>Disciplinas</p>
-        }
+    }
+
+    @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL, AccessLevel.TEACHER, AccessLevel.STUDENT].includes(user.access)) {
+      <div class="nav-item" routerLinkActive="active" routerLink="../system/exam">
+        <div class="nav-item-label">
+          <i class="fi fi-rr-memo-circle-check"></i>
+          @if (!isCollapsed) {
+            <p>Provas</p>
+          }
+        </div>
       </div>
-    </div>
-    <div class="nav-item" routerLinkActive="active" routerLink="../system/room">
-      <div class="nav-item-label">
-        <i class="fi fi-br-users-class"></i>
-        @if (!isCollapsed) {
-          <p>Turmas</p>
-        }
+    }
+
+    @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL, AccessLevel.TEACHER, AccessLevel.STUDENT].includes(user.access)) {
+      <div class="nav-item" routerLinkActive="active" routerLink="../system/discipline">
+        <div class="nav-item-label">
+          <i class="fi fi-rs-e-learning"></i>
+          @if (!isCollapsed) {
+            <p>Disciplinas</p>
+          }
+        </div>
       </div>
-    </div>
-    <div class="nav-item" routerLinkActive="active" routerLink="../system/question">
-      <div class="nav-item-label">
-        <i class="fi fi-rr-to-do"></i>
-        @if (!isCollapsed) {
-          <p>Questões</p>
-        }
+    }
+
+    @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL, AccessLevel.TEACHER].includes(user.access)) {
+      <div class="nav-item" routerLinkActive="active" routerLink="../system/room">
+        <div class="nav-item-label">
+          <i class="fi fi-br-users-class"></i>
+          @if (!isCollapsed) {
+            <p>Turmas</p>
+          }
+        </div>
       </div>
-    </div>
+    }
+
+    @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL, AccessLevel.TEACHER].includes(user.access)) {
+      <div class="nav-item" routerLinkActive="active" routerLink="../system/question">
+        <div class="nav-item-label">
+          <i class="fi fi-rr-to-do"></i>
+          @if (!isCollapsed) {
+            <p>Questões</p>
+          }
+        </div>
+      </div>
+    }
+
   </section>
   @if (!isCollapsed) {
 <!--    <section class="storage-container">-->
