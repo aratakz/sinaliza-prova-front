@@ -18,19 +18,15 @@ export class ListComponent  implements OnInit {
   tableColumns:TableColumn[] = [
     {
       index: new Date().toISOString(),
-      title: ""
-    },
-    {
-      index: new Date().toISOString(),
       title: "Nome"
     },
     {
       index: new Date().toISOString(),
-      title: "Permissões"
+      title: "Nível de acesso"
     },
     {
       index: new Date().toISOString(),
-      title: "Usuários"
+      title: "Perfil de acesso"
     },
     {
       index: new Date().toISOString(),
