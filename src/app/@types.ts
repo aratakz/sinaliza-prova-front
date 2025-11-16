@@ -11,6 +11,7 @@ export type TableLine = {
 export type TableData = {
   index: any;
   value?: string|number;
+  icon?: string|number;
   buttons?: TableActionButton[]
   classes?: string[]
 }
