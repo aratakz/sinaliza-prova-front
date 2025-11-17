@@ -4,6 +4,8 @@ import {TableColumn, TableData, TableLine} from '../../../../@types';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {DisciplineService} from '../../../services/discipline.service';
 import {Router} from '@angular/router';
+import {AuthService} from '../../../../auth/services/auth.service';
+import {AccessLevel} from '../../../enums/AccessLevel';
 
 @Component({
   selector: 'app-list',
@@ -25,16 +27,20 @@ export class ListComponent implements OnInit {
 
 
   tableData: TableLine[] = [];
+  user: any;
 
   constructor(
     private globalService: GlobalService,
     private alertService: AlertService,
     private disciplineService: DisciplineService,
     private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.globalService.activeRouteBehavior.next('Disciplinas');
+    this.user = this.authService.userData;
+    this.user = JSON.parse(this.user);
     this.disciplineService.getAll().subscribe({
       next: (disciplines: any) => this.feedTable(disciplines),
     });
@@ -95,4 +101,5 @@ export class ListComponent implements OnInit {
     }
   }
 
+  protected readonly AccessLevel = AccessLevel;
 }

@@ -1,6 +1,8 @@
 <div class="actions">
-  <button type="button" class="secondary-button small" routerLink="../form">
-    Nova disciplina
-  </button>
+  @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL].includes(user.access)) {
+    <button type="button" class="secondary-button small" routerLink="../form">
+      Nova disciplina
+    </button>
+  }
 </div>
 <app-table-list [tableColumns]="listColumns" [tableLines]="tableData"></app-table-list>

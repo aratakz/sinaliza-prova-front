@@ -4,6 +4,8 @@ import {RoomService} from '../../../services/room.service';
 import {TableColumn, TableData, TableLine} from '../../../../@types';
 import {Router} from '@angular/router';
 import {AlertService} from '../../../../shared/services/alert.service';
+import {AuthService} from '../../../../auth/services/auth.service';
+import {AccessLevel} from '../../../enums/AccessLevel';
 
 @Component({
   selector: 'app-list',
@@ -12,6 +14,7 @@ import {AlertService} from '../../../../shared/services/alert.service';
   styleUrl: './list.component.scss'
 })
 export class ListComponent implements OnInit {
+
   tableColumns: TableColumn[] = [
     {
       index: new Date().toISOString(),
@@ -33,14 +36,17 @@ export class ListComponent implements OnInit {
   constructor(
     private globalService: GlobalService,
     private roomService: RoomService,
+    private authService: AuthService,
     private router: Router,
     private alertService: AlertService
   ) {}
 
+  user: any;
 
   ngOnInit(): void {
     this.globalService.activeRouteBehavior.next('Turmas');
-
+    this.user = this.authService.userData;
+    this.user = JSON.parse(this.user);
     this.roomService.list().subscribe({
       next: (rooms: any) => this.feedTable(rooms),
     });
@@ -99,4 +105,6 @@ export class ListComponent implements OnInit {
   async onEdit(disciplineId: string) {
     await this.router.navigate([`system/room/form/${disciplineId}`])
   }
+
+  protected readonly AccessLevel = AccessLevel;
 }

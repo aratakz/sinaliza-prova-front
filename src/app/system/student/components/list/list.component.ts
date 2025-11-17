@@ -47,6 +47,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.authService.userData;
     this.user = JSON.parse(this.user);
+    console.debug(this.user.access);
     this.globalService.activeRouteBehavior.next('Alunos');
     this.userService.getAllStudents().subscribe({
       next: (data:any) => this.feedTable(data)

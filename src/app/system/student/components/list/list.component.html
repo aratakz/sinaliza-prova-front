@@ -1,7 +1,6 @@
 <div class="actions">
   @if ([
     AccessLevel.ADMIN,
-    AccessLevel.TEACHER,
     AccessLevel.PROFESSIONAL
   ].includes(user.access)) {
     <button type="button" class="secondary-button small" routerLink="../form">
