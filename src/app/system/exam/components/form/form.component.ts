@@ -87,4 +87,8 @@ export class FormComponent implements OnInit {
   removeQuestion(index: any) {
     this.selectedQuestions.splice(index, 1);
   }
+
+  onSubmit(): void {
+
+  }
 }
