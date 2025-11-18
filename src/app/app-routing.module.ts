@@ -15,6 +15,11 @@ const routes: Routes = [
     path: "system",
     canActivate: [authGuard],
     loadChildren: () => import('./system/system.module').then((m) => m.SystemModule)
+  },
+  {
+    path: "exam",
+    canActivate: [authGuard],
+    loadChildren: () => import('./exam/exam.module').then((m) => m.ExamModule)
   }
 ];
 
