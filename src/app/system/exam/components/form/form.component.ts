@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DisciplineService} from '../../../services/discipline.service';
-import {lastValueFrom} from 'rxjs';
+import {async, lastValueFrom} from 'rxjs';
 import {RoomService} from '../../../services/room.service';
 import {QuestionService} from '../../../services/question.service';
+import {ExamService} from '../../../services/exam.service';
+import {AlertService} from '../../../../shared/services/alert.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -25,7 +28,10 @@ export class FormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private disciplineService: DisciplineService,
     private questionService: QuestionService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private examService: ExamService,
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -89,6 +95,14 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(): void {
-
+    this.examService.create(this.form.value).subscribe({
+      next: async (result: any) => {
+        await this.alertService.toastSuccess('Prova criada com sucesso!');
+        await this.router.navigate(['system/exam/list']);
+      },
+      error: async (error) => {
+        await this.alertService.toastError('Não foi possível executar a ação');
+      }
+    });
   }
 }
