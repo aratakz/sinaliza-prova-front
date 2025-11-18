@@ -22,4 +22,15 @@ export class ExamService {
 
    return  this.http.post(`${config.api_host}/exams/create`, formData, {headers: headers});
   }
+
+  list() {
+    const token = window.localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+
+   return  this.http.get(`${config.api_host}/exams/list`, {headers: headers});
+  }
+
 }

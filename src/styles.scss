@@ -149,12 +149,23 @@ app-dashboard {
 .select2-selection {
   padding: 5px !important;
 }
+
 .btn-edit {
   border: none;
   width: 50px;
   padding: 5px;
   border-radius: 8px  0 0 8px;
   color: #015fda;
+  background: #E7E7E7;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.btn-middle {
+  border: none;
+  width: 50px;
+  padding: 5px;
+  border-radius: 0;
+  color: black;
   background: #E7E7E7;
   cursor: pointer;
   margin-left: 5px;
@@ -169,6 +180,8 @@ app-dashboard {
   cursor: pointer;
   margin-left: 5px;
 }
+
+.btn-middle:hover,
 .btn-remove:hover,
 .btn-edit:hover {
   background: #CDC9C9;
