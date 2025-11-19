@@ -22,7 +22,6 @@ export class ExamService {
 
    return  this.http.post(`${config.api_host}/exams/create`, formData, {headers: headers});
   }
-
   list() {
     const token = window.localStorage.getItem('token') || '';
     const headers = new HttpHeaders({
@@ -32,7 +31,6 @@ export class ExamService {
 
    return  this.http.get(`${config.api_host}/exams/list`, {headers: headers});
   }
-
   findOne(id: any) {
     const token = window.localStorage.getItem('token') || '';
     const headers = new HttpHeaders({
@@ -50,5 +48,13 @@ export class ExamService {
     });
 
     return  this.http.get(`${config.api_host}/questionOption/find-question/${id}`, {headers: headers});
+  }
+  remove(examId: any) {
+    const token = window.localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return  this.http.delete(`${config.api_host}/exams/remove/${examId}`,  {headers: headers});
   }
 }

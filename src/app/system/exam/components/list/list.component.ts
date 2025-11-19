@@ -79,12 +79,6 @@ export class ListComponent  implements OnInit {
       ].includes(this.user.access)) {
         lineActions.buttons?.push({
           index: new Date().toISOString(),
-          classes: ['btn-edit'],
-          icon: 'fi fi-rr-pencil',
-          onClick: async () => this.onEdit(question.id),
-        });
-        lineActions.buttons?.push({
-          index: new Date().toISOString(),
           classes: ['btn-remove'],
           icon: 'fi fi-rr-trash',
           onClick: async () => await this.onRemove(question.id)
@@ -128,15 +122,15 @@ export class ListComponent  implements OnInit {
   async onRemove(questionId:any) {
     await this.alertService.alertOptions(`Deseja realmente excluir essa disciplina?`,
       () => {
-        // this.examService.remove(questionId).subscribe({
-        //   next:async () => {
-        //     await this.alertService.toastSuccess('Registro removido com sucesso!');
-        //     location.reload();
-        //   },
-        //   error: err => {
-        //     this.alertService.toastError('Não foi possível remover o registro');
-        //   }
-        // });
+        this.examService.remove(questionId).subscribe({
+          next:async () => {
+            await this.alertService.toastSuccess('Registro removido com sucesso!');
+            location.reload();
+          },
+          error: err => {
+            this.alertService.toastError('Não foi possível remover o registro');
+          }
+        });
       }
     );
   }
