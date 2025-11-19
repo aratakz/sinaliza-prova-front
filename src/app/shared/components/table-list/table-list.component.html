@@ -16,12 +16,14 @@
                 {{field.value}}
               } @else {
                 @if (field.buttons) {
-                  @for(button of field.buttons; track button.index) {
-                    <button (click)="button.onClick()" [class]="button.classes">
-                      @if (button.icon) {
-                        <i [class]="button.icon"></i>
-                      }
-                    </button>
+                  @if (permissions &&permissions.includes(access)) {
+                    @for(button of field.buttons; track button.index) {
+                      <button (click)="button.onClick()" [class]="button.classes">
+                        @if (button.icon) {
+                          <i [class]="button.icon"></i>
+                        }
+                      </button>
+                    }
                   }
                 }
                 @if (field.icon) {

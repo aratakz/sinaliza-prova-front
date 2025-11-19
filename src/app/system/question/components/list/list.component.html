@@ -3,4 +3,9 @@
     Criar nova questão
   </button>
 </div>
-<app-table-list [tableColumns]="tableColumns" [tableLines]="tableLines"></app-table-list>
+<app-table-list
+  [tableColumns]="tableColumns"
+  [tableLines]="tableLines"
+  [access]="user.access"
+  [permissions]="[AccessLevel.ADMIN, AccessLevel.TEACHER, AccessLevel.PROFESSIONAL]"
+></app-table-list>

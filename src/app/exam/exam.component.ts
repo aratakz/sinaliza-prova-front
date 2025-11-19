@@ -58,4 +58,8 @@ export class ExamComponent implements OnInit{
         }
     }
 
+    async backToSystem() {
+        await this.router.navigate(['system']);
+    }
+
 }

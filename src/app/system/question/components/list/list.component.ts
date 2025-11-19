@@ -4,6 +4,8 @@ import {AlertService} from '../../../../shared/services/alert.service';
 import {QuestionService} from '../../../services/question.service';
 import {Router} from '@angular/router';
 import {GlobalService} from '../../../services/global.service';
+import {AuthService} from '../../../../auth/services/auth.service';
+import {AccessLevel} from '../../../enums/AccessLevel';
 
 @Component({
   selector: 'app-list',
@@ -17,6 +19,7 @@ export class ListComponent implements OnInit {
     private questionService: QuestionService,
     private router: Router,
     private globalService: GlobalService,
+    private authService: AuthService,
   ) {}
 
   tableColumns:TableColumn[] = [
@@ -33,6 +36,7 @@ export class ListComponent implements OnInit {
       title: ""
     }
   ]
+  user: any;
 
   tableLines: TableLine[] = [];
   ngOnInit(): void {
@@ -41,6 +45,9 @@ export class ListComponent implements OnInit {
         this.feedTable(response);
       }
     });
+    this.user = this.authService.userData;
+    this.user = JSON.parse(this.user);
+
     this.globalService.activeRouteBehavior.next('Questões')
   }
 
@@ -119,4 +126,6 @@ export class ListComponent implements OnInit {
   async onEdit(questionId:any) {
     await this.router.navigate([`system/question/form/${questionId}`]);
   }
+
+  protected readonly AccessLevel = AccessLevel;
 }

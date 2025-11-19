@@ -95,7 +95,7 @@ export class ListComponent  implements OnInit {
             index: new Date().toISOString(),
             classes: ['btn-middle'],
             icon: 'fi fi-rr-test',
-            onClick: async () => this.onEdit(question.id),
+            onClick: async () => this.onTestStart(question.id),
           })
       }
 
@@ -145,4 +145,8 @@ export class ListComponent  implements OnInit {
   }
 
   protected readonly AccessLevel = AccessLevel;
+
+  async onTestStart(examId: string) {
+    await this.router.navigate([`exam/${examId}`]);
+  }
 }

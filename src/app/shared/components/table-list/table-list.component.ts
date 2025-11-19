@@ -11,8 +11,8 @@ export class TableListComponent implements OnInit {
 
   @Input({required: true}) tableColumns: TableColumn[] = [];
   @Input() tableLines: TableLine[] = [];
+  @Input() permissions: Array<any> = [];
+  @Input() access: any;
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 }
