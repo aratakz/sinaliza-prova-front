@@ -10,13 +10,15 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: './exam.component.html',
   styleUrl: './exam.component.scss'
 })
-export class ExamComponent implements OnInit{
+class ExamComponent implements OnInit{
 
   exam: any;
   examId: any;
   activeQuestion: any;
   questions: any;
   optionList: any;
+  answers: Array<any> = [];
+
 
 
   constructor(
@@ -41,6 +43,17 @@ export class ExamComponent implements OnInit{
         });
     }
 
+    isAnswered(index: any) {
+      const answer = this.answers.filter((answer) => answer.index == index);
+      return answer && answer.length > 0;
+    }
+    respond(activeQuestion:any) {
+      const index = this.questions.indexOf(activeQuestion);
+      this.answers.push({
+        index: index,
+        alternative: {}
+      })
+    }
     get activeQuestionTitle() {
         const field = this.activeQuestion.fields
           .filter((field: any) => field.fieldType == 'title');
@@ -52,8 +65,11 @@ export class ExamComponent implements OnInit{
     }
 
     changeQuestion(index:any) {
-      this.activeQuestion = this.questions[index];
-      this.options();
+      if (!this.isAnswered(index)) {
+        this.activeQuestion = this.questions[index];
+        this.options();
+      }
+
     }
     get activeQuestionSupportText() {
         const field = this.activeQuestion.fields
@@ -78,3 +94,5 @@ export class ExamComponent implements OnInit{
     }
 
 }
+
+export default ExamComponent

@@ -25,7 +25,7 @@
           }
         </div>
         <div class="question-footer">
-          <button>Reponder</button>
+          <button (click)="respond(activeQuestion)">Reponder</button>
         </div>
       </div>
       <div class="answer-wrapper exam-wrapper">
@@ -36,13 +36,16 @@
           @for (question of questions; track question.id; let index = $index) {
             <div class="question-wrapper" (click)="changeQuestion(index)">
               <span class="question-finish">
+                @if (isAnswered(index)) {
+                  <i class="fi fi-br-check"></i>
+                }
               </span>
               <span class="question-name">{{question.name}}</span>
             </div>
           }
         </div>
         <div class="finish">
-          <button>Finalizar</button>
+          <button (click)="backToSystem()">Finalizar</button>
         </div>
       </div>
   </div>
