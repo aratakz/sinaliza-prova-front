@@ -51,10 +51,14 @@ export class ExamComponent implements OnInit{
         }
     }
 
+    changeQuestion(index:any) {
+      this.activeQuestion = this.questions[index];
+      this.options();
+    }
     get activeQuestionSupportText() {
         const field = this.activeQuestion.fields
           .filter((field: any) => field.fieldType == 'support_data');
-        if (field) {
+        if (field && field.length > 0) {
           return field[0].fieldValue;
         } else {
           return "";

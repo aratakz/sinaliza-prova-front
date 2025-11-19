@@ -34,9 +34,8 @@
         </div>
         <div class="question-list">
           @for (question of questions; track question.id; let index = $index) {
-            <div class="question-wrapper">
+            <div class="question-wrapper" (click)="changeQuestion(index)">
               <span class="question-finish">
-  <!--              <i class="fi fi-br-check"></i>-->
               </span>
               <span class="question-name">{{question.name}}</span>
             </div>

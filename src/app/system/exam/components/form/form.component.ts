@@ -95,7 +95,14 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.examService.create(this.form.value).subscribe({
+    let value = this.form.value;
+    let qIds = [];
+    for (const secQuestion of this.selectedQuestions) {
+      qIds.push(secQuestion.id);
+    }
+    value.questions = qIds;
+
+    this.examService.create(value).subscribe({
       next: async (result: any) => {
         await this.alertService.toastSuccess('Prova criada com sucesso!');
         await this.router.navigate(['system/exam/list']);
