@@ -178,3 +178,11 @@
   border: 1px solid #c7c7c7;
   border-radius: 8px;
 }
+.alternative-wrapper {
+  * {
+    margin: 0 5px;
+  }
+  input[type=radio] {
+    cursor: pointer;
+  }
+}

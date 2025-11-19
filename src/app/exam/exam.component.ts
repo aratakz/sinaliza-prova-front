@@ -16,6 +16,7 @@ export class ExamComponent implements OnInit{
   examId: any;
   activeQuestion: any;
   questions: any;
+  optionList: any;
 
 
   constructor(
@@ -34,6 +35,8 @@ export class ExamComponent implements OnInit{
             this.exam = exam;
             this.questions = exam.questions;
             this.activeQuestion = this.questions[0];
+            this.options();
+
           }
         });
     }
@@ -60,6 +63,14 @@ export class ExamComponent implements OnInit{
 
     async backToSystem() {
         await this.router.navigate(['system']);
+    }
+
+    options() {
+        this.examService.getOptions(this.activeQuestion.id).subscribe({
+          next: (options: any) => {
+            this.optionList   = options;
+          }
+        });
     }
 
 }
