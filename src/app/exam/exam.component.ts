@@ -3,6 +3,7 @@ import {GlobalService} from '../system/services/global.service';
 import {ExamService} from '../system/services/exam.service';
 import {AlertService} from '../shared/services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {QuestionService} from '../system/services/question.service';
 
 @Component({
   selector: 'app-exam',
@@ -18,12 +19,13 @@ class ExamComponent implements OnInit{
   questions: any;
   optionList: any;
   answers: Array<any> = [];
-
+  video: any;
 
 
   constructor(
     private globalService: GlobalService,
     private examService: ExamService,
+    private questionService: QuestionService,
     private alertService: AlertService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -63,10 +65,29 @@ class ExamComponent implements OnInit{
           return "";
         }
     }
+    get fieldTitleId() {
+      const field = this.activeQuestion.fields
+        .filter((field: any) => field.fieldType == 'title');
+      if (field) {
+        return field[0].id;
+      } else {
+        return "";
+      }
+    }
 
+    get fieldSupportId() {
+      const field = this.activeQuestion.fields
+        .filter((field: any) => field.fieldType == 'support_data');
+      if (field) {
+        return field[0].id;
+      } else {
+        return "";
+      }
+    }
     changeQuestion(index:any) {
       if (!this.isAnswered(index)) {
         this.activeQuestion = this.questions[index];
+        this.video = undefined;
         this.options();
       }
 
@@ -93,8 +114,12 @@ class ExamComponent implements OnInit{
         });
     }
 
-    playVideo() {
-
+    playVideo(fieldId: any) {
+      this.questionService.getFieldVideo(fieldId).subscribe({
+        next: (video: any) => {
+          this.video = video.video;
+        }
+      });
     }
 
 }

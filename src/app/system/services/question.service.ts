@@ -42,4 +42,8 @@ export class QuestionService {
   saveFieldVideo(values: any) {
     return this.http.post(`${this.baseUrl}/fieldVideo`, values, {headers: this.headers});
   };
+
+  getFieldVideo(fieldId: any) {
+    return this.http.get(`${this.baseUrl}/loadVideo/${fieldId}`, {headers: this.headers});
+  };
 }

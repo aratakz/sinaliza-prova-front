@@ -30,10 +30,6 @@ export class ListComponent  implements OnInit {
     },
     {
       index: new Date().toISOString(),
-      title: "Resultado"
-    },
-    {
-      index: new Date().toISOString(),
       title: ""
     }
   ]
@@ -104,10 +100,6 @@ export class ListComponent  implements OnInit {
       fields.push({
         index: new Date().toISOString(),
         value: 'Turma'
-      });
-      fields.push({
-        index: new Date().toISOString(),
-        value: "results"
       });
       fields.push(lineActions);
 
