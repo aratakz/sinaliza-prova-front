@@ -6,6 +6,7 @@ import {
 import {ModalService} from '../../../services/modal.service';
 import {BehaviorSubject} from 'rxjs';
 import {AlertService} from '../../../services/alert.service';
+import {QuestionService} from '../../../../system/services/question.service';
 
 enum RecoderType {
   record = 'record',
@@ -31,12 +32,14 @@ export class RecordOptionsModalComponent implements OnInit {
 
 
   @Input({required: true}) type: any;
+  @Input({required: true}) fieldId: any;
 
   constructor(
     private elementRef: ElementRef,
     private modalService: ModalService,
     private changeDetectorRef: ChangeDetectorRef,
     private alertService: AlertService,
+    private questionService: QuestionService
   ) {}
   ngOnInit(): void {
     this.updateVideoBehavior.subscribe({
@@ -122,5 +125,17 @@ export class RecordOptionsModalComponent implements OnInit {
     }
     this.changeDetectorRef.detectChanges();
 
+  }
+
+  async onAprove() {
+    console.debug(this.fieldId)
+    this.questionService.saveFieldVideo({
+      base64: this.videoUrl,
+      fieldId: this.fieldId.fieldId
+    }).subscribe({
+      next: () => {
+        this.onClose();
+      }
+    });
   }
 }

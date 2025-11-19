@@ -36,6 +36,8 @@ export class FormComponent implements OnInit {
   ) {}
   question: any;
   questionId:any;
+  tileField: any
+  moreField: any
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -56,11 +58,14 @@ export class FormComponent implements OnInit {
         if (question.fields) {
           for (const field of question.fields) {
               if (field.fieldType == 'title') {
+                this.tileField = field.id;
                 this.form.patchValue({
                   title: field.fieldValue
                 });
               }
               if (field.fieldType == 'support_data') {
+                this.moreField = field.id;
+                console.debug(this.moreField);
                 this.form.patchValue({
                     support_data: field.fieldValue
                 });

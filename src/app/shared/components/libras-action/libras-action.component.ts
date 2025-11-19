@@ -10,18 +10,20 @@ import {RecordOptionsModalComponent} from '../modals/record-options-modal/record
 })
 export class LibrasActionComponent implements OnInit {
   @Input({required: true}) type: string|undefined;
+  @Input({required: true}) fieldId: string|undefined;
 
   constructor(
     private modalService: ModalService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-
   }
 
   displayModal(templateRef: TemplateRef<any>): void {
     this.modalService.open(templateRef, RecordOptionsModalComponent, [{
-        type: this.type
+        type: this.type,
+        fieldId: this.fieldId
       }
     ]);
   }

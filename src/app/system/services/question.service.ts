@@ -38,4 +38,8 @@ export class QuestionService {
   update(questionId: string, question: any) {
     return this.http.patch(`${this.baseUrl}/update/${questionId}`, question, {headers: this.headers});
   }
+
+  saveFieldVideo(values: any) {
+    return this.http.post(`${this.baseUrl}/fieldVideo`, values, {headers: this.headers});
+  };
 }
