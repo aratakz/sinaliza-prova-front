@@ -4,15 +4,8 @@ import {ExamComponent} from './exam.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: ExamComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: 'exam/{:id}',
-        pathMatch: 'full',
-      }
-    ]
+    path: ':id',
+    component: ExamComponent
   }
 ];
 
