@@ -15,6 +15,7 @@
   .exam-title {
     font-size:20px;
     font-weight: bold;
+    margin-left: 20px;
   }
   .controls {
     display: flex;
@@ -79,6 +80,13 @@
   display: flex;
   width: 100%;
   align-items: center;
+  cursor: pointer;
+}
+.question-wrapper:hover {
+  background: var(--primary);
+  * {
+    color: #FFFFFF;
+  }
 }
 
 .question-finish {

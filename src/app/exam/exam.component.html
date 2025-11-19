@@ -4,19 +4,19 @@
       <i class="fi fi-bs-arrow-left"></i> Sinaliza Prova
     </div>
     <div class="exam-title">
-      Teste
+      {{exam.title.toUpperCase()}} ( {{exam.discipline.name.toUpperCase()}} )
     </div>
   </div>
   <div class="exam-content">
       <div class="video-wrapper exam-wrapper"></div>
       <div class="options-wrapper exam-wrapper">
-        <div class="question-title-wrapper"></div>
-        <div class="question-help-wrapper"></div>
+        <div class="question-title-wrapper">
+          {{activeQuestionTitle}}
+        </div>
+        <div class="question-help-wrapper">
+          {{activeQuestionSupportText}}
+        </div>
         <div class="question-options-wrapper">
-          <div class="alternative-wrapper">a</div>
-          <div class="alternative-wrapper">a</div>
-          <div class="alternative-wrapper">a</div>
-          <div class="alternative-wrapper">a</div>
           <div class="alternative-wrapper">a</div>
         </div>
         <div class="question-footer">
@@ -25,15 +25,17 @@
       </div>
       <div class="answer-wrapper exam-wrapper">
         <div class="question-count">
-          1/10 Questões
+          1/{{questions.length}} Questões
         </div>
         <div class="question-list">
-          <div class="question-wrapper">
-          <span class="question-finish">
-            <i class="fi fi-br-check"></i>
-          </span>
-            <span class="question-name">Testes</span>
-          </div>
+          @for (question of questions; track question.id; let index = $index) {
+            <div class="question-wrapper">
+              <span class="question-finish">
+  <!--              <i class="fi fi-br-check"></i>-->
+              </span>
+              <span class="question-name">{{question.name}}</span>
+            </div>
+          }
         </div>
         <div class="finish">
           <button>Finalizar</button>

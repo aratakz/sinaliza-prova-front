@@ -33,4 +33,14 @@ export class ExamService {
    return  this.http.get(`${config.api_host}/exams/list`, {headers: headers});
   }
 
+  findOne(id: any) {
+    const token = window.localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+
+   return  this.http.get(`${config.api_host}/exams/find/${id}`, {headers: headers});
+  }
+
 }
