@@ -31,28 +31,28 @@
       </div>
     }
 
-    @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL].includes(user.access)) {
-      <div class="nav-item has-child">
-        <div class="nav-item-label"  (click)="collapseMenu('security')" >
-          <i class="fi fi-rr-shield-check"></i>
-          @if (!isCollapsed) {
-            <p>Segurança</p>
-          }
-        </div>
-        @if (!isCollapsed && menuControls.security.show) {
-          <div class="child-list list-hidden">
-            <div class="nav-item-child" routerLinkActive="active" routerLink="../system/access">
-              <span class="nav-option"></span>
-              <p>Perfis de acesso</p>
-            </div>
-            <div class="nav-item-child" routerLinkActive="active" routerLink="../system/profiles">
-              <span class="nav-option"></span>
-              <p>Profissionais</p>
-            </div>
-          </div>
-        }
-      </div>
-    }
+<!--    @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL].includes(user.access)) {-->
+<!--      <div class="nav-item has-child">-->
+<!--        <div class="nav-item-label"  (click)="collapseMenu('security')" >-->
+<!--          <i class="fi fi-rr-shield-check"></i>-->
+<!--          @if (!isCollapsed) {-->
+<!--            <p>Segurança</p>-->
+<!--          }-->
+<!--        </div>-->
+<!--        @if (!isCollapsed && menuControls.security.show) {-->
+<!--          <div class="child-list list-hidden">-->
+<!--            <div class="nav-item-child" routerLinkActive="active" routerLink="../system/access">-->
+<!--              <span class="nav-option"></span>-->
+<!--              <p>Perfis de acesso</p>-->
+<!--            </div>-->
+<!--            <div class="nav-item-child" routerLinkActive="active" routerLink="../system/profiles">-->
+<!--              <span class="nav-option"></span>-->
+<!--              <p>Profissionais</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        }-->
+<!--      </div>-->
+<!--    }-->
 
     @if ([AccessLevel.ADMIN, AccessLevel.PROFESSIONAL].includes(user.access)) {
       <div class="nav-item" routerLinkActive="active" routerLink="../system/institute">
