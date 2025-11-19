@@ -10,26 +10,26 @@
       <app-libras-action [type]="'record'"></app-libras-action>
       <input class="form-input" formControlName="title">
     </div>
-    <fieldset class="tag-area">
-      <legend>Tags</legend>
-        <div class="tag-container">
-          @for (tag of tags ; track tag.id; let index = $index) {
-            <div class="tag">
-              <span class="tagname"> #{{tag.name}}</span>
-              <span class="remove-tag" (click)="removeTag(index)">
-                <i class="fi fi-rr-cross-circle"></i>
-              </span>
-            </div>
-          }
+<!--    <fieldset class="tag-area">-->
+<!--      <legend>Tags</legend>-->
+<!--        <div class="tag-container">-->
+<!--          @for (tag of tags ; track tag.id; let index = $index) {-->
+<!--            <div class="tag">-->
+<!--              <span class="tagname"> #{{tag.name}}</span>-->
+<!--              <span class="remove-tag" (click)="removeTag(index)">-->
+<!--                <i class="fi fi-rr-cross-circle"></i>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          }-->
 
-        </div>
-        <div class="tag-input">
-          <input class="form-input" placeholder="Adicionar tag" (input)="inputTag($event)">
-          <button (click)="addTag()">
-            <i class="fi fi-rr-arrow-small-up"></i>
-          </button>
-        </div>
-    </fieldset>
+<!--        </div>-->
+<!--        <div class="tag-input">-->
+<!--          <input class="form-input" placeholder="Adicionar tag" (input)="inputTag($event)">-->
+<!--          <button (click)="addTag()">-->
+<!--            <i class="fi fi-rr-arrow-small-up"></i>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--    </fieldset>-->
     <fieldset>
       <legend>Alternativas</legend>
       <div class="options">
