@@ -8,17 +8,28 @@
     </div>
   </div>
   <div class="exam-content">
-      <div class="video-wrapper exam-wrapper"></div>
+      <div class="video-wrapper exam-wrapper">
+        <video src="https://youtu.be/WqHnFFcWZ50"></video>
+      </div>
       <div class="options-wrapper exam-wrapper">
         <div class="question-title-wrapper">
+          <span class="add-libras" (click)="playVideo()">
+              <button [style.background-image]="'url(' + './assets/libras-sign.svg' + ')'"></button>
+          </span>
           {{activeQuestionTitle}}
         </div>
         <div class="question-help-wrapper">
+          <span class="add-libras" (click)="playVideo()">
+              <button [style.background-image]="'url(' + './assets/libras-sign.svg' + ')'"></button>
+          </span>
           {{activeQuestionSupportText}}
         </div>
         <div class="question-options-wrapper">
           @for (option of optionList; track option.id) {
             <div class="alternative-wrapper">
+              <span class="add-libras" (click)="playVideo()">
+                <button [style.background-image]="'url(' + './assets/libras-sign.svg' + ')'"></button>
+              </span>
               <input type="radio" name="answer">
               {{option.title}}
             </div>

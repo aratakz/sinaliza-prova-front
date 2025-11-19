@@ -93,6 +93,10 @@ class ExamComponent implements OnInit{
         });
     }
 
+    playVideo() {
+
+    }
+
 }
 
 export default ExamComponent
