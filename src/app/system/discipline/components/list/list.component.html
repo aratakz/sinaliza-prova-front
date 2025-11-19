@@ -5,4 +5,9 @@
     </button>
   }
 </div>
-<app-table-list [tableColumns]="listColumns" [tableLines]="tableData"></app-table-list>
+<app-table-list
+  [tableColumns]="listColumns"
+  [tableLines]="tableData"
+  [access]="user.access"
+  [permissions]="[AccessLevel.PROFESSIONAL, AccessLevel.ADMIN, AccessLevel.TEACHER]"
+></app-table-list>
