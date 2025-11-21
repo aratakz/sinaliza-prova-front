@@ -47,7 +47,7 @@ export class ExamService {
       'Authorization': `Bearer ${token}`,
     });
 
-    return  this.http.get(`${config.api_host}/questionOption/find-question/${id}`, {headers: headers});
+    return  this.http.get(`${config.api_host}/questionOption/find/question/${id}`, {headers: headers});
   }
   remove(examId: any) {
     const token = window.localStorage.getItem('token') || '';

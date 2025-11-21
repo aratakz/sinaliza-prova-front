@@ -7,6 +7,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import {AlertService} from './shared/services/alert.service';
 import {provideHttpClient} from '@angular/common/http';
 import {BsModalService} from 'ngx-bootstrap/modal';
+import {NgxEditorModule} from 'ngx-editor';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {BsModalService} from 'ngx-bootstrap/modal';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxEditorModule
   ],
   providers: [
     AlertService,
