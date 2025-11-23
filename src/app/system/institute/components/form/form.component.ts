@@ -6,6 +6,7 @@ import {AlertService} from '../../../../shared/services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../../auth/services/auth.service';
 import {async} from 'rxjs';
+import {CrudService} from '../../../../shared/services/crud.service';
 
 @Component({
   selector: 'app-form',
@@ -29,14 +30,42 @@ export class FormComponent  implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private route: ActivatedRoute,
+    private crudService: CrudService
   ) {
     globalService.actionControlBehavior.next(false);
-    this.form = formBuilder.group({
-      name: ['', [Validators.required]],
-    })
   }
 
-  onSubmit() {
+
+  async createForm() {
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required]],
+    });
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.globalService.activeRouteBehavior.next('Instituição');
+
+    await this.createForm();
+    if (this.id) {
+      await this.load();
+    }
+  }
+
+  async feedForm(values:any) {
+    this.form.patchValue({
+      name: values.name,
+    });
+    this.subscriptionName= values.subscriptions.name;
+    this.subscriptionAmount = values.subscriptions.totalStorage;
+  }
+
+  async load() {
+    const institute: any =
+      await this.crudService.find.findInstituteById(this.id);
+    await this.feedForm(institute);
+  }
+  async onSubmit() {
     if (this.id) {
       this.instituteService.update(this.id, this.form.value).subscribe({
         next: async () => {
@@ -62,26 +91,7 @@ export class FormComponent  implements OnInit, OnDestroy {
       });
     }
   }
-
-  ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    if (this.id) {
-      this.globalService.activeRouteBehavior.next("Editar institução");
-      this.instituteService.findById(this.id).subscribe({
-        next: (response: any) => {
-          this.form.patchValue({
-            name: response.name,
-          });
-          this.subscriptionName= response.subscriptions.name;
-          this.subscriptionAmount = response.subscriptions.totalStorage;
-        }
-      });
-    } else {
-      this.globalService.activeRouteBehavior.next('Nova instituição');
-    }
-  }
-
-  triggerDetails() {
+  async triggerDetails() {
     this.showDetails = !this.showDetails;
 
     if (this.showDetails) {
@@ -90,8 +100,7 @@ export class FormComponent  implements OnInit, OnDestroy {
       this.opened = '';
     }
   }
-
-  ngOnDestroy(): void {
+  async ngOnDestroy(): Promise<void> {
     this.globalService.activeRouteBehavior.next("Intituições");
   }
 

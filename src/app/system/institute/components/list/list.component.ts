@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalService} from '../../../services/global.service';
-import {InstituteService} from '../../../../shared/services/institute.service';
 import {AlertService} from '../../../../shared/services/alert.service';
-import {lastValueFrom} from 'rxjs';
-import {ListService} from '../../../../shared/services/list.service';
-import {RemoveService} from '../../../../shared/services/remove.service';
+import {CrudService} from '../../../../shared/services/crud.service';
 
 @Component({
   selector: 'app-list',
@@ -17,16 +14,15 @@ export class ListComponent implements OnInit {
 
     constructor(
       private globalService: GlobalService,
-      private listService: ListService,
       private alertService: AlertService,
-      private removeService: RemoveService
+      private crudService: CrudService
     ) {
       globalService.actionControlBehavior.next(true);
     }
 
   async ngOnInit(): Promise<void> {
       this.globalService.activeRouteBehavior.next("Instituições");
-      const list:any = await this.listService.listInstitutes();
+      const list:any = await this.crudService.list.listInstitutes();
       await this.feedTable(list);
   }
 
@@ -38,7 +34,7 @@ export class ListComponent implements OnInit {
   async remove(id: any) {
     await this.alertService.alertOptions('Deseja realmente excluir essa instituição?',
       async () => {
-        await this.removeService.removeInstitute(id);
+        await this.crudService.remove.removeInstitute(id);
         location.reload();
       });
   }

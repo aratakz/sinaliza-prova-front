@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertService} from '../../../shared/services/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
-import {Router} from '@angular/router';
 import {FormService} from '../../../shared/services/form.service';
+import {CrudService} from '../../../shared/services/crud.service';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +14,8 @@ export class LoginComponent implements OnInit{
   formGroup: FormGroup;
 
   constructor(
-    private alertService: AlertService,
     private formBuilder: FormBuilder,
-    private formService: FormService,
+    private crudService: CrudService
   ) {}
 
   async createForm() {
@@ -34,7 +31,7 @@ export class LoginComponent implements OnInit{
 
   async onSubmit() {
     if (this.formGroup.valid) {
-      await this.formService.submitLoginForm(this.formGroup.value);
+      await this.crudService.form.submitLoginForm(this.formGroup.value);
     }
   }
 }
