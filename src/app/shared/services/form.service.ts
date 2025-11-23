@@ -29,16 +29,19 @@ export class FormService {
   async submitInstituteForm(data: any, id: any = null, update: boolean = false) {
     let result;
     if (update) {
-      result = lastValueFrom(this.instituteService.update(data, id))
+      result = lastValueFrom(this.instituteService.update(id, data))
         .catch(async () =>
           await this.alertService.toastError('Não foi possível atualizar o registro.'));
+      await this.alertService.toastSuccess('Registro atualizado com sucesso!')
+
     } else {
       result = lastValueFrom(this.instituteService.register(data))
         .catch(async () =>
           await this.alertService.toastError('Não foi possível registrar'));
+      await this.alertService.toastSuccess('Registro cadastrado com sucesso!')
 
     }
-
+    await this.router.navigate(['../system/institute/list']);
     return result;
   }
 }
