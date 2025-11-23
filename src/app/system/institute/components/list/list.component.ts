@@ -39,7 +39,7 @@ export class ListComponent implements OnInit {
     await this.alertService.alertOptions('Deseja realmente excluir essa instituição?',
       async () => {
         await this.removeService.removeInstitute(id);
-        await location.reload();
+        location.reload();
       });
   }
 }
