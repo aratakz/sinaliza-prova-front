@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  readonly baseUrl = `${config.api_host}/auth`;
+  readonly  baseUrl = `${config.api_host}/security/auth`;
 
   constructor(
     private alertService: AlertService,
@@ -17,19 +17,16 @@ export class AuthService {
     private router: Router,
     ) {}
 
-
-  login(loginData: any):Observable<Object> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    return this.http.post(`${this.baseUrl}/signin`, JSON.stringify(loginData), { headers: headers });
+  get userData ():string|null {
+    return window.localStorage.getItem('userData');
   }
 
-  storeToken(token: string):void{
+  async storeToken(token: string):Promise<void>{
     const tokenPayloadEncoded = token.split('.')[1];
     const userDataObject = JSON.parse(atob(tokenPayloadEncoded)).userData;
     window.localStorage.setItem('userData', JSON.stringify(userDataObject));
     window.localStorage.setItem('token', token);
   }
-
   async destroyToken(): Promise<void> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     if (window.localStorage.getItem('token')) {
@@ -44,20 +41,19 @@ export class AuthService {
       });
     }
   }
-  requestChangePass(formData: any) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    return this.http.post(`${this.baseUrl}/requestPassChange`, JSON.stringify(formData), {headers: headers});
-  }
-
-  get userData ():string|null {
-    return window.localStorage.getItem('userData');
-  }
-
   async logout() {
     await this.destroyToken();
     await this.router.navigate(['/']);
   }
 
+  login(loginData: any):Observable<Object> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.http.post(`${this.baseUrl}/signin`, JSON.stringify(loginData), { headers: headers });
+  }
+  requestChangePass(formData: any) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.http.post(`${this.baseUrl}/requestPassChange`, JSON.stringify(formData), {headers: headers});
+  }
   checkToken(token:string|null): Observable<Object> {
     return this.http.get(`${this.baseUrl}/checkTwoFactorToken/${token}`);
   }
@@ -68,7 +64,6 @@ export class AuthService {
     return this.http.patch(`${this.baseUrl}/activate/${token}`, {});
 
   }
-
   updatePass(token: string, formData: any) {
     return this.http.patch(`${this.baseUrl}/updatePass/${token}`, formData);
   }
