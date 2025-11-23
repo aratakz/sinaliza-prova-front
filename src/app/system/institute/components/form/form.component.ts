@@ -67,28 +67,9 @@ export class FormComponent  implements OnInit, OnDestroy {
   }
   async onSubmit() {
     if (this.id) {
-      this.instituteService.update(this.id, this.form.value).subscribe({
-        next: async () => {
-          await this.alertService.toastSuccess('Cadastro atualizado com sucesso!');
-          await this.router.navigate(['../system/institute/list']);
-        },
-        error: async (err) => {
-          await this.alertService.toastError('Não foi possível atualziar a instituição');
-        }
-      });
+      await this.crudService.form.submitInstituteForm(this.form.value, this.id, true);
     } else {
-      this.instituteService.register(this.form.value).subscribe({
-        next: async response => {
-          await this.alertService.toastSuccess('Cadastro realizado com sucesso!');
-          await this.router.navigate(['../system/institute/list']);
-        },
-        error: async (error) => {
-          if (error.status === 401) {
-            this.alertService.toastInfo('Sua sessão expirou, realize o login novamente.');
-            await this.authService.logout()
-          }
-        }
-      });
+      await this.crudService.form.submitInstituteForm(this.form.value);
     }
   }
   async triggerDetails() {
