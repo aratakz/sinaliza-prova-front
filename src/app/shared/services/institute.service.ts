@@ -6,7 +6,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class InstituteService {
-  readonly instituteURL = `${config.api_host}/institutes`;
+  readonly instituteURL = `${config.api_host}/management/institute`;
 
   constructor(
     private http: HttpClient,
