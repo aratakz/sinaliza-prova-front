@@ -6,7 +6,7 @@ import {config} from '../../../config';
   providedIn: 'root'
 })
 export class QuestionService {
-  readonly baseUrl: string = `${config.api_host}/questions`;
+  readonly baseUrl: string = `${config.api_host}/evaluation/questions`;
   readonly baseUrlMedia: string = `${config.api_host}/system`;
   readonly token = window.localStorage.getItem('token') || '';
   readonly headers = new HttpHeaders({
