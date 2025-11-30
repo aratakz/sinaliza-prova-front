@@ -38,6 +38,10 @@ export class FormComponent implements OnInit {
   questionId:any;
   tileField: any
   moreField: any
+  videos: any = {
+    questionTitle: null,
+    questionSupport: null
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -90,15 +94,14 @@ export class FormComponent implements OnInit {
       });
     }
   }
-
   async onSubmit() {
     const formValues:any  = this.form.value;
     const images:Array<any>  = [];
     for (const item of this.addedImages) {
       images.push(await this.fileToBase64(item));
     }
-
     formValues.file = images;
+    formValues.videos = this.videos;
 
    if (this.questionId) {
      formValues.removedImages = this.removedImages;
@@ -117,7 +120,6 @@ export class FormComponent implements OnInit {
      });
    }
   }
-
   addImage($event: any) {
     const fileReader = new FileReader();
     fileReader.readAsDataURL($event.target.files[0]);
@@ -130,13 +132,10 @@ export class FormComponent implements OnInit {
       })
     }
   }
-
   removeImage(index: any) {
     this.removedImages.push(this.galleryList[index].id);
     this.galleryList.splice(index, 1);
   }
-
-
   addOption() {
     let answers = [];
     for (const item of this.formAnswers.value) {
@@ -164,7 +163,6 @@ export class FormComponent implements OnInit {
       }
     }
   }
-
   enableDisableOption() {
     for (let control of this.formAnswers.controls) {
       control.disable();
@@ -174,7 +172,6 @@ export class FormComponent implements OnInit {
       }
     }
   }
-
   loadOption(title:any,isAnswer:boolean) {
     const formData = new FormGroup({
       isAnswer: new FormControl(),
@@ -188,11 +185,9 @@ export class FormComponent implements OnInit {
     this.enableDisableOption();
 
   }
-
   removeOption(index: any) {
     this.formAnswers.removeAt(index);
   }
-
   fileToBase64(file: File)  {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -201,11 +196,9 @@ export class FormComponent implements OnInit {
       reader.onerror = (error) => reject(error);
     });
   };
-
   checkAsAnswer(index: any, event: Event) {
 
   }
-
   setQuestionTitle(index: any, event: Event) {
     if (this.formAnswers.controls[index].value) {
       this.formAnswers.controls[index].patchValue({
@@ -213,16 +206,13 @@ export class FormComponent implements OnInit {
       });
     }
   }
-
   get formAnswers(): FormArray {
     return this.form.get('answers') as FormArray;
   }
-
   inputTag($event: any) {
     console.debug($event.target.value)
     this.tagName = $event.target.value;
   }
-
   addTag() {
     if (this.tagName !== '') {
 
@@ -236,9 +226,12 @@ export class FormComponent implements OnInit {
     }
 
   }
-
   removeTag(index: any) {
     this.tags.splice(index, 1);
+  }
+
+  onAddVideoQuestionTitle($event: string) {
+    this.videos.questionTitle = $event;
   }
 
 }

@@ -1,5 +1,5 @@
 import {
-  ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges,
+  ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,
   ViewChild,
   viewChild, ViewRef
 } from '@angular/core';
@@ -37,6 +37,7 @@ export class RecordOptionsModalComponent implements OnInit {
   fieldId: any;
   blobStream: any;
 
+  @Output() submit = new EventEmitter<string>()
   @ViewChild("vContainer") videoContainer!: ElementRef;
 
 
@@ -57,7 +58,10 @@ export class RecordOptionsModalComponent implements OnInit {
     });
   }
   onClose() {
+    this.stopRecording();
     this.modalService.close(this.elementRef);
+  }
+  stopRecording() {
     if (this.recorder) {
       this.recorder.stop();
       this.recorder = null;
@@ -135,13 +139,14 @@ export class RecordOptionsModalComponent implements OnInit {
 
   }
   async onAprove() {
-    await this.questionService.saveFieldVideo({
+    const result = await this.questionService.saveFieldVideo({
       video: this.blobStream,
       fieldId: this.fieldId.fieldId
-    }).then(() => {
-      this.alertService.toastSuccess('Video carregado');
+    }).catch(() => this.alertService.toastError('Não foi possível enviar o vídeo'));
+    if (result) {
+      const {media} = await result.json();
+      this.submit.emit(media);
       this.onClose();
-    })
-      .catch(() => this.alertService.toastError('Não foi possível enviar o vídeo'));
+    }
   }
 }

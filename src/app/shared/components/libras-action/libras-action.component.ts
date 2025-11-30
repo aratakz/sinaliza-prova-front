@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {ModalService} from '../../services/modal.service';
 import {RecordOptionsModalComponent} from '../modals/record-options-modal/record-options-modal.component';
 
@@ -12,10 +12,11 @@ export class LibrasActionComponent implements OnInit {
   @Input({required: true}) type: string|undefined;
   @Input({required: true}) fieldId: string|undefined;
 
+  @Output() onVideoAprove: EventEmitter<string> = new EventEmitter<string>();
+
   constructor(
     private modalService: ModalService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
   }
@@ -26,5 +27,11 @@ export class LibrasActionComponent implements OnInit {
         fieldId: this.fieldId
       }
     ]);
+
+    this.modalService.onAprove.subscribe((videoId: string) => {
+      this.onVideoAprove.emit(videoId);
+    });
   }
+
+
 }

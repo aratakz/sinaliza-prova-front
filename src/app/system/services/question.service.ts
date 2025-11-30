@@ -41,15 +41,14 @@ export class QuestionService {
   }
 
   async saveFieldVideo(values: any) {
-    await fetch(`${this.baseUrlMedia}/media/field/video`, {
+    return await fetch(`${this.baseUrlMedia}/media/field/video`, {
       method:"POST",
       body: values.video,
       headers: {
         'Content-Type': 'application/octet-stream',
         'Authorization': `Bearer ${this.token}`,
       }
-    }).then();
-    // return this.http.post(`${this.baseUrl}/fieldVideo`, values, {headers: this.headers});
+    })
   };
 
   getFieldVideo(fieldId: any) {

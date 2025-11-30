@@ -7,6 +7,7 @@
     <div class="form-group">
       <label>Enunciado</label>
       <app-libras-action
+        (onVideoAprove)="onAddVideoQuestionTitle($event)"
         [fieldId]="`${tileField}`"
         [type]="'record'"></app-libras-action>
       <input class="form-input" formControlName="title">
