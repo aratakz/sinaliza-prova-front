@@ -16,36 +16,49 @@
           <span>Gravar vídeo</span>
         </div>
       } @else {
-        <div class="video-container">
-          <video [srcObject]="videoStream" [src]="videoUrl" #videoElement [autoplay]="autoplay"></video>
-          <div class="video-controls">
-            @if (type.type == 'player') {
-              <button (click)="playVideo(videoElement)">
-                @if (!playing) {
-                  <i class="fi fi-br-play"></i>
-                } @else {
-                  <i class="fi fi-rr-pause"></i>
-                }
-              </button>
-              <button class="video-approve" (click)="onAprove()">
-                <i class="fi fi-br-check"></i>
-              </button>
-              <button class="video-close" (click)="onClose()">
-                <i class="fi fi-bs-cross"></i>
-              </button>
-            }
-            @if (type.type == 'record') {
-              <button class="action-rec" (click)="startStopRecording()">
-                @if (recording) {
-                  <i class="fi fi-sr-stop"></i>
-                } @else {
-                  <i class="fi fi-sr-rec"></i>
-                }
-              </button>
-              <button class="video-close" (click)="onClose()">
-                <i class="fi fi-bs-cross"></i>
-              </button>
-            }
+        <div class="video-container" #vContainer>
+          <video [srcObject]="videoStream" [src]="videoUrl" #videoElement [autoplay]="autoplay">
+          </video>
+          <div class="video-overlay">
+            <div class="video-controls">
+              @if (type.type == 'player') {
+                <div class="controls-left">
+                  <button (click)="playVideo(videoElement)">
+                    @if (!playing) {
+                      <i class="fi fi-br-play"></i>
+                    } @else {
+                      <i class="fi fi-rr-pause"></i>
+                    }
+                  </button>
+                </div>
+                <div class="controls-right">
+                  <button class="video-approve" (click)="onAprove()">
+                    <i class="fi fi-br-check"></i>
+                  </button>
+                  <button class="video-close" (click)="onClose()">
+                    <i class="fi fi-bs-cross"></i>
+                  </button>
+<!--                  <button (click)="fullScreen($event)">-->
+<!--                    <i class="fi fi-sr-expand"></i>-->
+<!--                  </button>-->
+                </div>
+              }
+              @if (type.type == 'record') {
+                <button class="action-rec" (click)="startStopRecording()">
+                  @if (recording) {
+                    <i class="fi fi-sr-stop"></i>
+                  } @else {
+                    <i class="fi fi-sr-rec"></i>
+                  }
+                </button>
+                <button class="video-close" (click)="onClose()">
+                  <i class="fi fi-bs-cross"></i>
+                </button>
+<!--                <button (click)="fullScreen($event)">-->
+
+<!--                </button>-->
+              }
+            </div>
           </div>
         </div>
       }

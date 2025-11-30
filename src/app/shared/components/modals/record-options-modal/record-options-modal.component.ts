@@ -27,12 +27,17 @@ export class RecordOptionsModalComponent implements OnInit {
   playing: boolean = false;
   recording: boolean = false;
   videoStream: MediaStream | null | void = null;
-  recorder: MediaRecorder| null | void = null;
+  recorder: MediaRecorder | null | void = null;
   autoplay: boolean = false;
 
 
-  @Input({required: true}) type: any;
-  @Input({required: true}) fieldId: any;
+  @Input({required: true})
+  type: any;
+  @Input({required: true})
+  fieldId: any;
+
+  @ViewChild("vContainer") videoContainer!: ElementRef;
+
 
   constructor(
     private elementRef: ElementRef,
@@ -40,13 +45,15 @@ export class RecordOptionsModalComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private alertService: AlertService,
     private questionService: QuestionService
-  ) {}
+  ) {
+  }
+
   ngOnInit(): void {
     this.updateVideoBehavior.subscribe({
       next: showVideo => {
         this.showVideo = showVideo;
       }
-    })
+    });
   }
 
   onClose() {
@@ -57,15 +64,19 @@ export class RecordOptionsModalComponent implements OnInit {
     }
   }
 
- async onVideoSelect($event:any) {
+  async onVideoSelect($event: any) {
     this.videoStream = null;
     this.type = {type: RecoderType.player};
     const fileReader = new FileReader();
-    fileReader.readAsDataURL($event.target.files[0]);
+    fileReader.readAsArrayBuffer($event.target.files[0]);
     fileReader.onloadend = (event) => {
-      this.videoUrl = (<FileReader>event.target).result
-      this.updateVideoBehavior.next(true);
-      this.autoplay = false;
+      const buffer = (<FileReader>event.target).result;
+      if (buffer instanceof ArrayBuffer) {
+        const blob = new Blob([buffer], {type: 'application/octet-stream'});
+        this.videoUrl = URL.createObjectURL(blob);
+        this.updateVideoBehavior.next(true);
+        this.autoplay = false;
+      }
       this.changeDetectorRef.detectChanges();
     }
   }
@@ -119,7 +130,7 @@ export class RecordOptionsModalComponent implements OnInit {
     } else {
       if (this.recorder) {
         this.recorder.stop();
-        this.videoStream= null
+        this.videoStream = null
       }
 
     }
