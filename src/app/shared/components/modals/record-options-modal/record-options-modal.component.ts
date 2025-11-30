@@ -35,6 +35,7 @@ export class RecordOptionsModalComponent implements OnInit {
   type: any;
   @Input({required: true})
   fieldId: any;
+  blobStream: any;
 
   @ViewChild("vContainer") videoContainer!: ElementRef;
 
@@ -55,7 +56,6 @@ export class RecordOptionsModalComponent implements OnInit {
       }
     });
   }
-
   onClose() {
     this.modalService.close(this.elementRef);
     if (this.recorder) {
@@ -63,7 +63,6 @@ export class RecordOptionsModalComponent implements OnInit {
       this.recorder = null;
     }
   }
-
   async onVideoSelect($event: any) {
     this.videoStream = null;
     this.type = {type: RecoderType.player};
@@ -73,6 +72,7 @@ export class RecordOptionsModalComponent implements OnInit {
       const buffer = (<FileReader>event.target).result;
       if (buffer instanceof ArrayBuffer) {
         const blob = new Blob([buffer], {type: 'application/octet-stream'});
+        this.blobStream = blob;
         this.videoUrl = URL.createObjectURL(blob);
         this.updateVideoBehavior.next(true);
         this.autoplay = false;
@@ -80,7 +80,6 @@ export class RecordOptionsModalComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
     }
   }
-
   async playVideo(videoElement: HTMLVideoElement) {
     if (!this.playing) {
       await videoElement.play();
@@ -90,7 +89,6 @@ export class RecordOptionsModalComponent implements OnInit {
     this.playing = !this.playing;
     this.changeDetectorRef.detectChanges();
   }
-
   async openRecorder() {
     this.videoUrl = null;
     this.videoStream = await window.navigator.mediaDevices.getUserMedia({
@@ -111,7 +109,6 @@ export class RecordOptionsModalComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
     }
   }
-
   startStopRecording() {
     this.recording = !this.recording;
     if (this.recording && this.videoStream) {
@@ -137,16 +134,14 @@ export class RecordOptionsModalComponent implements OnInit {
     this.changeDetectorRef.detectChanges();
 
   }
-
   async onAprove() {
-    console.debug(this.fieldId)
-    this.questionService.saveFieldVideo({
-      base64: this.videoUrl,
+    await this.questionService.saveFieldVideo({
+      video: this.blobStream,
       fieldId: this.fieldId.fieldId
-    }).subscribe({
-      next: () => {
-        this.onClose();
-      }
-    });
+    }).then(() => {
+      this.alertService.toastSuccess('Video carregado');
+      this.onClose();
+    })
+      .catch(() => this.alertService.toastError('Não foi possível enviar o vídeo'));
   }
 }

@@ -7,6 +7,7 @@ import {config} from '../../../config';
 })
 export class QuestionService {
   readonly baseUrl: string = `${config.api_host}/questions`;
+  readonly baseUrlMedia: string = `${config.api_host}/system`;
   readonly token = window.localStorage.getItem('token') || '';
   readonly headers = new HttpHeaders({
     'Authorization': `Bearer ${this.token}`,
@@ -39,11 +40,19 @@ export class QuestionService {
     return this.http.patch(`${this.baseUrl}/update/${questionId}`, question, {headers: this.headers});
   }
 
-  saveFieldVideo(values: any) {
-    return this.http.post(`${this.baseUrl}/fieldVideo`, values, {headers: this.headers});
+  async saveFieldVideo(values: any) {
+    await fetch(`${this.baseUrlMedia}/media/field/video`, {
+      method:"POST",
+      body: values.video,
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Authorization': `Bearer ${this.token}`,
+      }
+    }).then();
+    // return this.http.post(`${this.baseUrl}/fieldVideo`, values, {headers: this.headers});
   };
 
   getFieldVideo(fieldId: any) {
-    return this.http.get(`${this.baseUrl}/loadVideo/${fieldId}`, {headers: this.headers});
+    return this.http.get(`${this.baseUrlMedia}/loadVideo/${fieldId}`, {headers: this.headers});
   };
 }
