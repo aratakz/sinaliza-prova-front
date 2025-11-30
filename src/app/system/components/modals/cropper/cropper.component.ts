@@ -14,16 +14,16 @@ export class CropperComponent implements OnInit {
 
   imageChangedEvent:any;
   croppedImage: any;
+  cropperWidth: number
+  cropperHeight: number
 
   constructor(
     private sanitizer: DomSanitizer,
     private userService: UserService,
     private   bsModalRef?: BsModalRef
-  ) {
-  }
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   fileChangeEvent(event: Event): void {
     this.imageChangedEvent = event;
@@ -34,7 +34,10 @@ export class CropperComponent implements OnInit {
     }
   }
   imageLoaded(image: LoadedImage) {
-    // show cropper
+    const width = image.original.image.width;
+
+    this.cropperWidth = width * 0.5
+    this.cropperHeight = width * 0.5
   }
   cropperReady() {
     // cropper ready
@@ -42,7 +45,6 @@ export class CropperComponent implements OnInit {
   loadImageFailed() {
     // show message
   }
-
   salvarImagem() {
     this.userService.avatarSubject.next(this.croppedImage);
     this.bsModalRef?.hide()
