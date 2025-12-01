@@ -1,6 +1,8 @@
 <div class="overlay">
   <div class="dialog">
-    <div class="dialog-header"></div>
+    <div class="dialog-header">
+      <i class="fi fi-rr-circle-xmark" (click)="onClose()"></i>
+    </div>
     <div class="dialog-content">
       @if (!showVideo) {
         <div class="action">
@@ -20,6 +22,9 @@
           <video [srcObject]="videoStream" [src]="videoUrl" #videoElement [autoplay]="autoplay">
           </video>
           <div class="video-overlay">
+            <div class="timer-container">
+              {{currentProgress}}/{{fullTimeString}}
+            </div>
             <div class="video-controls">
               @if (type.type == 'player') {
                 <div class="controls-left">
@@ -31,13 +36,20 @@
                     }
                   </button>
                 </div>
+                <progress [value]="videoProgress" max="100"></progress>
                 <div class="controls-right">
-                  <button class="video-approve" (click)="onAprove()">
-                    <i class="fi fi-br-check"></i>
-                  </button>
-                  <button class="video-close" (click)="onClose()">
-                    <i class="fi fi-bs-cross"></i>
-                  </button>
+                  @if (!media.media) {
+                    <button class="video-approve" (click)="onAprove()">
+                      <i class="fi fi-br-check"></i>
+                    </button>
+                    <button class="video-close" (click)="onClose()">
+                      <i class="fi fi-bs-cross"></i>
+                    </button>
+                  } @else {
+                    <button class="video-close" (click)="removeVideo()">
+                      <i class="fi fi-rr-trash"></i>
+                    </button>
+                  }
                 </div>
               }
               @if (type.type == 'record') {

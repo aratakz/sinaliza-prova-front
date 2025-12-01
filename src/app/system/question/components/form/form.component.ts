@@ -18,8 +18,6 @@ export class FormComponent implements OnInit {
 
   galleryList: galleryItem[] = [];
 
-
-  // @ts-ignore
   form: FormGroup;
   addedImages: Array<File> = [];
   removedImages: Array<string> = [];
@@ -37,6 +35,7 @@ export class FormComponent implements OnInit {
   question: any;
   questionId:any;
   tileField: any
+  tileFieldMedia: any
   moreField: any
   videos: any = {
     questionTitle: null,
@@ -63,6 +62,10 @@ export class FormComponent implements OnInit {
           for (const field of question.fields) {
               if (field.fieldType == 'title') {
                 this.tileField = field.id;
+                if (field.media) {
+                  this.videos.questionTitle = field.media.id;
+                  this.tileFieldMedia = field.media.link;
+                }
                 this.form.patchValue({
                   title: field.fieldValue
                 });
@@ -76,8 +79,8 @@ export class FormComponent implements OnInit {
               }
           }
         }
-
         if (question.images) {
+          console.debug('mlkk')
           for (const image of question.images) {
             this.galleryList.push({
               id: image.id,
@@ -103,22 +106,22 @@ export class FormComponent implements OnInit {
     formValues.file = images;
     formValues.videos = this.videos;
 
-   if (this.questionId) {
-     formValues.removedImages = this.removedImages;
-     this.questionService.update(this.questionId, formValues).subscribe({
-       next: async () => {
-         await this.alertService.toastSuccess('Questão criada com sucesso!');
-         await this.router.navigate(['system/question/list']);
-       }
-     });
-   } else {
-     this.questionService.register(formValues).subscribe({
-       next: async () => {
-         await this.alertService.toastSuccess('Questão criada com sucesso!');
-         await this.router.navigate(['system/question/list']);
-       }
-     });
-   }
+    if (this.questionId) {
+      formValues.removedImages = this.removedImages;
+      this.questionService.update(this.questionId, formValues).subscribe({
+        next: async () => {
+          await this.alertService.toastSuccess('Questão criada com sucesso!');
+          await this.router.navigate(['system/question/list']);
+        }
+      });
+    } else {
+      this.questionService.register(formValues).subscribe({
+        next: async () => {
+          await this.alertService.toastSuccess('Questão criada com sucesso!');
+          await this.router.navigate(['system/question/list']);
+        }
+      });
+    }
   }
   addImage($event: any) {
     const fileReader = new FileReader();
@@ -231,6 +234,7 @@ export class FormComponent implements OnInit {
   }
 
   onAddVideoQuestionTitle($event: string) {
+    console.debug($event)
     this.videos.questionTitle = $event;
   }
 

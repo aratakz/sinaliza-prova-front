@@ -31,15 +31,15 @@ export class RecordOptionsModalComponent implements OnInit {
   autoplay: boolean = false;
 
 
-  @Input({required: true})
-  type: any;
-  @Input({required: true})
-  fieldId: any;
-  blobStream: any;
-
+  @Input({required: true}) type: any;
+  @Input({required: true}) fieldId: any;
+  @Input({required: false}) media: any;
   @Output() submit = new EventEmitter<string>()
   @ViewChild("vContainer") videoContainer!: ElementRef;
-
+  blobStream: any;
+  videoProgress = 0;
+  currentProgress = "00:00:00";
+  fullTimeString = "00:00:00";
 
   constructor(
     private elementRef: ElementRef,
@@ -56,6 +56,16 @@ export class RecordOptionsModalComponent implements OnInit {
         this.showVideo = showVideo;
       }
     });
+
+    if (this.media.media) {
+      this.videoStream = null;
+      this.videoUrl = this.media.media;
+      this.type = {type: RecoderType.player};
+      this.updateVideoBehavior.next(true)
+    } else {
+      this.videoUrl = null;
+      this.blobStream = undefined;
+    }
   }
   onClose() {
     this.stopRecording();
@@ -66,6 +76,9 @@ export class RecordOptionsModalComponent implements OnInit {
       this.recorder.stop();
       this.recorder = null;
     }
+  }
+  formatTime(time:any) {
+    return time < 10 ? '0' + time : time;
   }
   async onVideoSelect($event: any) {
     this.videoStream = null;
@@ -84,8 +97,37 @@ export class RecordOptionsModalComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
     }
   }
+  currentTime(video: any) {
+    const totalSeconds = Math.floor(video.currentTime);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    return `${this.formatTime(minutes)}:${this.formatTime(seconds)}`;
+  }
+  fullTime(video: any) {
+    const totalSeconds = Math.floor(video.duration);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    return `${this.formatTime(minutes)}:${this.formatTime(seconds)}`;
+  }
   async playVideo(videoElement: HTMLVideoElement) {
     if (!this.playing) {
+      videoElement.ontimeupdate  = (event) => {
+
+        let percentage =   (videoElement.currentTime / videoElement.duration) * 100;
+        this.videoProgress = Number.parseFloat(percentage.toFixed(2));
+        this.currentProgress = this.currentTime(videoElement);
+        this.fullTimeString = this.fullTime(videoElement);
+
+        this.changeDetectorRef.detectChanges();
+
+        if (percentage == 100) {
+          this.playing = false;
+          videoElement.pause();
+          this.changeDetectorRef.detectChanges();
+        }
+      }
       await videoElement.play();
     } else {
       videoElement.pause();
@@ -148,5 +190,8 @@ export class RecordOptionsModalComponent implements OnInit {
       this.submit.emit(media);
       this.onClose();
     }
+  }
+  removeVideo() {
+
   }
 }
