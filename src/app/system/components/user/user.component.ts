@@ -24,12 +24,13 @@ export class UserComponent implements OnDestroy, OnInit {
   bsModalRef?: BsModalRef;
 
 
-  constructor(private globalService: GlobalService,
-              private userService: UserService,
-              private formBuilder: FormBuilder,
-              private alertService: AlertService,
-              private bsModalService: BsModalService,
-              ) {
+  constructor(
+    private globalService: GlobalService,
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    private alertService: AlertService,
+    private bsModalService: BsModalService,
+    ) {
     this.globalService.activeRouteBehavior.next('Dados Cadastrais');
     this.gravatarCheckActive = '';
     this.useGravatar = false;
@@ -37,6 +38,7 @@ export class UserComponent implements OnDestroy, OnInit {
       name: [null],
       birthday: [null],
       email: [null],
+      login: [null],
       password: [null],
       confirmPassword: [null]
     });
@@ -61,7 +63,11 @@ export class UserComponent implements OnDestroy, OnInit {
         });
         this.userService.avatarSubject.subscribe({
           next: (avatar: any) => {
-            this.imagePath = avatar;
+            if (avatar) {
+              this.imagePath = avatar;
+            } else {
+              this.imagePath = 'assets/user.png';
+            }
             this.imageData = avatar;
           }
         });
@@ -69,11 +75,9 @@ export class UserComponent implements OnDestroy, OnInit {
     });
 
   }
-
   ngOnDestroy(): void {
     this.globalService.activeRouteBehavior.next('');
   }
-
   onImageSelect(event: any) {
     const initialState: ModalOptions = {
       class: 'modal-xl',
@@ -82,7 +86,6 @@ export class UserComponent implements OnDestroy, OnInit {
     this.bsModalRef = this.bsModalService.show(CropperComponent, initialState);
     this.bsModalRef.content.closeBtnName = 'Close';
   }
-
   async onSubmit() {
     const formValue = this.usersForm.value;
     if (this.usersForm.value.birthday) {
@@ -90,11 +93,14 @@ export class UserComponent implements OnDestroy, OnInit {
     }
     formValue.image = this.imageData;
     this.userService.updateUser(formValue).subscribe({
-      next: () => {}
+      next: () => this.usersForm.patchValue({
+        login: [null],
+        password: [null],
+        confirmPassword: [null]
+      })
     });
     await this.alertService.toastSuccess("Cadastro atualizado com sucesso!");
   }
-
   private parseBirthday (birthday: string) {
     const split = birthday.split('/');
     return `${split[2]}-${split[1]}-${split[0]}`;
