@@ -67,7 +67,10 @@
         [fieldId]="`${moreField}`"
         [type]="'player'"></app-libras-action>
     </div>
-    <app-text-editor></app-text-editor>
+    <app-text-editor
+      (onInputValue)="onInputText($event)"
+      [defaultText]="default_support"
+    ></app-text-editor>
     <fieldset>
       <legend>Imagens de apoio</legend>
       <div class="gallery">

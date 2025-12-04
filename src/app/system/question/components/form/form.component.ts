@@ -41,6 +41,7 @@ export class FormComponent implements OnInit {
     questionTitle: null,
     questionSupport: null
   }
+  default_support: any
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -72,15 +73,15 @@ export class FormComponent implements OnInit {
               }
               if (field.fieldType == 'support_data') {
                 this.moreField = field.id;
-                console.debug(this.moreField);
                 this.form.patchValue({
                     support_data: field.fieldValue
                 });
+                this.default_support = field.fieldValue;
               }
           }
         }
+
         if (question.images) {
-          console.debug('mlkk')
           for (const image of question.images) {
             this.galleryList.push({
               id: image.id,
@@ -88,7 +89,6 @@ export class FormComponent implements OnInit {
             });
           }
         }
-
         if (question.options) {
           for (const option of question.options) {
             this.loadOption(option.title, option.isAnswer);
@@ -213,7 +213,6 @@ export class FormComponent implements OnInit {
     return this.form.get('answers') as FormArray;
   }
   inputTag($event: any) {
-    console.debug($event.target.value)
     this.tagName = $event.target.value;
   }
   addTag() {
@@ -232,11 +231,14 @@ export class FormComponent implements OnInit {
   removeTag(index: any) {
     this.tags.splice(index, 1);
   }
-
   onAddVideoQuestionTitle($event: string) {
-    console.debug($event)
     this.videos.questionTitle = $event;
   }
+  onInputText(event: any) {
+    this.form.patchValue({
+      support_data: [event]
+    });
 
+  }
 }
 

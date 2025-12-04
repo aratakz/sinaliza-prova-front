@@ -1,42 +1,57 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Editor, NgxEditorComponent, NgxEditorFloatingMenuComponent, NgxEditorMenuComponent, Toolbar} from 'ngx-editor';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-text-editor',
-  imports: [NgxEditorComponent, NgxEditorMenuComponent],
+  imports: [NgxEditorComponent, NgxEditorMenuComponent, FormsModule],
   templateUrl: './text-editor.component.html',
   styleUrl: './text-editor.component.scss'
 })
-export class TextEditorComponent  implements OnInit {
-    editor: any;
+export class TextEditorComponent implements OnInit, OnChanges {
+
+  editor: any;
+  texto: any;
+
+  @Output() onInputValue = new EventEmitter<string>();
+  @Input() defaultText: any;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.texto = this.defaultText;
+  }
+
   toolbar: Toolbar = [
-    // default value
     ['bold', 'italic'],
     ['underline', 'strike'],
-    ['code', 'blockquote'],
+    ['blockquote'],
     ['ordered_list', 'bullet_list'],
     [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
-    ['link', 'image'],
-    // or, set options for link:
-    //[{ link: { showOpenInNewTab: false } }, 'image'],
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
-    ['horizontal_rule', 'format_clear', 'indent', 'outdent'],
+    ['horizontal_rule','indent', 'outdent'],
     ['superscript', 'subscript'],
-    ['undo', 'redo'],
   ];
-  colorPresets = ['red', '#FF0000', 'rgb(255, 0, 0)'];
-    ngOnInit(): void {
-      this.editor = new Editor({
-        content: '',
-        history: true,
-        keyboardShortcuts: true,
-        inputRules: true,
-        plugins: [], //https://prosemirror.net/docs/guide/#state
-        nodeViews: {}, //https://prosemirror.net/docs/guide/#state,
-        attributes: {}, // https://prosemirror.net/docs/ref/#view.EditorProps.attributes
-        linkValidationPattern: '',
-        parseOptions: {}, // https://prosemirror.net/docs/ref/#model.ParseOptions
-      });
-    }
+
+  ngOnInit(): void {
+    this.editor = new Editor({
+      content: '',
+      history: true,
+      keyboardShortcuts: true,
+      inputRules: true,
+      plugins: [],
+      nodeViews: {},
+      attributes: {},
+      linkValidationPattern: '',
+      parseOptions: {}
+    });
+
+    this.texto = this.defaultText;
+
+  }
+  onChange(event: any) {
+    this.texto = event;
+    this.onInputValue.emit(this.texto);
+  }
+
+
 }
