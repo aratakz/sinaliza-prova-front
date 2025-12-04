@@ -19,27 +19,21 @@ export class QuestionService {
     this.headers.append('Content-Type', 'multipart/form-data');
     return this.http.post(`${this.baseUrl}/register`, body, {headers: this.headers});
   }
-
   list() {
     return this.http.get(`${this.baseUrl}/list`, {headers: this.headers});
   }
-
   remove(questionId: string) {
     return this.http.delete(`${this.baseUrl}/${questionId}`, {headers: this.headers});
   }
-
   findOne(questionId: string) {
     return this.http.get(`${this.baseUrl}/find/${questionId}`, {headers: this.headers});
   }
-
   findByTitle(search: string) {
     return this.http.get(`${this.baseUrl}/search/?search=${search}`, {headers: this.headers});
   }
-
   update(questionId: string, question: any) {
     return this.http.patch(`${this.baseUrl}/update/${questionId}`, question, {headers: this.headers});
   }
-
   async saveFieldVideo(values: any) {
     return await fetch(`${this.baseUrlMedia}/media/field/video`, {
       method:"POST",
@@ -50,8 +44,16 @@ export class QuestionService {
       }
     });
   };
-
   getFieldVideo(fieldId: any) {
     return this.http.get(`${this.baseUrlMedia}/loadVideo/${fieldId}`, {headers: this.headers});
   };
+  removeMedia(mediaLink: any, fieldId: any) {
+    return this.http.delete(`${this.baseUrlMedia}/media/video/remove`, {
+      headers: this.headers,
+      body: {
+        link: mediaLink,
+        field: fieldId
+      }
+    });
+  }
 }

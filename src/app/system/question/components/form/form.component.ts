@@ -250,7 +250,6 @@ export class FormComponent implements OnInit {
     this.form.patchValue({
       support_data: [event]
     });
-
   }
 }
 

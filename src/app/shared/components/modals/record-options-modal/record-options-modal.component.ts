@@ -192,6 +192,13 @@ export class RecordOptionsModalComponent implements OnInit {
     }
   }
   removeVideo() {
-
+      this.questionService.removeMedia(this.media.media, this.fieldId.fieldId).subscribe({
+        next: () => {
+          this.media = undefined;
+          this.fieldId = undefined;
+          this.videoStream = null;
+          location.reload()
+        }
+      });
   }
 }
