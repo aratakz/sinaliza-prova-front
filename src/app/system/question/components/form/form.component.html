@@ -25,7 +25,7 @@
         </div>
         <div class="options-body">
           @if (!formAnswers.controls.length) {
-            <div class=" option-item no-options">Nenhuma opção diponível </div>
+            <div class=" option-item no-options">Nenhuma opção disponível </div>
           } @else {
             @if (form && form.get('answers')) {
             @for (option of formAnswers.controls; track formAnswers.controls.indexOf(option); let index = $index) {
@@ -65,6 +65,8 @@
       <label>Informações adicionais</label>
       <app-libras-action
         [fieldId]="`${moreField}`"
+        [mediaLink]="tileFieldMedia"
+        (onVideoAprove)="onAddVideoSupport($event)"
         [type]="'player'"></app-libras-action>
     </div>
     <app-text-editor

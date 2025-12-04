@@ -35,7 +35,9 @@ export class FormComponent implements OnInit {
   question: any;
   questionId:any;
   tileField: any
+  supportField: any
   tileFieldMedia: any
+  supportFieldMedia: any
   moreField: any
   videos: any = {
     questionTitle: null,
@@ -73,6 +75,11 @@ export class FormComponent implements OnInit {
               }
               if (field.fieldType == 'support_data') {
                 this.moreField = field.id;
+                this.supportField = field.id;
+                if (field.media) {
+                  this.videos.questionSupport = field.media.id;
+                  this.supportFieldMedia = field.media.link;
+                }
                 this.form.patchValue({
                     support_data: field.fieldValue
                 });
@@ -233,6 +240,11 @@ export class FormComponent implements OnInit {
   }
   onAddVideoQuestionTitle($event: string) {
     this.videos.questionTitle = $event;
+  }
+  onAddVideoSupport($event: string) {
+    console.debug('sasd');
+
+    this.videos.questionSupport = $event;
   }
   onInputText(event: any) {
     this.form.patchValue({
