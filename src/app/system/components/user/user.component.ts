@@ -91,7 +91,9 @@ export class UserComponent implements OnDestroy, OnInit {
     if (this.usersForm.value.birthday) {
       formValue.birthday = this.parseBirthday(this.usersForm.value.birthday);
     }
-    formValue.image = this.imageData;
+    if (this.imageData) {
+      await this.userService.updateAvatar(this.imageData);
+    }
     this.userService.updateUser(formValue).subscribe({
       next: () => this.usersForm.patchValue({
         login: [null],

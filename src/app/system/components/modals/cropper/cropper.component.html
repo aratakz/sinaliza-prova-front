@@ -21,7 +21,7 @@
         (imageCropped)="imageCropped($event)"
         [resizeToWidth]="800"
         [resizeToHeight]="800"
-        [output]="'base64'"
+        [output]="'blob'"
         [cropperMaxWidth]="cropperWidth"
         [cropperMaxHeight]="cropperHeight"
         [roundCropper]="true"
@@ -34,7 +34,7 @@
   </div>
   @if (imageChangedEvent) {
     <div class="preview">
-      <img [src]="croppedImage" alt="preview">
+      <img [src]="cropLink" alt="preview">
       <button type="button" class="primary-button large" (click)="salvarImagem()">Salvar imagem de perfil</button>
     </div>
   }

@@ -48,7 +48,7 @@ export class QuestionService {
         'Content-Type': 'application/octet-stream',
         'Authorization': `Bearer ${this.token}`,
       }
-    })
+    });
   };
 
   getFieldVideo(fieldId: any) {

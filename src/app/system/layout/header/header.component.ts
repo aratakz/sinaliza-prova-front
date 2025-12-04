@@ -13,7 +13,6 @@ import {UserService} from '../../../auth/services/user.service';
 })
 export class HeaderComponent implements OnInit {
     loggedUser: string = '';
-    showNotification: string|boolean =  '';
     activeRoute: string = '';
     avatarLink: string = '';
 
@@ -63,7 +62,9 @@ export class HeaderComponent implements OnInit {
     if (this.authService.userData) {
       this.userService.getUseData().subscribe({
         next: (userData: any) => {
-          this.avatarLink = userData.user.avatar;
+          console.debug('vecna');
+          console.debug(userData);
+           this.userService.avatarSubject.next(userData.user.avatar);
         }
       })
     }

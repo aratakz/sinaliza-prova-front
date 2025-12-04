@@ -58,6 +58,21 @@ export class UserService {
     return this.http.patch(`${this.baseUrlUsers}/update/${userDataObject.id}`, userData, {headers: headers});
   }
 
+  async updateAvatar(image: any) {
+    const storedUserData = window.localStorage.getItem('userData') || '';
+    const token = window.localStorage.getItem('token') || '';
+    const userDataObject = JSON.parse(storedUserData);
+
+    return await fetch(`${this.baseUrlUsers}/updateAvatar/${userDataObject.id}`,{
+      method:"POST",
+        body: image,
+        headers: {
+          'Content-Type': 'application/octet-stream',
+          'Authorization': `Bearer ${token}`,
+        }
+    });
+  }
+
   checkUsername(text: string) {
     return this.http.get(`${this.baseUrlUsers}/checkUsername/${text}`);
   }

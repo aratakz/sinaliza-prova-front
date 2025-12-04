@@ -14,6 +14,7 @@ export class CropperComponent implements OnInit {
 
   imageChangedEvent:any;
   croppedImage: any;
+  cropLink: any;
   cropperWidth: number
   cropperHeight: number
 
@@ -29,8 +30,9 @@ export class CropperComponent implements OnInit {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
-    if (event.base64) {
-      this.croppedImage = event.base64;
+    if (event.blob) {
+      this.croppedImage = event.blob;
+      this.cropLink = URL.createObjectURL(event.blob);
     }
   }
   imageLoaded(image: LoadedImage) {
