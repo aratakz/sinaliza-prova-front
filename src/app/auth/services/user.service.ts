@@ -85,6 +85,9 @@ export class UserService {
       'Content-Type': 'application/JSON',
       'Authorization': `Bearer ${token}`,
     });
-    return this.http.post(`${this.baseUrlUsers}/avatarLink/`, {avatarLink: avatarLink}, {headers: headers});
+    return this.http.post(`${this.baseUrlUsers}/avatarLink/`, {avatarLink: avatarLink}, {
+      headers: headers,
+      responseType: 'blob'
+    });
   }
 }

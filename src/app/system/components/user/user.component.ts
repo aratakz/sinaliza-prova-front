@@ -15,6 +15,7 @@ import {CropperComponent} from '../modals/cropper/cropper.component';
 })
 export class UserComponent implements OnDestroy, OnInit {
   imagePath: any;
+  imageLink: any;
   user: any;
   gravatarCheckActive: any;
   useGravatar: any;
@@ -48,14 +49,6 @@ export class UserComponent implements OnDestroy, OnInit {
     this.userService.getUseData().subscribe({
       next: (userData: any) => {
         this.user = userData.user;
-        if (this.user.avatar) {
-            this.userService.getAvatar(this.user.avatar).subscribe({
-              next: (avatar: any) => {
-                this.user.avatar = avatar;
-                this.userService.avatarSubject.next(avatar);
-              }
-            })
-        }
         this.usersForm.patchValue({
           name: this.user.name,
           email: this.user.email,
@@ -65,6 +58,11 @@ export class UserComponent implements OnDestroy, OnInit {
           next: (avatar: any) => {
             if (avatar) {
               this.imagePath = avatar;
+              if (avatar instanceof Blob) {
+                this.imageLink = URL.createObjectURL(avatar);
+              } else {
+                this.imageLink = avatar
+              }
             } else {
               this.imagePath = 'assets/user.png';
             }
