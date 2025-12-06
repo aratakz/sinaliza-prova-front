@@ -136,7 +136,7 @@
   display: flex;
   padding: 10px;
   margin-bottom: 20px;
-  height: 15%;
+  height: fit-content;
   border-radius: 8px;
   border: 1px solid #c7c7c7;
 }
@@ -234,4 +234,9 @@ video {
 .video-wrapper {
   background: #3C3C3C30;
   padding: 0;
+}
+
+.complement-image {
+  overflow: auto;
+  width: 100%;
 }

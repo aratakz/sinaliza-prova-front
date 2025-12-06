@@ -12,6 +12,7 @@ export class ExamService {
   ) { }
 
   readonly baseURL = `${config.api_host}/evaluation/exams`;
+  readonly optionURL = `${config.api_host}/evaluation`;
 
   create(formData: any) {
     const token = window.localStorage.getItem('token') || '';
@@ -47,7 +48,7 @@ export class ExamService {
       'Authorization': `Bearer ${token}`,
     });
 
-    return  this.http.get(`${this.baseURL}/questionOption/find/question/${id}`, {headers: headers});
+    return  this.http.get(`${this.optionURL}/questionOption/find/question/${id}`, {headers: headers});
   }
   remove(examId: any) {
     const token = window.localStorage.getItem('token') || '';

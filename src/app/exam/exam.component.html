@@ -31,7 +31,7 @@
           <span class="add-libras" (click)="playVideo(fieldSupportId)">
               <button [style.background-image]="'url(' + './assets/libras-sign.svg' + ')'"></button>
           </span>
-          <span [innerHTML]="activeQuestionSupportText"></span>
+          <span class="complement-image" [innerHTML]="activeQuestionSupportText"></span>
         </div>
         <div class="question-options-wrapper">
           @for (option of optionList; track option.id) {
