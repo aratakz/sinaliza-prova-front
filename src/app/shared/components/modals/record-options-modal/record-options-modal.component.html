@@ -21,6 +21,7 @@
         <div class="video-container" #vContainer>
           <video [srcObject]="videoStream" [src]="videoUrl" #videoElement [autoplay]="autoplay">
           </video>
+          <span class="loader"></span>
           <div class="video-overlay">
             <div class="timer-container">
               {{currentProgress}}/{{fullTimeString}}

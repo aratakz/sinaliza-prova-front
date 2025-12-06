@@ -113,6 +113,7 @@ export class RecordOptionsModalComponent implements OnInit {
   }
   async playVideo(videoElement: HTMLVideoElement) {
     if (!this.playing) {
+      videoElement.muted = true;
       videoElement.ontimeupdate  = (event) => {
 
         let percentage =   (videoElement.currentTime / videoElement.duration) * 100;
