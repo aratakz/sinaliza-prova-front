@@ -39,9 +39,12 @@ export class ModalService {
         }
       }
     }
-    modalComponent.instance.submit.subscribe((modalData: string) => {
-      this.notifier.next(modalData);
-    });
+
+    if (modalComponent.instance.submit) {
+      modalComponent.instance.submit.subscribe((modalData: string) => {
+        this.notifier.next(modalData);
+      });
+    }
     modalComponent.hostView.detectChanges();
     this.document.body.prepend(modalComponent.location.nativeElement);
     this.notifier = new Subject<string>();

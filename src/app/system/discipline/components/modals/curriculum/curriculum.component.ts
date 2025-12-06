@@ -11,7 +11,6 @@ import {AlertService} from '../../../../../shared/services/alert.service';
   styleUrl: './curriculum.component.scss'
 })
 export class CurriculumComponent implements OnInit {
-  // @ts-ignore
   form: FormGroup;
 
   constructor(
