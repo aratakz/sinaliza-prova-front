@@ -70,7 +70,12 @@
         <div class="nav-item-label">
           <i class="fi fi-rr-memo-circle-check"></i>
           @if (!isCollapsed) {
-            <p>Provas</p>
+            <p>
+              @if ([AccessLevel.STUDENT].includes(user.access)) {
+                Minhas
+              }
+              Provas
+            </p>
           }
         </div>
       </div>
@@ -81,7 +86,12 @@
         <div class="nav-item-label">
           <i class="fi fi-rs-e-learning"></i>
           @if (!isCollapsed) {
-            <p>Disciplinas</p>
+            <p>
+              @if ([AccessLevel.STUDENT].includes(user.access)) {
+                Minhas
+              }
+              Disciplinas
+            </p>
           }
         </div>
       </div>
