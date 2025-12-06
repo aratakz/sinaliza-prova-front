@@ -240,11 +240,11 @@ export class FormComponent implements OnInit {
   onAddVideoQuestionTitle($event: string) {
     this.videos.questionTitle = $event;
   }
-  onAddVideoSupport($event: string) {
-    console.debug('sasd');
 
+  onAddVideoSupport($event: string) {
     this.videos.questionSupport = $event;
   }
+
   onInputText(event: any) {
     this.form.patchValue({
       support_data: [event]
