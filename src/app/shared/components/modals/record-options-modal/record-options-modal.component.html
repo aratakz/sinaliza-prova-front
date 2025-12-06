@@ -7,15 +7,17 @@
       @if (!showVideo) {
         <div class="action">
           <input type="file" id="upload-movie" (change)="onVideoSelect($event)" accept="video/mp4, video/mkv, video/avi">
-          <i class="fi fi-br-cloud-upload"></i>
-          <span>
+          <span class="upload-icon">
+            <i class="fi fi-br-cloud-upload"></i>
             Enviar arquivos <br>
             <small>(.avi .mp4 .mkv)</small>
           </span>
         </div>
         <div class="action" (click)="openRecorder()">
-          <i class="fi fi-rr-video-camera-alt"></i>
-          <span>Gravar vídeo</span>
+          <span class="upload-icon">
+            <i class="fi fi-rr-video-camera-alt"></i>
+            Gravar vídeo
+          </span>
         </div>
       } @else {
         <div class="video-container" #vContainer>
