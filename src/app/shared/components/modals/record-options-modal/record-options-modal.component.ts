@@ -165,6 +165,7 @@ export class RecordOptionsModalComponent implements OnInit {
       this.recorder.ondataavailable = (event) => {
         this.videoStream = null;
         this.type = {type: RecoderType.player};
+        this.blobStream = event.data;
         this.videoUrl = URL.createObjectURL(event.data);
         this.autoplay = false
         this.changeDetectorRef.detectChanges();
