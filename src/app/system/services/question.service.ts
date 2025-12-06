@@ -45,7 +45,7 @@ export class QuestionService {
     });
   };
   getFieldVideo(fieldId: any) {
-    return this.http.get(`${this.baseUrlMedia}/loadVideo/${fieldId}`, {headers: this.headers});
+    return this.http.get(`${this.baseUrlMedia}/media/field/video/${fieldId}`, {headers: this.headers});
   };
   removeMedia(mediaLink: any, fieldId: any) {
     return this.http.delete(`${this.baseUrlMedia}/media/video/remove`, {

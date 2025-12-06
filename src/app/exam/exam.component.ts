@@ -20,13 +20,12 @@ class ExamComponent implements OnInit{
   optionList: any;
   answers: Array<any> = [];
   video: any;
+  currentQuestion: any = 1;
 
 
   constructor(
-    private globalService: GlobalService,
     private examService: ExamService,
     private questionService: QuestionService,
-    private alertService: AlertService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
   ) {}
@@ -87,6 +86,7 @@ class ExamComponent implements OnInit{
     changeQuestion(index:any) {
       if (!this.isAnswered(index)) {
         this.activeQuestion = this.questions[index];
+        this.currentQuestion = index + 1;
         this.video = undefined;
         this.options();
       }

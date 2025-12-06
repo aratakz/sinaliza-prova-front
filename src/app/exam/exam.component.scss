@@ -211,4 +211,27 @@
 video {
   height: 100%;
   width: 100%;
+  border-radius: 4px;
+}
+.exam-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.no-video {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-icon {
+  background-color: var(--primary);
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 50%;
+}
+.video-wrapper {
+  background: #3C3C3C30;
+  padding: 0;
 }

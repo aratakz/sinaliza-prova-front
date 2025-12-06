@@ -9,7 +9,16 @@
   </div>
   <div class="exam-content">
       <div class="video-wrapper exam-wrapper">
-        <video src="{{video}}" controls ></video>
+        @if (video) {
+          <video src="{{video}}" controls muted></video>
+        } @else {
+          <span class="no-video">
+            Para carregar o video <br/>clique no ícone<br/>
+            <span class="help-icon">
+              <img src="assets/libras-sign.svg" alt="sign">
+            </span>
+          </span>
+        }
       </div>
       <div class="options-wrapper exam-wrapper">
         <div class="question-title-wrapper">
@@ -18,11 +27,11 @@
           </span>
           {{activeQuestionTitle}}
         </div>
-        <div class="question-help-wrapper">
+        <div class="question-help-wrapper" >
           <span class="add-libras" (click)="playVideo(fieldSupportId)">
               <button [style.background-image]="'url(' + './assets/libras-sign.svg' + ')'"></button>
           </span>
-          {{activeQuestionSupportText}}
+          <span [innerHTML]="activeQuestionSupportText"></span>
         </div>
         <div class="question-options-wrapper">
           @for (option of optionList; track option.id) {
@@ -41,7 +50,7 @@
       </div>
       <div class="answer-wrapper exam-wrapper">
         <div class="question-count">
-          1/{{questions.length}} Questões
+          {{currentQuestion}}/{{questions.length}} Questões
         </div>
         <div class="question-list">
           @for (question of questions; track question.id; let index = $index) {
