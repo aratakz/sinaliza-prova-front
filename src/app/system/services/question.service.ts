@@ -56,4 +56,15 @@ export class QuestionService {
       }
     });
   }
+  async saveImage(images: any){
+      const response = await fetch(`${this.baseUrlMedia}/media/images`, {
+        method:"POST",
+        body: images,
+        headers: {
+          'Content-Type': 'application/octet-stream',
+          'Authorization': `Bearer ${this.token}`,
+        }
+      });
+      return await response.json();
+  }
 }

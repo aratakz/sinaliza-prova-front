@@ -43,7 +43,6 @@ class ExamComponent implements OnInit{
           }
         });
     }
-
     isAnswered(index: any) {
       const answer = this.answers.filter((answer) => answer.index == index);
       return answer && answer.length > 0;

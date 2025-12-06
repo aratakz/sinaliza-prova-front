@@ -12,12 +12,7 @@
         @if (video) {
           <video src="{{video}}" controls muted></video>
         } @else {
-          <span class="no-video">
-            Para carregar o video <br/>clique no ícone<br/>
-            <span class="help-icon">
-              <img src="assets/libras-sign.svg" alt="sign">
-            </span>
-          </span>
+          <span class="no-video"></span>
         }
       </div>
       <div class="options-wrapper exam-wrapper">
@@ -33,6 +28,13 @@
           </span>
           <span class="complement-image" [innerHTML]="activeQuestionSupportText"></span>
         </div>
+        @if (activeQuestion.media) {
+          <div class="images-wrapper">
+            @for (image of activeQuestion.media; track image.id) {
+              <img src="{{image.link}}">
+            }
+          </div>
+        }
         <div class="question-options-wrapper">
           @for (option of optionList; track option.id) {
             <div class="alternative-wrapper">

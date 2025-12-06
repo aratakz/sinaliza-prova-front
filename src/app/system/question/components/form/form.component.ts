@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 type galleryItem = {
   id: any;
-  link: string | ArrayBuffer | null;
+  link: string;
 }
 @Component({
   selector: 'app-form',
@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
 
   form: FormGroup;
   addedImages: Array<File> = [];
+  blobImages: Array<any> = [];
   removedImages: Array<string> = [];
   tags: Array<any> = [];
   options: Array<any> = [];
@@ -88,11 +89,11 @@ export class FormComponent implements OnInit {
           }
         }
 
-        if (question.images) {
-          for (const image of question.images) {
+        if (question.media) {
+          for (const image of question.media) {
             this.galleryList.push({
               id: image.id,
-              link: image.url
+              link: image.link
             });
           }
         }
@@ -106,13 +107,15 @@ export class FormComponent implements OnInit {
   }
   async onSubmit() {
     const formValues:any  = this.form.value;
-    const images:Array<any>  = [];
-    for (const item of this.addedImages) {
-      images.push(await this.fileToBase64(item));
+    const storedImages : any = [];
+    if (this.blobImages && this.blobImages.length) {
+      for (let image of this.blobImages) {
+        const storedImage = await this.questionService.saveImage(image)
+        storedImages.push(storedImage.id);
+      }
     }
-    formValues.file = images;
     formValues.videos = this.videos;
-
+    formValues.file = storedImages;
     if (this.questionId) {
       formValues.removedImages = this.removedImages;
       this.questionService.update(this.questionId, formValues).subscribe({
@@ -132,15 +135,18 @@ export class FormComponent implements OnInit {
   }
   addImage($event: any) {
     const fileReader = new FileReader();
-    fileReader.readAsDataURL($event.target.files[0]);
-    this.addedImages.push($event.target.files[0]);
-    fileReader.onloadend = (event) => {
-      const imageLink = (<FileReader>event.target).result
-      this.galleryList.push({
-        id: new Date().toISOString(),
-        link: imageLink
-      })
+    const file = $event.target.files[0];
+    fileReader.onloadend = (event:any) => {
+      if (event.target.result) {
+        const blob = new Blob([new Uint8Array(event.target.result)], {type: file.type });
+        this.galleryList.push({
+          id: new Date().toISOString(),
+          link: URL.createObjectURL(blob)
+        });
+        this.blobImages.push(blob);
+      }
     }
+    fileReader.readAsArrayBuffer(file);
   }
   removeImage(index: any) {
     this.removedImages.push(this.galleryList[index].id);
@@ -240,15 +246,15 @@ export class FormComponent implements OnInit {
   onAddVideoQuestionTitle($event: string) {
     this.videos.questionTitle = $event;
   }
-
   onAddVideoSupport($event: string) {
     this.videos.questionSupport = $event;
   }
-
   onInputText(event: any) {
     this.form.patchValue({
       support_data: [event]
     });
   }
+
+  protected readonly URL = URL;
 }
 
