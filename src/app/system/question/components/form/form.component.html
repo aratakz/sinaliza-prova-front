@@ -14,13 +14,13 @@
       <input class="form-input" formControlName="title">
     </div>
     <fieldset>
-      <legend>Alternativas</legend>
+      <legend></legend>
       <div class="options">
         <div class="options-header">
-          <div>Texto</div>
+          <div>Alternativas</div>
           <div></div>
           <button class="secondary-button thin small" (click)="addOption()">
-            <i class="fi fi-br-plus-small"></i> Opção
+            <i class="fi fi-br-plus-small"></i> Adicionar
           </button>
         </div>
         <div class="options-body">
@@ -31,6 +31,10 @@
             @for (option of formAnswers.controls; track formAnswers.controls.indexOf(option); let index = $index) {
             <div class="option-item">
               <div>
+                <input type="radio"
+                       (click)="checkAsAnswer(index, $event)"
+                       class="answer"
+                       name="answer">
                 <input
                   type="text"
                   class="form-input"
@@ -42,12 +46,7 @@
                   [type]="'record'"></app-libras-action>
               </div>
               <div>
-                <input type="checkbox"
-                       (click)="checkAsAnswer(index, $event)"
-                       class="answer"
-                       [checked]="formAnswers.value[index].isAnswer"
-                       [disabled]="formAnswers.controls[index].disabled"
-                > Resposta correta
+
               </div>
               <div class="remove-option">
                 <button (click)="removeOption(index)">

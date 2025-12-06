@@ -207,7 +207,6 @@ export class FormComponent implements OnInit {
     });
   };
   checkAsAnswer(index: any, event: Event) {
-
   }
   setQuestionTitle(index: any, event: Event) {
     if (this.formAnswers.controls[index].value) {

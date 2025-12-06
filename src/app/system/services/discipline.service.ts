@@ -10,7 +10,7 @@ export class DisciplineService {
   constructor(
     private http: HttpClient,
   ) {}
-  readonly baseUrl: string = `${config.api_host}/disciplines`;
+  readonly baseUrl: string = `${config.api_host}/management/discipline`;
 
   register(formData: any) {
     const token = window.localStorage.getItem('token') || '';
@@ -18,7 +18,7 @@ export class DisciplineService {
       'Content-Type': 'application/JSON',
       'Authorization': `Bearer ${token}`,
     });
-    return this.http.post(`${config.api_host}/disciplines/create`, formData, {headers: headers});
+    return this.http.post(`${this.baseUrl}/create`, formData, {headers: headers});
   }
   update(disciplineId: string, formData: any) {
     const token = window.localStorage.getItem('token') || '';
@@ -26,7 +26,7 @@ export class DisciplineService {
       'Content-Type': 'application/JSON',
       'Authorization': `Bearer ${token}`,
     });
-    return this.http.patch(`${config.api_host}/disciplines/update/${disciplineId}`, formData, {headers: headers});
+    return this.http.patch(`${this.baseUrl}/update/${disciplineId}`, formData, {headers: headers});
   }
 
   getAll() {
@@ -35,7 +35,7 @@ export class DisciplineService {
       'Content-Type': 'application/JSON',
       'Authorization': `Bearer ${token}`,
     });
-    return this.http.get(`${config.api_host}/disciplines`, {headers: headers});
+    return this.http.get(`${this.baseUrl}`, {headers: headers});
   }
 
   remove (disciplineId: string) {
@@ -44,7 +44,7 @@ export class DisciplineService {
       'Content-Type': 'application/JSON',
       'Authorization': `Bearer ${token}`,
     });
-    return this.http.delete(`${config.api_host}/disciplines/remove/${disciplineId}`, {headers: headers});
+    return this.http.delete(`${this.baseUrl}/remove/${disciplineId}`, {headers: headers});
   }
 
   findOne(disciplineId: string) {
@@ -53,6 +53,6 @@ export class DisciplineService {
       'Content-Type': 'application/JSON',
       'Authorization': `Bearer ${token}`,
     });
-    return this.http.get(`${config.api_host}/disciplines/${disciplineId}`, {headers: headers});
+    return this.http.get(`${this.baseUrl}/${disciplineId}`, {headers: headers});
   }
 }
