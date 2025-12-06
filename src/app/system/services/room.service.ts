@@ -11,7 +11,7 @@ export class RoomService {
     'Content-Type': 'application/JSON',
     'Authorization': `Bearer ${this.token}`,
   });
-  readonly baseUrl: string = `${config.api_host}/room`;
+  readonly baseUrl: string = `${config.api_host}/management/room`;
 
   constructor(private http: HttpClient) {}
 

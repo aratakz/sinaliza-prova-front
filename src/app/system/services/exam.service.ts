@@ -11,7 +11,7 @@ export class ExamService {
     private http: HttpClient,
   ) { }
 
-  readonly baseURL = `${config.api_host}/exams`;
+  readonly baseURL = `${config.api_host}/evaluation/exams`;
 
   create(formData: any) {
     const token = window.localStorage.getItem('token') || '';
@@ -20,7 +20,7 @@ export class ExamService {
       'Authorization': `Bearer ${token}`,
     });
 
-   return  this.http.post(`${config.api_host}/exams/create`, formData, {headers: headers});
+   return  this.http.post(`${this.baseURL}/create`, formData, {headers: headers});
   }
   list() {
     const token = window.localStorage.getItem('token') || '';
@@ -29,7 +29,7 @@ export class ExamService {
       'Authorization': `Bearer ${token}`,
     });
 
-   return  this.http.get(`${config.api_host}/exams/list`, {headers: headers});
+   return  this.http.get(`${this.baseURL}/list`, {headers: headers});
   }
   findOne(id: any) {
     const token = window.localStorage.getItem('token') || '';
@@ -38,7 +38,7 @@ export class ExamService {
       'Authorization': `Bearer ${token}`,
     });
 
-   return  this.http.get(`${config.api_host}/exams/find/${id}`, {headers: headers});
+   return  this.http.get(`${this.baseURL}/find/${id}`, {headers: headers});
   }
   getOptions(id:any) {
     const token = window.localStorage.getItem('token') || '';
@@ -47,7 +47,7 @@ export class ExamService {
       'Authorization': `Bearer ${token}`,
     });
 
-    return  this.http.get(`${config.api_host}/questionOption/find/question/${id}`, {headers: headers});
+    return  this.http.get(`${this.baseURL}/questionOption/find/question/${id}`, {headers: headers});
   }
   remove(examId: any) {
     const token = window.localStorage.getItem('token') || '';
@@ -55,6 +55,6 @@ export class ExamService {
       'Content-Type': 'application/JSON',
       'Authorization': `Bearer ${token}`,
     });
-    return  this.http.delete(`${config.api_host}/exams/remove/${examId}`,  {headers: headers});
+    return  this.http.delete(`${this.baseURL}/remove/${examId}`,  {headers: headers});
   }
 }
