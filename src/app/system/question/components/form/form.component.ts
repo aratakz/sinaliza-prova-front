@@ -17,14 +17,11 @@ type galleryItem = {
 export class FormComponent implements OnInit {
 
   galleryList: galleryItem[] = [];
-
   form: FormGroup;
-  addedImages: Array<File> = [];
   blobImages: Array<any> = [];
   removedImages: Array<string> = [];
-  tags: Array<any> = [];
   options: Array<any> = [];
-  tagName: string = '';
+  answerClasses = ['option-item'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -199,21 +196,20 @@ export class FormComponent implements OnInit {
       isAnswer: isAnswer
     });
     this.formAnswers.push(formData);
-    this.enableDisableOption();
 
   }
   removeOption(index: any) {
     this.formAnswers.removeAt(index);
   }
-  fileToBase64(file: File)  {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file); // Reads the file and returns a data URL (Base64 encoded)
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
   checkAsAnswer(index: any, event: Event) {
+        for (const answer of this.formAnswers.controls) {
+          answer.patchValue({
+            isAnswer: false
+          });
+        }
+        this.formAnswers.controls.at(index)?.patchValue({
+          isAnswer: true
+        });
   }
   setQuestionTitle(index: any, event: Event) {
     if (this.formAnswers.controls[index].value) {
@@ -224,25 +220,6 @@ export class FormComponent implements OnInit {
   }
   get formAnswers(): FormArray {
     return this.form.get('answers') as FormArray;
-  }
-  inputTag($event: any) {
-    this.tagName = $event.target.value;
-  }
-  addTag() {
-    if (this.tagName !== '') {
-
-      let tagExists = this.tags.filter((tag) => tag.name === this.tagName);
-      if (!tagExists.length) {
-        this.tags.push({
-          id: new Date().toISOString(),
-          name: this.tagName
-        });
-      }
-    }
-
-  }
-  removeTag(index: any) {
-    this.tags.splice(index, 1);
   }
   onAddVideoQuestionTitle($event: string) {
     this.videos.questionTitle = $event;

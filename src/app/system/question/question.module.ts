@@ -6,7 +6,7 @@ import { QuestionComponent } from './question.component';
 import { ListComponent } from './components/list/list.component';
 import { FormComponent } from './components/form/form.component';
 import {SharedModule} from "../../shared/shared.module";
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxEditorMenuComponent} from 'ngx-editor';
 import {TextEditorComponent} from './components/text-editor/text-editor.component';
 
@@ -17,13 +17,14 @@ import {TextEditorComponent} from './components/text-editor/text-editor.componen
     ListComponent,
     FormComponent
   ],
-  imports: [
-    CommonModule,
-    QuestionRoutingModule,
-    SharedModule,
-    ReactiveFormsModule,
-    NgxEditorMenuComponent,
-    TextEditorComponent
-  ]
+    imports: [
+        CommonModule,
+        QuestionRoutingModule,
+        SharedModule,
+        ReactiveFormsModule,
+        NgxEditorMenuComponent,
+        TextEditorComponent,
+        FormsModule
+    ]
 })
 export class QuestionModule { }
