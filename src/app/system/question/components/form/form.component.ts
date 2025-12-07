@@ -78,6 +78,7 @@ export class FormComponent implements OnInit {
                 this.moreField = field.id;
                 this.supportField = field.id;
                 if (field.media) {
+
                   this.videos.questionSupport = field.media.id;
                   this.supportFieldMedia = field.media.link;
                 }
