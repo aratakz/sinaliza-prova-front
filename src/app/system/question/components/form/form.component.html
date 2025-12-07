@@ -47,7 +47,9 @@
                       [type]="'record'"></app-libras-action>
                   </div>
                   <div>
-
+                    @if (formAnswers.at(index).get('isAnswer')?.value) {
+                      <span class="rigth-answer">Resposta correta</span>
+                    }
                   </div>
                   <div class="remove-option">
                     <button (click)="removeOption(index)">

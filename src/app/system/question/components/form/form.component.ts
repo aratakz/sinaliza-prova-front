@@ -32,16 +32,17 @@ export class FormComponent implements OnInit {
   ) {}
   question: any;
   questionId:any;
-  tileField: any
-  supportField: any
-  tileFieldMedia: any
-  supportFieldMedia: any
-  moreField: any
+  tileField: any;
+  supportField: any;
+  tileFieldMedia: any;
+  supportFieldMedia: any;
+  moreField: any;
   videos: any = {
     questionTitle: null,
     questionSupport: null
-  }
-  default_support: any
+  };
+  default_support: any;
+  optionsMovies:any = [];
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({

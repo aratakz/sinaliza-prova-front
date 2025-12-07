@@ -242,3 +242,11 @@ fieldset {
   display: flex;
   width: 100%;
 }
+.rigth-answer {
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: var(--secundary);
+  padding: 2px 5px;
+  border-radius: 20px;
+}
