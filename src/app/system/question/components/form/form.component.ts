@@ -98,6 +98,12 @@ export class FormComponent implements OnInit {
         }
         if (question.options) {
           for (const option of question.options) {
+            this.optionsMovies.push({
+              id: option.id,
+              title: option.title,
+              isAnswer: option.isAnswer,
+              movie: ''
+            });
             this.loadOption(option.title, option.isAnswer);
           }
         }
@@ -115,6 +121,7 @@ export class FormComponent implements OnInit {
     }
     formValues.videos = this.videos;
     formValues.file = storedImages;
+    formValues.optionsVideos = this.optionsMovies;
     if (this.questionId) {
       formValues.removedImages = this.removedImages;
       this.questionService.update(this.questionId, formValues).subscribe({
@@ -160,6 +167,7 @@ export class FormComponent implements OnInit {
     this.formAnswers.push(new FormGroup({
       isAnswer: new FormControl(false),
       title : new FormControl(),
+      video: new FormControl()
     }));
     for (let answer of answers) {
       this.loadOption(answer.title, answer.isAnswer);
@@ -233,7 +241,9 @@ export class FormComponent implements OnInit {
       support_data: [event]
     });
   }
+  onVideoOption(mediaId: any, index:any) {
+    this.formAnswers.controls.at(index)?.get('video')?.patchValue(mediaId);
+  }
 
-  protected readonly URL = URL;
 }
 
