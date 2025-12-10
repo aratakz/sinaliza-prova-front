@@ -1,3 +1,3 @@
 export const config = {
-  api_host: "http://localhost:8000",
+  api_host: "18.231.250.115:8000",
 }
