@@ -20,7 +20,6 @@ export class AuthService {
   get userData ():string|null {
     return window.localStorage.getItem('userData');
   }
-
   async storeToken(token: string):Promise<void>{
     const tokenPayloadEncoded = token.split('.')[1];
     const userDataObject = JSON.parse(atob(tokenPayloadEncoded)).userData;
@@ -45,7 +44,6 @@ export class AuthService {
     await this.destroyToken();
     await this.router.navigate(['/']);
   }
-
   login(loginData: any):Observable<Object> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.http.post(`${this.baseUrl}/signin`, JSON.stringify(loginData), { headers: headers });

@@ -26,7 +26,7 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/create`, formData, {headers: this.headers});
   }
   getAllStudents() {
-    return this.http.get(`${this.baseUrl}/students`, {headers: this.headers});
+    return this.http.get(`${this.baseUrl}/students/getAll`, {headers: this.headers});
   }
 
   remove(userId:string) {

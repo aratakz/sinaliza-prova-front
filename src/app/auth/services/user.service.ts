@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  readonly baseUrlAuth = `${config.api_host}/auth`;
+  readonly baseUrlAuth = `${config.api_host}/security/auth`;
   readonly baseUrlUsers = `${config.api_host}/users`;
   avatarSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
@@ -18,7 +18,6 @@ export class UserService {
     let headers = new HttpHeaders({'Content-Type': 'application/JSON'});
     return this.http.post(`${this.baseUrlAuth}/student/firstLogin`, JSON.stringify(registerData), {headers: headers});
   }
-
   getUseData() {
     const userData = window.localStorage.getItem('userData') || '';
     const token = window.localStorage.getItem('token') || '';
@@ -31,7 +30,6 @@ export class UserService {
 
     return this.http.get(`${this.baseUrlUsers}/userdata/${userDataObject.id}`, {headers: headers});
   }
-
   update(userData: any) {
 
     const storedUserData = window.localStorage.getItem('userData') || '';
@@ -44,7 +42,6 @@ export class UserService {
     });
     return this.http.patch(`${this.baseUrlUsers}/update/${userDataObject.id}`, userData, {headers: headers});
   }
-
   updateUser(userData: any) {
 
     const storedUserData = window.localStorage.getItem('userData') || '';
@@ -57,7 +54,6 @@ export class UserService {
     });
     return this.http.patch(`${this.baseUrlUsers}/update/${userDataObject.id}`, userData, {headers: headers});
   }
-
   async updateAvatar(image: any) {
     const storedUserData = window.localStorage.getItem('userData') || '';
     const token = window.localStorage.getItem('token') || '';
@@ -72,7 +68,6 @@ export class UserService {
         }
     });
   }
-
   checkUsername(text: string) {
     return this.http.get(`${this.baseUrlUsers}/checkUsername/${text}`);
   }
