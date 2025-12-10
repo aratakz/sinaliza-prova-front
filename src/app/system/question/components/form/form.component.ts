@@ -163,15 +163,11 @@ export class FormComponent implements OnInit {
     for (const item of this.formAnswers.value) {
       answers.push(item);
     }
-    this.formAnswers.clear();
     this.formAnswers.push(new FormGroup({
       isAnswer: new FormControl(false),
       title : new FormControl(),
       video: new FormControl()
     }));
-    for (let answer of answers) {
-      this.loadOption(answer.title, answer.isAnswer);
-    }
     this.enableDisableOption();
 
     let unsetOptions: Array<any> = [];
@@ -199,6 +195,7 @@ export class FormComponent implements OnInit {
     const formData = new FormGroup({
       isAnswer: new FormControl(),
       title : new FormControl(),
+      video: new FormControl()
     });
     formData.patchValue({
       title: title,
@@ -242,6 +239,10 @@ export class FormComponent implements OnInit {
     });
   }
   onVideoOption(mediaId: any, index:any) {
+    console.debug(index)
+    console.debug(mediaId)
+    console.debug(this.formAnswers.controls);
+    console.debug(this.formAnswers.controls.at(index)?.get('video'));
     this.formAnswers.controls.at(index)?.get('video')?.patchValue(mediaId);
   }
 

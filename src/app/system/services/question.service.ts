@@ -47,6 +47,10 @@ export class QuestionService {
   getFieldVideo(fieldId: any) {
     return this.http.get(`${this.baseUrlMedia}/media/field/video/${fieldId}`, {headers: this.headers});
   };
+
+  getOptionVideo(fieldId: any) {
+    return this.http.get(`${this.baseUrlMedia}/media/option/video/${fieldId}`, {headers: this.headers});
+  };
   removeMedia(mediaLink: any, fieldId: any) {
     return this.http.delete(`${this.baseUrlMedia}/media/video/remove`, {
       headers: this.headers,

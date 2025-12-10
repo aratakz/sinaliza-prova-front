@@ -113,13 +113,22 @@ class ExamComponent implements OnInit{
         });
     }
 
-    playVideo(fieldId: any) {
-      this.questionService.getFieldVideo(fieldId).subscribe({
-        next: (video: any) => {
-          this.video = video.video;
+    playVideo(fieldId: any, isOption= false) {
+        if (isOption) {
+          this.questionService.getOptionVideo(fieldId).subscribe({
+            next: (video: any) => {
+              this.video = video.video;
+            }
+          });
+        } else {
+          this.questionService.getFieldVideo(fieldId).subscribe({
+            next: (video: any) => {
+              this.video = video.video;
+            }
+          });
         }
-      });
     }
+
 
 }
 

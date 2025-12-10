@@ -38,7 +38,7 @@
         <div class="question-options-wrapper">
           @for (option of optionList; track option.id) {
             <div class="alternative-wrapper">
-              <span class="add-libras" (click)="playVideo(fieldTitleId)">
+              <span class="add-libras" (click)="playVideo(option.id, true)">
                 <button [style.background-image]="'url(' + './assets/libras-sign.svg' + ')'"></button>
               </span>
               <input type="radio" name="answer">
