@@ -45,6 +45,9 @@ class ExamComponent implements OnInit{
           }
         });
     }
+    async finish() {
+      this.examService.finish(this.examId).subscribe();
+    }
     isAnswered(index: any) {
       const answer = this.answers.filter((answer) => answer.index == index);
       return answer && answer.length > 0;
@@ -118,6 +121,7 @@ class ExamComponent implements OnInit{
     }
 
     async backToSystem() {
+        await this.finish();
         await this.router.navigate(['system']);
     }
 

@@ -81,13 +81,21 @@ export class ListComponent  implements OnInit {
         });
       }
       if ([AccessLevel.STUDENT].includes(this.user.access)) {
-          lineActions.buttons?.push({
-            index: new Date().toISOString(),
-            classes: ['btn-middle'],
-            icon: 'fi fi-rr-test',
-            onClick: async () => this.onTestStart(question.id),
-          })
+        lineActions.buttons?.push({
+          index: new Date().toISOString(),
+          classes: ['btn-middle'],
+          icon: 'fi fi-rr-test',
+          onClick: async () => this.onTestStart(question.id),
+        })
       }
+      // if ([AccessLevel.STUDENT, AccessLevel.ADMIN, AccessLevel.PROFESSIONAL, AccessLevel.TEACHER].includes(this.user.access)) {
+      //   lineActions.buttons?.push({
+      //     index: new Date().toISOString(),
+      //     classes: ['btn-middle'],
+      //     icon: 'fi fi-sr-shield-trust',
+      //     onClick: async () => this.onSearchResponses(question.id),
+      //   })
+      // }
 
       fields.push({
         index: new Date().toISOString(),
@@ -103,13 +111,15 @@ export class ListComponent  implements OnInit {
       });
       fields.push(lineActions);
 
-
-      this.tableLines.push({
-        index: Date.toString(),
-        fields: fields
-      });
+      if (!question.finished) {
+        this.tableLines.push({
+          index: Date.toString(),
+          fields: fields
+        });
+      }
     }
   }
+  async onSearchResponses(examId: any) {}
 
   async onRemove(questionId:any) {
     await this.alertService.alertOptions(`Deseja realmente excluir essa disciplina?`,

@@ -67,4 +67,13 @@ export class ExamService {
     });
     return this.http.post(`${this.optionURL}/questionOption/answer/`, formData, {headers: headers});
   }
+
+  finish(examId: any) {
+    const token = window.localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.patch(`${this.optionURL}/questionOption/finish/${examId}`, {}, {headers: headers});
+  }
 }
