@@ -58,4 +58,13 @@ export class ExamService {
     });
     return  this.http.delete(`${this.baseURL}/remove/${examId}`,  {headers: headers});
   }
+
+  answer(formData: any) {
+    const token = window.localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/JSON',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.post(`${this.optionURL}/questionOption/answer/`, formData, {headers: headers});
+  }
 }

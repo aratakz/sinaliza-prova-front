@@ -4,6 +4,7 @@ import {ExamService} from '../system/services/exam.service';
 import {AlertService} from '../shared/services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {QuestionService} from '../system/services/question.service';
+import {AuthService} from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-exam',
@@ -21,13 +22,14 @@ class ExamComponent implements OnInit{
   answers: Array<any> = [];
   video: any;
   currentQuestion: any = 1;
-
+  responses: any;
 
   constructor(
     private examService: ExamService,
     private questionService: QuestionService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private authService: AuthService
   ) {}
 
     ngOnInit(): void {
@@ -52,6 +54,10 @@ class ExamComponent implements OnInit{
       this.answers.push({
         index: index,
         alternative: {}
+      });
+
+      this.examService.answer(this.responses).subscribe({
+        next: () => {}
       })
     }
     get activeQuestionTitle() {
@@ -71,6 +77,16 @@ class ExamComponent implements OnInit{
       } else {
         return "";
       }
+    }
+
+    checkAnswer(option: any) {
+      const {id} = JSON.parse(<string>this.authService.userData);
+      this.responses = {
+        option: option.id,
+        user: id,
+        question: this.activeQuestion.id,
+        isAnswer: true
+      };
     }
 
     get fieldSupportId() {

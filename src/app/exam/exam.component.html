@@ -41,7 +41,7 @@
               <span class="add-libras" (click)="playVideo(option.id, true)">
                 <button [style.background-image]="'url(' + './assets/libras-sign.svg' + ')'"></button>
               </span>
-              <input type="radio" name="answer">
+              <input type="radio" (click)="checkAnswer(option)" name="answer">
               {{option.title}}
             </div>
           }
